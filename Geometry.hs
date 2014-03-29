@@ -38,5 +38,23 @@ linesIntersect l1@(v11,v12) l2@(v21,v22)
 -- Test whether two circles intersect
 circlesIntersect :: Circle -> Circle -> Bool
 circlesIntersect (p1,r1) (p2,r2) = 
-    n <= r1 + r2 && n >= r1 - r2
+    n <= r1 + r2 && n >= abs (r1 - r2)
     where n = norm $ p1 <-> p2
+
+-- Give the intersection points of two circles.
+-- This works for two distinct circles, with two different intersections
+-- This works in O(1) time
+-- but it is UGLY
+-- TODO pretty this up.
+circlesIntersections :: Circle -> Circle -> [Position]
+circlesIntersections (p1@(Pos x1 y1) ,r1) (p2@(Pos x2 y2),r2) =
+    [ Pos px1 py1, Pos px2 py2]
+    where
+        d   = norm $ p1 <-> p2
+        δ   = (1/4) * sqrt ( (d+r1+r2)*(d+r1-r2)*(d-r1+r2)*(r1+r2-d)  )
+        px1 = s + 2*(y1-y2)/(d*d)*δ
+        px2 = s - 2*(y1-y2)/(d*d)*δ
+        py1 = t - 2*(x1-x2)/(d*d)*δ
+        py2 = t + 2*(x1-x2)/(d*d)*δ
+        s   = ((x1+x2)/2) + ((x2-x1)*(r1*r1-r2*r2)/(2*d*d))
+        t   = ((y1+y2)/2) + ((y2-y1)*(r1*r1-r2*r2)/(2*d*d))
