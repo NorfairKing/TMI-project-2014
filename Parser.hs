@@ -1,4 +1,4 @@
-module CrazyParser where
+module Parser where
 
 import Control.Monad.State
 

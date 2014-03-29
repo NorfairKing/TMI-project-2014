@@ -1,6 +1,6 @@
 module Main where
 
-import CrazyParser
+import Parser
 import Geometry
 import VectorSpace
 
