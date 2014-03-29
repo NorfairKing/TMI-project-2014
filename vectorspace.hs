@@ -11,6 +11,7 @@ class Vector a where
     o :: a -> a -> Double
     -- Norm
     norm :: a -> Double
+    norm p = sqrt $ p `o` p
 
 -- Define a 2D position.
 data Position = Pos Double Double
@@ -25,8 +26,6 @@ instance Vector Position where
     (<*>) s (Pos x y) = Pos (s*x) (s*y)
     -- Dotproduct
     o (Pos x1 y1) (Pos x2 y2) = x1*x2+y1*y2
-    -- Norm
-    norm p = sqrt $ p `o` p
 
 -- Define an equality test for a position.
 instance Eq Position where
