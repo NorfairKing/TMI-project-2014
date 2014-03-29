@@ -3,6 +3,23 @@ type Scalar = Double
 type Vector = (Scalar, Scalar)
 type Line = (Vector, Vector)
 type Polygon = [Line]
+data Point = Point { x :: Double
+                   , y :: Double
+                   }
+data Circle = Circle { center :: Point
+                     , radius :: Double
+                     }
+              
+-- Euclidean distance!
+distance :: Point -> Point -> Double
+distance (Point x1 y1) (Point x2 y2) = sqrt (x'*x' + y'*y')
+  where
+    x' = x1 - x2
+    y' = y1 - y2
+
+-- Check whether two circles intersect
+intersect :: Circle -> Circle -> Bool
+intersect (Circle c1 r1) (Circle c2 r2) = r1 + r2 <= distance c1 c2
 
 -- The vector addition
 vplus :: Vector -> Vector -> Vector
