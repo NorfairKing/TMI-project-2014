@@ -19,22 +19,6 @@ intersect :: Circle -> Circle -> Bool
 intersect (c1,r1) (c2,r2) = r1 + r2 <= distance c1 c2
 -}
 
--- The vector addition
--- vplus :: Vector -> Vector -> Vector
--- vplus (x1,y1) (x2,y2) = ((x1+x2),(y1+y2))
-
--- -- The vector substraction
--- vmin :: Vector -> Vector -> Vector
--- vmin (x1,y1) (x2,y2) = ((x1-x2),(y1-y2))
-
--- -- The vector dotproduct 
--- vdot :: Scalar -> Vector -> Vector
--- vdot s (x,y) = (s*x, s*y) 
-
--- -- The magnitude of the vector product of two vectors
--- x :: Vector -> Vector -> Scalar
--- x (x1,y1) (x2,y2) = x1*y2 - y1*x2
-
 -- Test whether the rectangles of two lines overlap.
 -- TODO Yes, this is described poorly...
 rectangleOverlap :: Line -> Line -> Bool

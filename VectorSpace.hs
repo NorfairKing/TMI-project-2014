@@ -9,14 +9,15 @@ class Vector a where
     (<*>) :: Double -> a -> a
     -- Dotproduct
     o :: a -> a -> Double
-    -- Cross product (kinda)
+    -- Magnitude of cross product
     x :: a -> a -> Double
     -- Norm
     norm :: a -> Double
+    norm p = sqrt $ p `o` p
 
 -- Define a 2D position.
-data Position = Pos Scalar Scalar
 type Scalar     = Double
+data Position = Pos Scalar Scalar
 
 -- Declare that positions are vectors with doubles as scalar.
 instance Vector Position where
@@ -28,9 +29,7 @@ instance Vector Position where
     (<*>) s (Pos x y) = Pos (s*x) (s*y)
     -- Dotproduct
     o (Pos x1 y1) (Pos x2 y2) = x1*x2+y1*y2
-    -- Norm
-    norm p = sqrt $ p `o` p
-    -- Cross product (kinda)
+    -- Magnitude of cross product
     x (Pos x1 y1) (Pos x2 y2) = x1*y2 - y1*x2
 
 -- Define an equality test for a position.
