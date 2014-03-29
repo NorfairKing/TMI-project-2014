@@ -32,8 +32,8 @@ rectangleOverlap ((x11,y11),(x12,y12)) ((x21,y21),(x22,y22))
         b4 = max y21 y22 >= min y11 y12
 
 -- Test whether two lines intersect
-intersects :: Line -> Line -> Bool
-intersects l1@(v11,v12) l2@(v21,v22)
+lineIntersects :: Line -> Line -> Bool
+lineIntersects l1@(v11,v12) l2@(v21,v22)
     = rectangleOverlap l1 l2
       && x1 * x2 <= 0
       && x3 * x4 <= 0
