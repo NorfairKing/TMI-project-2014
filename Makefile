@@ -6,8 +6,7 @@ dirty:
 	ghc --make Main
 
 clean:
-	rm *.hi *.o Main
+	rm -f *.hi *.o Main
 
 test:
 	make all
-	# magic?
