@@ -1,6 +1,7 @@
 module Main where
 
 import Control.Monad
+import Control.Monad.State
 import CrazyParser
 import Geometry
 import VectorSpace
@@ -20,23 +21,30 @@ scanline_linearithmic circles =
   error "Dit algoritme is niet geïmplementeerd."
 
 
-mkCircle :: Scalar -> Scalar -> Scalar -> Circle
-mkCircle x y r = ((Pos x y),r)
-
 solve :: Int -> [Circle] -> [Position]
 solve a c | a == 1 = naive c
           | a == 2 = scanline_quadratic c
           | a == 3 = scanline_linearithmic c
 
-main = do
-  algorithm <- parseLine
-  nCircles <- parseLine
-  circles <- replicateM nCircles parseLine
-  let cs = map mkCircle circles
-  start <- getCPUTime
-  solution <- solve algorithm cs
-  end   <- getCPUTime
-  let diff = (fromIntegral (end - start)) / (10^9)
-  putStrLn $ show solution
-  printf "Computation time: %0.3f ms\n" (diff :: Double)
+readCircle :: Loader Circle
+readCircle = do
+  (x, y, r) <- parseLine
+  return (Pos x y, r)
+
+readAlgorithm :: Loader Int
+readAlgorithm = do
+  algo <- parseLine
+  return algo
   
+readCircles :: Loader [Circle]
+readCircles = do
+  nCircles <- parseLine
+  replicateM nCircles readCircle
+
+main :: IO ()
+main = do
+  input <- lines `fmap` getContents
+  let (algorithm, circleData) = runState readAlgorithm input
+  let circles = runState readCircles circleData
+  let solution = solve algorithm $ fst circles
+  mapM_ putStrLn $ map show solution

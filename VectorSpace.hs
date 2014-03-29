@@ -1,4 +1,9 @@
 module VectorSpace where 
+
+-- Define a 2D position.
+data Position = Pos Scalar Scalar
+type Scalar     = Double
+
 -- Define a euclidean vector space with...
 class Vector a where
     -- Vector addition
@@ -14,9 +19,6 @@ class Vector a where
     -- Norm
     norm :: a -> Double
     norm p = sqrt $ p `o` p
-
--- Define a 2D position.
-type Scalar     = Double
 data Position = Pos Scalar Scalar
 
 -- Declare that positions are vectors with doubles as scalar.

@@ -3,7 +3,7 @@ import VectorSpace
 -- Definitions
 type Polygon    = [Line]
 type Line       = (Position, Position)
-type Circle     = (Position, Scalar)
+type Circle     = (Position, Scalar) 
 
 {-              
 -- Euclidean distance!
