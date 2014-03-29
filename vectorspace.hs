@@ -1,22 +1,22 @@
--- We need this for reasons.
-{-# LANGUAGE MultiParamTypeClasses #-}
 
 -- Define a euclidean vector space with...
-class Vector a b where
+class Vector a where
     -- Vector addition
     (<+>) :: a -> a -> a
     -- Vector substraction
     (<->) :: a -> a -> a
     -- Scalar multiplication
-    (<*>) :: b -> a -> a
+    (<*>) :: Double -> a -> a
     -- Dotproduct
-    o :: a -> a -> b
+    o :: a -> a -> Double
+    -- Norm
+    norm :: a -> Double
 
 -- Define a 2D position.
 data Position = Pos Double Double
 
 -- Declare that positions are vectors with doubles as scalar.
-instance Vector Position Double where
+instance Vector Position where
     -- Addition
     (<+>) (Pos x1 y1) (Pos x2 y2) = Pos (x1+x2) (y1+y2)
     -- Substraction 
@@ -25,6 +25,8 @@ instance Vector Position Double where
     (<*>) s (Pos x y) = Pos (s*x) (s*y)
     -- Dotproduct
     o (Pos x1 y1) (Pos x2 y2) = x1*x2+y1*y2
+    -- Norm
+    norm p = sqrt $ p `o` p
 
 -- Define an equality test for a position.
 instance Eq Position where
@@ -39,3 +41,7 @@ instance Show Position where
 -- but it fits our purposes.
 x :: Position -> Position -> Double
 x (Pos x1 y1) (Pos x2 y2) = x1*y2 - y1*x2
+
+-- Define the euclidean distance between two points.
+distance :: Position -> Position -> Double
+distance p1 p2 = norm $ p1 <-> p2
