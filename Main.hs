@@ -1,31 +1,24 @@
 module Main where
 
-import Control.Monad
-import Control.Monad.State
-import Data.Maybe
 import CrazyParser
 import Geometry
 import VectorSpace
+
+import Naive
+import Quadratic
+import Linearithmic
+
+import Control.Monad
+import Control.Monad.State
+import Data.Maybe
 import System.CPUTime
 import Text.Printf
 
-naive :: [Circle] -> [Position]
-naive circles =
-  error "Dit algoritme is niet geïmplementeerd."
-
-scanline_quadratic :: [Circle] -> [Position]
-scanline_quadratic circles =
-  error "Dit algoritme is niet geïmplementeerd."
-
-scanline_linearithmic :: [Circle] -> [Position]
-scanline_linearithmic circles =
-  error "Dit algoritme is niet geïmplementeerd."
-
 
 solve :: Int -> [Circle] -> Maybe [Position]
-solve a c | a == 1 = Just $ naive c
-          | a == 2 = Just $ scanline_quadratic c
-          | a == 3 = Just $ scanline_linearithmic c
+solve a c | a == 1 = Just $ Naive.intersections         c
+          | a == 2 = Just $ Quadratic.intersections     c
+          | a == 3 = Just $ Linearithmic.intersections  c
 solve _ _ = Nothing
 
 -- IO
