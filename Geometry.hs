@@ -1,17 +1,14 @@
 module Geometry where
-
+import VectorSpace
 -- Definitions
-type Scalar     = Double
-type Vector     = (Scalar, Scalar)
 type Polygon    = [Line]
-type Point      = (Scalar, Scalar)
-type Line       = (Point, Point)
-type Circle     = (Point, Scalar)
+type Line       = (Position, Position)
+type Circle     = (Position, Scalar)
 
 {-              
 -- Euclidean distance!
-distance :: Point -> Point -> Double
-distance (Point x1 y1) (Point x2 y2) = sqrt (x'*x' + y'*y')
+distance :: Position -> Position -> Double
+distance (Position x1 y1) (Position x2 y2) = sqrt (x'*x' + y'*y')
   where
     x' = x1 - x2
     y' = y1 - y2
@@ -23,25 +20,25 @@ intersect (c1,r1) (c2,r2) = r1 + r2 <= distance c1 c2
 -}
 
 -- The vector addition
-vplus :: Vector -> Vector -> Vector
-vplus (x1,y1) (x2,y2) = ((x1+x2),(y1+y2))
+-- vplus :: Vector -> Vector -> Vector
+-- vplus (x1,y1) (x2,y2) = ((x1+x2),(y1+y2))
 
--- The vector substraction
-vmin :: Vector -> Vector -> Vector
-vmin (x1,y1) (x2,y2) = ((x1-x2),(y1-y2))
+-- -- The vector substraction
+-- vmin :: Vector -> Vector -> Vector
+-- vmin (x1,y1) (x2,y2) = ((x1-x2),(y1-y2))
 
--- The vector dotproduct 
-vdot :: Scalar -> Vector -> Vector
-vdot s (x,y) = (s*x, s*y) 
+-- -- The vector dotproduct 
+-- vdot :: Scalar -> Vector -> Vector
+-- vdot s (x,y) = (s*x, s*y) 
 
--- The magnitude of the vector product of two vectors
-x :: Vector -> Vector -> Scalar
-x (x1,y1) (x2,y2) = x1*y2 - y1*x2
+-- -- The magnitude of the vector product of two vectors
+-- x :: Vector -> Vector -> Scalar
+-- x (x1,y1) (x2,y2) = x1*y2 - y1*x2
 
 -- Test whether the rectangles of two lines overlap.
 -- TODO Yes, this is described poorly...
 rectangleOverlap :: Line -> Line -> Bool
-rectangleOverlap ((x11,y11),(x12,y12)) ((x21,y21),(x22,y22))
+rectangleOverlap ((Pos x11 y11),(Pos x12 y12)) ((Pos x21 y21),(Pos x22 y22))
     = and [b1,b2,b3,b4]
     where
         b1 = max x11 x12 >= min x21 x22
@@ -56,9 +53,9 @@ lineIntersects l1@(v11,v12) l2@(v21,v22)
       && x1 * x2 <= 0
       && x3 * x4 <= 0
     where 
-        x1 = (v21 `vmin` v11) `x` m1       
-        x2 = (v22 `vmin` v11) `x` m1
-        x3 = (v11 `vmin` v21) `x` m2       
-        x4 = (v12 `vmin` v21) `x` m2
-        m1 = (v12 `vmin` v11)
-        m2 = (v22 `vmin` v21)
+        x1 = (v21 <-> v11) `x` m1       
+        x2 = (v22 <-> v11) `x` m1
+        x3 = (v11 <-> v21) `x` m2       
+        x4 = (v12 <-> v21) `x` m2
+        m1 = (v12 <-> v11)
+        m2 = (v22 <-> v21)
