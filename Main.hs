@@ -28,6 +28,8 @@ solve a c | a == 1 = Just $ naive c
           | a == 3 = Just $ scanline_linearithmic c
 solve _ _ = Nothing
 
+-- IO
+
 readCircle :: Loader Circle
 readCircle = do
   (x, y, r) <- parseLine
@@ -53,5 +55,7 @@ main = do
   end <- getCPUTime
   let diff = fromIntegral (end - start) / (10^9)
   case solution of
-    Nothing -> error "Dit algoritme is niet geïmplementeerd."
-    _ -> (mapM_ putStrLn $ map show $ fromJust solution) >> (putStrLn $ show $ floor diff)
+    Nothing -> putStrLn "Dit algoritme is niet geïmplementeerd."
+    Just _  -> do 
+                mapM_ putStrLn $ map show $ fromJust solution
+                putStrLn $ show $ floor diff
