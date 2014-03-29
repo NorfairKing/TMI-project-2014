@@ -1,4 +1,9 @@
 module VectorSpace where 
+
+-- Define a 2D position.
+data Position = Pos Scalar Scalar
+type Scalar     = Double
+
 -- Define a euclidean vector space with...
 class Vector a where
     -- Vector addition
@@ -13,10 +18,6 @@ class Vector a where
     x :: a -> a -> Double
     -- Norm
     norm :: a -> Double
-
--- Define a 2D position.
-data Position = Pos Scalar Scalar
-type Scalar     = Double
 
 -- Declare that positions are vectors with doubles as scalar.
 instance Vector Position where

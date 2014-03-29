@@ -1,4 +1,4 @@
-module CrazyParser (parseLine) where
+module CrazyParser where
 
 import Control.Monad.State
 
@@ -11,6 +11,9 @@ instance Parse Char where
   parse [x] = x
 
 instance Parse Int where
+  parse = read
+
+instance Parse Double where
   parse = read
 
 instance Parse a => Parse [a] where
