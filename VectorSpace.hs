@@ -1,4 +1,4 @@
-
+module VectorSpace where 
 -- Define a euclidean vector space with...
 class Vector a where
     -- Vector addition
