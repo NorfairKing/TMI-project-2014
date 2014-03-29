@@ -19,7 +19,6 @@ class Vector a where
     -- Norm
     norm :: a -> Double
     norm p = sqrt $ p `o` p
-data Position = Pos Scalar Scalar
 
 -- Declare that positions are vectors with doubles as scalar.
 instance Vector Position where

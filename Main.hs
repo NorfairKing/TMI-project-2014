@@ -2,6 +2,7 @@ module Main where
 
 import Control.Monad
 import Control.Monad.State
+import Data.Maybe
 import CrazyParser
 import Geometry
 import VectorSpace
@@ -21,10 +22,11 @@ scanline_linearithmic circles =
   error "Dit algoritme is niet geïmplementeerd."
 
 
-solve :: Int -> [Circle] -> [Position]
-solve a c | a == 1 = naive c
-          | a == 2 = scanline_quadratic c
-          | a == 3 = scanline_linearithmic c
+solve :: Int -> [Circle] -> Maybe [Position]
+solve a c | a == 1 = Just $ naive c
+          | a == 2 = Just $ scanline_quadratic c
+          | a == 3 = Just $ scanline_linearithmic c
+solve _ _ = Nothing
 
 readCircle :: Loader Circle
 readCircle = do
@@ -46,5 +48,10 @@ main = do
   input <- lines `fmap` getContents
   let (algorithm, circleData) = runState readAlgorithm input
   let circles = runState readCircles circleData
+  start <- getCPUTime
   let solution = solve algorithm $ fst circles
-  mapM_ putStrLn $ map show solution
+  end <- getCPUTime
+  let diff = fromIntegral (end - start) / (10^9)
+  case solution of
+    Nothing -> error "Dit algoritme is niet geïmplementeerd."
+    _ -> (mapM_ putStrLn $ map show $ fromJust solution) >> (putStrLn $ show $ floor diff)
