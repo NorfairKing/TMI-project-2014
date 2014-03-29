@@ -1,3 +1,5 @@
+module Geometry where
+
 -- Definitions
 type Scalar     = Double
 type Vector     = (Scalar, Scalar)
