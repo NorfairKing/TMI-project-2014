@@ -46,5 +46,6 @@ main = do
   input <- lines `fmap` getContents
   let (algorithm, circleData) = runState readAlgorithm input
   let circles = runState readCircles circleData
+  mapM_ putStrLn $ map show circles
   let solution = solve algorithm $ fst circles
   mapM_ putStrLn $ map show solution
