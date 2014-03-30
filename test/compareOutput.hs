@@ -34,9 +34,9 @@ main = do
     actualResults <- hGetContents handle2 
     let nTests = show $ (length . lines)  expectedResults - 2
     let differences = compareResults (lines expectedResults) (lines actualResults)
-    putStrLn
-    if differences == 0
-        then "Test Succes: " ++ nTests ++ "/" ++ nTests ++ " passed."
-        else "Test Failure: " ++ show differences ++ "/" ++ nTests ++ " failed."
+    putStrLn $
+        if differences == 0
+            then "Test Succes: " ++ nTests ++ "/" ++ nTests ++ " passed."
+            else "Test Failure: " ++ show differences ++ "/" ++ nTests ++ " failed."
     hClose handle1 
     hClose handle2
