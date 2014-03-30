@@ -2,6 +2,8 @@ module Geometry where
 
 import VectorSpace
 
+import Data.List
+
 -- Definitions
 type Polygon    = [Line]
 type Line       = (Position, Position)
@@ -48,7 +50,7 @@ circlesIntersect (p1,r1) (p2,r2) =
 -- TODO pretty this up.
 circlesIntersections :: Circle -> Circle -> [Position]
 circlesIntersections (p1@(Pos x1 y1) ,r1) (p2@(Pos x2 y2),r2) =
-    [ Pos px1 py1, Pos px2 py2]
+    nub [ Pos px1 py1, Pos px2 py2]
     where
         d   = norm $ p1 <-> p2
         δ   = (1/4) * sqrt ( (d+r1+r2)*(d+r1-r2)*(d-r1+r2)*(r1+r2-d)  )
@@ -58,3 +60,20 @@ circlesIntersections (p1@(Pos x1 y1) ,r1) (p2@(Pos x2 y2),r2) =
         py2 = t + 2*(x1-x2)/(d*d)*δ
         s   = ((x1+x2)/2) + ((x2-x1)*(r1*r1-r2*r2)/(2*d*d))
         t   = ((y1+y2)/2) + ((y2-y1)*(r1*r1-r2*r2)/(2*d*d))
+
+-- A prettier version, works the same way.
+circlesIntersections' :: Circle -> Circle -> [Position]
+circlesIntersections' (p1@(Pos x1 y1) ,r1) (p2@(Pos x2 y2),r2) =
+    nub [ Pos px1 py1, Pos px2 py2]
+    where
+        px1 = s + 2*(y1-y2)/d'*δ
+        px2 = s - 2*(y1-y2)/d'*δ
+        py1 = t - 2*(x1-x2)/d'*δ
+        py2 = t + 2*(x1-x2)/d'*δ
+        s   = ((x1+x2)/2) + (x2-x1)*α
+        t   = ((y1+y2)/2) + (y2-y1)*α
+        α   = ((r1*r1-r2*r2)/(2*d'))
+        δ   = (1/4) * sqrt ( (d+r1+r2)*(d+r1-r2)*(d-r1+r2)*(r1+r2-d)  )
+        d'  = d*d
+        d   = norm $ p1 <-> p2
+
