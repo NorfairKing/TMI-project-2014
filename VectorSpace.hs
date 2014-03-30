@@ -41,7 +41,7 @@ instance Eq Position where
 
 -- Define the string representation for a position.
 instance Show Position where
-    show (Pos x y) = "(" ++ (show x) ++ "," ++ (show y) ++ ")"
+    show (Pos x y) = "(" ++ show x ++ "," ++ show y ++ ")"
 
 -- Define the euclidean distance between two points.
 distance :: Position -> Position -> Double

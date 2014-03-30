@@ -25,30 +25,28 @@ solve _ _ = Nothing
 
 readCircle :: Loader Circle
 readCircle = do
-  (x, y, r) <- parseLine
-  return (Pos x y, r)
+    (x, y, r) <- parseLine
+    return (Pos x y, r)
 
 readAlgorithm :: Loader Int
-readAlgorithm = do
-  algo <- parseLine
-  return algo
+readAlgorithm = parseLine
   
 readCircles :: Loader [Circle]
 readCircles = do
-  nCircles <- parseLine
-  replicateM nCircles readCircle
+    nCircles <- parseLine
+    replicateM nCircles readCircle
 
 main :: IO ()
 main = do
-  input <- lines `fmap` getContents
-  let (algorithm, circleData) = runState readAlgorithm input
-  let circles = runState readCircles circleData
-  start <- getCPUTime
-  let solution = solve algorithm $ fst circles
-  end <- getCPUTime
-  let diff = fromIntegral (end - start) / (10^9)
-  case solution of
-    Nothing -> putStrLn "Dit algoritme is niet geïmplementeerd."
-    Just _  -> do 
-                mapM_ putStrLn $ map show $ fromJust solution
-                putStrLn $ show $ floor diff
+    input <- lines `fmap` getContents
+    let (algorithm, circleData) = runState readAlgorithm input
+    let circles = runState readCircles circleData
+    start <- getCPUTime
+    let solution = solve algorithm $ fst circles
+    end <- getCPUTime
+    let diff = fromIntegral (end - start) / (10^9)
+    case solution of
+        Nothing -> putStrLn "Dit algoritme is niet geïmplementeerd."
+        Just _  -> do 
+                mapM_ print $ fromJust solution
+                print $ floor diff
