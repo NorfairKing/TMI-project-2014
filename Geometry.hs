@@ -9,10 +9,6 @@ type Polygon    = [Line]
 type Line       = (Position, Position)
 type Circle     = (Position, Scalar) 
 
--- Check whether two circles intersect
-intersect :: Circle -> Circle -> Bool
-intersect (c1,r1) (c2,r2) = r1 + r2 <= distance c1 c2
-
 -- Test whether the rectangles of two lines overlap.
 rectangleOverlap :: Line -> Line -> Bool
 rectangleOverlap (Pos x11 y11, Pos x12 y12) (Pos x21 y21, Pos x22 y22)
@@ -47,8 +43,8 @@ circlesIntersect (p1,r1) (p2,r2) =
 -- This works for two distinct circles, with two different intersections
 -- This works in O(1) time
 -- A prettier version, works the same way.
-circlesIntersections' :: Circle -> Circle -> [Position]
-circlesIntersections' c1@ (p1@(Pos x1 y1) ,r1) c2@ (p2@(Pos x2 y2),r2) =
+circlesIntersections :: Circle -> Circle -> [Position]
+circlesIntersections c1@ (p1@(Pos x1 y1) ,r1) c2@ (p2@(Pos x2 y2),r2) =
     if circlesIntersect c1 c2 && (c1 /= c2) 
         then nub [ Pos px1 py1, Pos px2 py2 ]
         else []

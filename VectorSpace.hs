@@ -43,6 +43,13 @@ instance Eq Position where
 instance Show Position where
     show (Pos x y) = "(" ++ show x ++ "," ++ show y ++ ")"
 
+instance Ord Position where
+    compare (Pos x1 y1) (Pos x2 y2) =
+        if c1 == EQ
+        then compare y1 y2
+        else c1
+        where c1 = compare x1 x2
+
 -- Define the euclidean distance between two points.
 distance :: Position -> Position -> Double
 distance p1 p2 = norm $ p1 <-> p2

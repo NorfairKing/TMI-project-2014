@@ -10,6 +10,7 @@ import Linearithmic
 
 import Control.Monad
 import Control.Monad.State
+import Data.List
 import Data.Maybe
 import System.CPUTime
 import Text.Printf
@@ -36,6 +37,9 @@ readCircles = do
     nCircles <- parseLine
     replicateM nCircles readCircle
 
+printPos :: Position -> IO ()
+printPos (Pos x y) = putStrLn $ printf "%0.15f" x ++ " " ++ printf "%0.15f" y
+
 main :: IO ()
 main = do
     input <- lines `fmap` getContents
@@ -48,5 +52,6 @@ main = do
     case solution of
         Nothing -> putStrLn "Dit algoritme is niet geïmplementeerd."
         Just _  -> do 
-                mapM_ print $ fromJust solution
+                mapM_ printPos $ fromJust solution
+                putStrLn "" 
                 print $ floor diff
