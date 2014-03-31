@@ -23,7 +23,8 @@ getRandomTriple = do
 
 intPrompt :: String -> IO Int
 intPrompt str = do
-    putStr $ str ++ "\n> "
+    putStrLn str 
+    putStr "> "
     line <- getLine
     return (read line :: Int)
 

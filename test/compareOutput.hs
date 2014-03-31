@@ -3,27 +3,38 @@ import System.Environment
 
 import Data.List
 
-precision = 10**(-15)
+precision = 10**(-12)
+
+data Result = Res Double Double
+
+instance Show Result where
+    show (Res x y) = "Res " ++ show x ++ show y
+
+instance Eq Result where
+    (==) (Res x1 y1) (Res x2 y2) = abs(x1-x2) < precision
+                                    && abs(y1-y2) < precision
+
 
 -- Compare two lists of results and compute the amount of differences.
-compareResults :: [String] -> [String] -> Int
-compareResults r1 r2 = countDifferences r1' r2' 0
+compareResults :: [String] -> [String] -> (Int, Int)
+compareResults r1 r2 = countDifferences r1' r2'
     where
         r1' = f r1
         r2' = f r2
-        f = sort . drop 2 . reverse
+        
+f = map (uncurry Res . tuplify . map rd . words) . drop 2 . reverse
+rd x = read x :: Double
+tuplify [x,y] = (x,y)
 
--- Count the amount of differences between two lists of points.
-countDifferences [] [] acc = acc
-countDifferences rs [] acc = acc + length rs
-countDifferences [] ss acc = acc + length ss
-countDifferences (r:rs) (s:ss) acc = countDifferences rs ss acc'
+-- Count the difference between two lists, arranged in any order.
+countDifferences :: Eq a => [a] -> [a] -> (Int, Int)
+countDifferences rs ss = (correct, total)
     where
-        acc' = acc + fromEnum ( dist > precision )
-        dist = sqrt((d11-d21)**2 + (d12-d22)**2)
-        [d11, d12] = map rd $ words r
-        [d21, d22] = map rd $ words s
-        rd x = read x :: Double
+        correct = sum $ map fromEnum comb
+        total = length comb
+        comb = sInR ++ rInS
+        rInS = map (`elem` ss) rs
+        sInR = map (`elem` rs) ss
 
 main :: IO ()
 main = do
@@ -32,11 +43,11 @@ main = do
     expectedResults <- hGetContents handle1 
     handle2 <- openFile actual ReadMode  
     actualResults <- hGetContents handle2 
-    let nTests = show $ (length . lines)  expectedResults - 2
-    let differences = compareResults (lines expectedResults) (lines actualResults)
+    let (correct,total) = compareResults (lines expectedResults) (lines actualResults)
     putStrLn $
-        if differences == 0
-            then "Test Succes: " ++ nTests ++ "/" ++ nTests ++ " passed."
-            else "Test Failure: " ++ show differences ++ "/" ++ nTests ++ " failed."
+        if correct == total
+            then "Test Succes: " ++ show correct ++ "/" ++ show total ++ " passed."
+            else "Test Failure: " ++ show correct ++ "/" ++ show total ++ " passed."
     hClose handle1 
     hClose handle2
+
