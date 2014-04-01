@@ -1,9 +1,11 @@
 .PHONY: verslag
+.PHONY: test
 
 all:
 	make dirty
-	rm *.hi *.o
-	make verslag >/dev/null 2>/dev/null
+	rm -f *.hi *.o
+	make verslag >/dev/null 2>&1
+	make test >/dev/null 2>&1
 
 dirty:
 	ghc --make Main
@@ -13,9 +15,9 @@ pretty:
 
 verslag:
 	$(MAKE) -C verslag
+	
+test:
+	$(MAKE) -C test
 
 clean:
 	rm -f *.hi *.o Main
-
-test:
-	make all
