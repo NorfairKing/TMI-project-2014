@@ -37,7 +37,9 @@ instance Vector Position where
 
 -- Define an equality test for a position.
 instance Eq Position where
-    (==) (Pos x1 y1) (Pos x2 y2) = (x1 == x2) && (y1 == y2)
+    (==) (Pos x1 y1) (Pos x2 y2) = abs (x1 - x2) < precision    
+                                && abs (y1 - y2) < precision
+        where precision = 10**(-12)
 
 -- Define the string representation for a position.
 instance Show Position where

@@ -21,10 +21,9 @@ compareResults r1 r2 = countDifferences r1' r2'
     where
         r1' = f r1
         r2' = f r2
-        
-f = map (uncurry Res . tuplify . map rd . words) . drop 2 . reverse
-rd x = read x :: Double
-tuplify [x,y] = (x,y)
+        f = map (uncurry Res . tuplify . map rd . words) . drop 2 . reverse
+        rd x = read x :: Double
+        tuplify [x,y] = (x,y)
 
 -- Count the difference between two lists, arranged in any order.
 countDifferences :: Eq a => [a] -> [a] -> (Int, Int)
@@ -46,7 +45,7 @@ main = do
     let (correct,total) = compareResults (lines expectedResults) (lines actualResults)
     putStrLn $
         if correct == total
-            then "Test Succes: " ++ show correct ++ "/" ++ show total ++ " passed."
+            then "Test Success: " ++ show correct ++ "/" ++ show total ++ " passed."
             else "Test Failure: " ++ show correct ++ "/" ++ show total ++ " passed."
     hClose handle1 
     hClose handle2
