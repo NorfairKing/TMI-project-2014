@@ -1,7 +1,7 @@
 all:
 	make dirty
 	rm *.hi *.o
-	# make generate
+	make test
 
 dirty:
 	ghc --make Main
@@ -15,9 +15,15 @@ clean:
 	rm -f testResults/testcase*
 
 generate:
-	./generateRandomCases >/dev/null 2>&1
+	./Main generate
+
+run:
+	./Main run
+
+compare:
+	./Main compare
 
 test:
-	echo
-	./compareOutput ../output/1.txt ../results/1.txt
-	echo
+	make generate
+	make run
+	make compare

@@ -12,7 +12,3 @@ main = do
         "generate" -> generateTestCases
         "run"      -> runAll
         "compare"  -> compareTestResults
-        "test"     -> do
-                generateTestCases
-                runAll
-                compareTestResults
