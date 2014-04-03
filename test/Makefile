@@ -2,7 +2,6 @@ all:
 	make dirty
 	rm *.hi *.o
 	# make generate
-	make test
 
 dirty:
 	ghc --make Main
