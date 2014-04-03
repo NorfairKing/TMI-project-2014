@@ -24,12 +24,12 @@ compareCase nc = do
     let (correct3,total3) = compareResults (lines expected) (lines actual3)
     putStrLn $
         if correct2 == total2
-            then "testcase_2_" ++ show nc ++ ": SUCCESS"
-            else "testcase_2_" ++ show nc ++ ": failure " ++ show correct2 ++ "/" ++ show total2
+            then "2-" ++ show nc ++ ": SUCCESS"
+            else "2-" ++ show nc ++ ": failure " ++ show correct2 ++ "/" ++ show total2
     putStrLn $
         if correct3 == total3
-            then "testcase_3_" ++ show nc ++ ": SUCCESS"
-            else "testcase_3_" ++ show nc ++ ": failure " ++ show correct3 ++ "/" ++ show total3
+            then "3-" ++ show nc ++ ": SUCCESS"
+            else "3-" ++ show nc ++ ": failure " ++ show correct3 ++ "/" ++ show total3
     hClose inhExpected
     hClose inhActual2
     hClose inhActual3

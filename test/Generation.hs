@@ -20,6 +20,7 @@ generateTestCases = do
     foldr (>>) (return ()) [ generateTestCase na nc | na <- algorithmNrs, nc <- circlesNrs ]
 
 generateTestCase na nc = do
+    putStrLn $ show na ++ "-" ++ show nc ++ " generated."
     outh <- openFile ("testInput/testcase_" ++ show na ++ "_" ++ show nc ++ ".txt") WriteMode
     hPutStrLn outh $ show na
     hPutStrLn outh $ show nc
