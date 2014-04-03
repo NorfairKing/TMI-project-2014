@@ -10,7 +10,9 @@ pretty:
 	hlint *.hs
 
 clean:
-	rm -f *.hi *.o compareOutput generateRandomCases
+	rm -f *.hi *.o Main
+	rm -f testInput/testcase*
+	rm -f testResults/testcase*
 
 generate:
 	./generateRandomCases >/dev/null 2>&1

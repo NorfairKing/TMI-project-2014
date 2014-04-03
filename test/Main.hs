@@ -10,8 +10,8 @@ main = do
     [action] <- getArgs 
     case action of
         "generate" -> generateTestCases
-        "compare"  -> compareTestResults
         "run"      -> runAll
+        "compare"  -> compareTestResults
         "test"     -> do
                 generateTestCases
                 runAll

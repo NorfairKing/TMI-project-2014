@@ -21,8 +21,8 @@ generateTestCases = do
 
 generateTestCase na nc = do
     outh <- openFile ("testInput/testcase_" ++ show na ++ "_" ++ show nc ++ ".txt") WriteMode
-    print na
-    print nc
+    hPutStrLn outh $ show na
+    hPutStrLn outh $ show nc
     triples <- replicateM nc getRandomTriple
     let str = unwords 
     mapM_ (putTriple outh) triples
