@@ -9,4 +9,7 @@ intersections :: [Circle] -> [Position]
 intersections [] = []
 intersections [c] = []
 intersections l = nub $ go l
-                       where go (c:cs) = (concat [ circlesIntersections c c' | c' <- cs ]) ++ go cs
+    where 
+        go [] = []
+        go [c] = []
+        go (c:cs) = (concat [ circlesIntersections c c' | c' <- cs ]) ++ go cs
