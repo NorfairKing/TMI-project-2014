@@ -1,7 +1,5 @@
 module VectorSpace where 
 
-import Test.QuickCheck
-
 -- Define a 2D position.
 data Position = Pos Scalar Scalar
 type Scalar     = Double
