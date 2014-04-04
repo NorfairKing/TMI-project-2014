@@ -8,5 +8,5 @@ import Data.List
 intersections :: [Circle] -> [Position]
 intersections [] = []
 intersections [c] = []
-intersections (c:cs) = (concat [ circlesIntersections c c' | c' <- cs ]) ++ intersections cs
-                   
+intersections l = nub $ go l
+                       where go (c:cs) = (concat [ circlesIntersections c c' | c' <- cs ]) ++ go cs

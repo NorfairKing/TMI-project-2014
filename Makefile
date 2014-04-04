@@ -5,7 +5,6 @@ all:
 	make dirty
 	rm -f *.hi *.o
 	make verslag >/dev/null 2>&1
-	make test >/dev/null 2>&1
 
 dirty:
 	ghc --make Main
