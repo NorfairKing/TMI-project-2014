@@ -17,9 +17,9 @@ import Text.Printf
 
 
 solve :: Int -> [Circle] -> Maybe [Position]
-solve a c | a == 1 = Just $ Naive.intersections         c
-          | a == 2 = Just $ Quadratic.intersections     c
-          | a == 3 = Just $ Linearithmic.intersections  c
+solve 1 c = Just $ Naive.intersections         c
+solve 2 c = Just $ Quadratic.intersections     c
+solve 3 c = Just $ Linearithmic.intersections  c
 solve _ _ = Nothing
 
 -- IO
