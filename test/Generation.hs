@@ -17,17 +17,26 @@ intPrompt str = do
 
 generateTestCases :: IO ()
 generateTestCases = do
-    foldr (>>) (return ()) [ generateTestCase na nc | na <- algorithmNrs, nc <- circlesNrs ]
+    foldr (>>) (return ()) [ generateTestCase nc | nc <- circlesNrs ]
 
-generateTestCase na nc = do
-    putStrLn $ show na ++ "-" ++ show nc ++ " generated."
-    outh <- openFile ("testInput/testcase_" ++ show na ++ "_" ++ show nc ++ ".txt") WriteMode
-    hPutStrLn outh $ show na
-    hPutStrLn outh $ show nc
+generateTestCase nc = do
+    putStrLn $ show nc ++ " generated."
+    outh1 <- openFile ("testInput/testcase_1_" ++ show nc ++ ".txt") WriteMode
+    outh2 <- openFile ("testInput/testcase_2_" ++ show nc ++ ".txt") WriteMode
+    outh3 <- openFile ("testInput/testcase_3_" ++ show nc ++ ".txt") WriteMode
+    hPutStrLn outh1 $ show 1
+    hPutStrLn outh2 $ show 2
+    hPutStrLn outh3 $ show 3
+    hPutStrLn outh1 $ show nc
+    hPutStrLn outh2 $ show nc
+    hPutStrLn outh3 $ show nc
     triples <- replicateM nc getRandomTriple
-    let str = unwords 
-    mapM_ (putTriple outh) triples
-    hClose outh
+    mapM_ (putTriple outh1) triples
+    mapM_ (putTriple outh2) triples
+    mapM_ (putTriple outh3) triples
+    hClose outh1
+    hClose outh2
+    hClose outh3
     where putTriple outh (x,y,r) = hPutStrLn outh $ unwords $ map (printf "%0.15f") [x,y,r]
 
 getRandomTriple :: IO (Double, Double, Double)
