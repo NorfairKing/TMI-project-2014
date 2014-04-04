@@ -46,7 +46,7 @@ circlesIntersect (p1,r1) (p2,r2) =
 circlesIntersections :: Circle -> Circle -> [Position]
 circlesIntersections c1@ (p1@(Pos x1 y1) ,r1) c2@ (p2@(Pos x2 y2),r2) =
     if circlesIntersect c1 c2 && (c1 /= c2) 
-        then nub [ Pos px1 py1, Pos px2 py2 ]
+        then [ Pos px1 py1, Pos px2 py2 ]
         else []
     where
         px1 = s + 2*(y1-y2)/d'*δ
