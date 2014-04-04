@@ -9,7 +9,7 @@ import Data.List
 data Event = Insert Circle | Delete Circle
 
 intersections :: [Circle] -> [Position]
-intersections cs = nub $ go (eventPointss cs) []
+intersections cs = nub $ go (sort $ eventPointss cs) []
     where
         go [] act = Naive.intersections act
         go (e:evl) act = ics ++ go evl act'
