@@ -6,4 +6,7 @@ import Geometry
 import Data.List
 
 intersections :: [Circle] -> [Position]
-intersections cs = (nub.concat) [ circlesIntersections c1 c2 | c1 <- cs, c2 <- cs ]
+intersections [] = []
+intersections [c] = []
+intersections (c:cs) = (concat [ circlesIntersections c c' | c' <- cs ]) ++ intersections cs
+                   
