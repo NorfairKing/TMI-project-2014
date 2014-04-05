@@ -8,8 +8,22 @@ class Drawable a where
 
 scale = 1000.0
 
+data SVGUtil =    Header 
+                | Background
+                | Footer
+
+instance Drawable SVGUtil where
+    draw Header
+        = "<svg width=\"1920\" height=\"1080\">"
+    
+    draw Background
+        = "    <rect width=\"100%\" height=\"100%\" fill=\"black\"/>"
+    
+    draw Footer
+        = "</svg>"
+
 -- Define a circle to be drawable
-instance SVG.Drawable Circle where
+instance Drawable Circle where
     draw (Cir (Pos x y) r)
         =   "    <circle"
          ++ " cx=\"" ++ show x' ++ "\""
@@ -22,7 +36,7 @@ instance SVG.Drawable Circle where
         where
             [x',y',r'] = map (floor.(*SVG.scale)) [x,y,r]
 
-instance SVG.Drawable Position where
+instance Drawable Position where
     draw (Pos x y) = "    <circle"
                         ++ " cx=\"" ++ show x' ++ "\""
                         ++ " cy=\"" ++ show y' ++ "\""
@@ -32,3 +46,5 @@ instance SVG.Drawable Position where
         where
             [x',y'] = map (floor.(*SVG.scale)) [x,y]
             r = 3
+
+
