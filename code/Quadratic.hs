@@ -11,12 +11,8 @@ intersections :: [Circle] -> [Position]
 intersections cs = nub $ go (sort $ eventPointss cs) []
     where
         go [] act = Naive.intersections act
-        go (e:evl) act = ics ++ go evl act'
-            where
-                act' = case e of
-                    Insert c -> c : act
-                    Delete c -> delete c act
-                ics = Naive.intersections act'
+        go (Insert c : evl) act = concatMap (circlesIntersections c) act ++ go evl (c:act)
+        go (Delete c : evl) act = go evl (delete c act)
 
 eventPointss :: [Circle] -> [Event]
 eventPointss = concatMap eventPoints
