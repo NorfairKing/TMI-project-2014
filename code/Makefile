@@ -11,6 +11,10 @@ verbose:
 pretty:
 	hlint *.hs
 
+example:
+	make all
+	./Main visualize ./test_input/testcase_1_10.txt ./test_output/testcase_1_10.txt > example.svg
+
 test:
 	make all
 	./Main test all
