@@ -5,8 +5,6 @@ import Data.List
 import Circle
 import Position
 
-import Naive
-
 intersections :: [Circle] -> [Position]
 intersections cs = nub $ go (sort $ eventPointss cs) []
     where
