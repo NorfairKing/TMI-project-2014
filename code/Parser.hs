@@ -35,7 +35,7 @@ instance Parse Position where
         where [x, y] = (map read . words) str
     
 instance Parse Circle where
-    parse str = Cir x y z
+    parse str = Cir (Pos x y) z
         where [x, y, z] = (map read . words) str
 
 

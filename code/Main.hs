@@ -11,6 +11,7 @@ import Test
 
 import Position
 import Circle
+import Line
 
 dispatch :: String -> Maybe ([String] -> IO ())
 dispatch str = lookup str  
