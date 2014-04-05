@@ -9,6 +9,9 @@ import Data.Maybe
 import Intersections
 import Test
 
+import Position
+import Circle
+
 dispatch :: String -> Maybe ([String] -> IO ())
 dispatch str = lookup str  
             [
