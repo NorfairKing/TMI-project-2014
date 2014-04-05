@@ -3,7 +3,10 @@ all:
 	rm -f *.hi *.o
 
 dirty:
-	ghc --make Main
+	ghc --make -O2 Main
+
+verbose:
+	ghc --make -O2 -v Main
 
 pretty:
 	hlint *.hs
@@ -14,3 +17,5 @@ test:
 
 clean:
 	rm -f *.hi *.o Main
+	rm -f test_input/*
+	rm -f test_output/*
