@@ -14,8 +14,8 @@ intersections cs = nub $ go (sort $ eventPointss cs) []
         go (e:evl) act = ics ++ go evl act'
             where
                 act' = case e of
-                    Insert c -> (c:act)
-                    Delete c -> (delete c act)
+                    Insert c -> c : act
+                    Delete c -> delete c act
                 ics = Naive.intersections act'
 
 eventPointss :: [Circle] -> [Event]
