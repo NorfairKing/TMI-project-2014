@@ -38,8 +38,7 @@ quietIntersections = do
     let solution = solve algorithm circles
     case solution of
         Nothing -> putStrLn "Dit algoritme is niet geïmplementeerd."
-        Just _  -> do
-                putStrLn $ (show (length $ fromJust solution)) ++ " intersections found"
+        Just _  -> putStrLn $ (show (length $ fromJust solution)) ++ " intersections found"
 
 readAlgorithm :: Loader Int
 readAlgorithm = parseLine
