@@ -25,6 +25,7 @@ main = do
     case args of
         -- If there are no arguments, run the program normally.
         []                  -> Intersections.intersections
+        [quiet]                  -> Intersections.quietIntersections
 
         -- If there are arguments, the first one represents the command,
         -- while the other ones represent arguments to the command.

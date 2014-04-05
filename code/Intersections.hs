@@ -30,6 +30,17 @@ intersections = do
                 putStrLn ""
                 print $ floor diff
 
+quietIntersections :: IO ()
+quietIntersections = do
+    input <- lines `fmap` getContents
+    let (algorithm, circleData) = runState readAlgorithm input
+    let (circles, _) = runState readCircles circleData
+    let solution = solve algorithm circles
+    case solution of
+        Nothing -> putStrLn "Dit algoritme is niet geïmplementeerd."
+        Just _  -> do
+                putStrLn $ (show (length $ fromJust solution)) ++ " intersections found"
+
 readAlgorithm :: Loader Int
 readAlgorithm = parseLine
 
