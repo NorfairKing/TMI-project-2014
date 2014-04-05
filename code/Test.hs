@@ -50,7 +50,7 @@ makeFile cs na = do
     outh <- openFile ("test_input/testcase_" ++ show na ++ "_" ++ show nc ++ ".txt") WriteMode
     hPrint outh na
     hPrint outh nc
-    mapM_ hPrint cs
+    mapM_ (hPrint outh) cs
     hClose outh
     putStrLn $ show na ++ "-" ++ show nc ++ " generated."
     where nc = length cs
