@@ -88,7 +88,7 @@ compareTests = doAll $ map compareTest circlesNrs
 compareTest :: Int -> IO ()
 compareTest nc = do
     expected:results <- mapM (getResults nc) algorithmNrs
-    let diffs = zip [1..] $ map (countDifferences expected) results
+    let diffs = zip [2..] $ map (countDifferences expected) results
     mapM_ putOutcome diffs
     where
         putOutcome (na , (correct, total))
