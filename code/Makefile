@@ -13,7 +13,7 @@ pretty:
 
 test:
 	make all
-	./Main test
+	./Main test all
 
 clean:
 	rm -f *.hi *.o Main
