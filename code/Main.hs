@@ -6,6 +6,7 @@ import System.IO
 import Data.List  
 import Data.Maybe
   
+import Benchmark
 import Intersections
 import Visual
 import Test
@@ -16,6 +17,7 @@ dispatch str = lookup str
               ("test", test)
             , ("visualize", Visual.visualize)
             , ("quiet", \_ -> Intersections.quietIntersections)
+            , ("benchmark", \_ -> Benchmark.benchmark)
             ]  
 
 main :: IO ()
