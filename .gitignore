@@ -1,13 +1,1 @@
-Main
-.*.swp
-*~
-
-*.svg
-
-dist
-cabal-dev
-*.o
-*.hi
-*.chi
-*.chs.h
-.virthualenv
+.old

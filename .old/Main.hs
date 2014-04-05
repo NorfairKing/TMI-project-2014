@@ -6,9 +6,7 @@ import VectorSpace
 
 import Naive
 import Quadratic
-import Linearithmic
-
-import Control.Monad
+import Linearithmic import Control.Monad
 import Control.Monad.State
 import Data.List
 import Data.Maybe

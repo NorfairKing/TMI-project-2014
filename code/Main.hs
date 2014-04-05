@@ -7,16 +7,14 @@ import Data.List
 import Data.Maybe
   
 import Intersections
+import Visual
 import Test
-
-import Position
-import Circle
-import Line
 
 dispatch :: String -> Maybe ([String] -> IO ())
 dispatch str = lookup str  
             [
-              ("test", test)  
+              ("test", test)
+            , ("visualize", Visual.visualize)
             ]  
 
 main :: IO ()

@@ -1,6 +1,5 @@
 module Intersections where
 
-import Control.Monad
 import Control.Monad.State
 import Data.Maybe
 import System.CPUTime

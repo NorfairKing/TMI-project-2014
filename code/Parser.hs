@@ -23,21 +23,21 @@ instance Parse a => Parse [a] where
     parse = map parse . words
 
 instance (Parse a, Parse b) => Parse (a, b) where
-    parse str = (parse x, parse y)
-        where [x, y] = words str
+    parse str = let [x, y] = words str
+                in (parse x, parse y)
 
 instance (Parse a, Parse b, Parse c) => Parse (a, b, c) where
-    parse str = (parse x, parse y, parse z)
-        where [x, y, z] = words str
+    parse str = let [x, y, z] = words str
+                 in (parse x, parse y, parse z)
 
 instance Parse Position where
-    parse str = Pos x y
-        where [x, y] = (map read . words) str
+    parse str = let [x, y] = words str
+                 in Pos (parse x) (parse y)
+                
     
 instance Parse Circle where
-    parse str = Cir (Pos x y) z
-        where [x, y, z] = (map read . words) str
-
+    parse str = let [x, y, r] = words str
+                 in Cir (Pos (parse x) (parse y)) (parse r)
 
 nextLine :: Loader String
 nextLine = do (line:lines) <- get

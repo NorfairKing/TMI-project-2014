@@ -3,7 +3,6 @@ module Position where
 import Text.Printf
 
 import Vector
-import SVG
 
 data Position = Pos Double Double
 
@@ -41,14 +40,3 @@ instance Ord Position where
         then compare y1 y2
         else c1
         where c1 = compare x1 x2
-
-instance SVG.Drawable Position where
-    draw (Pos x y) = "    <circle"
-                        ++ " cx=\"" ++ show x' ++ "\""
-                        ++ " cy=\"" ++ show y' ++ "\""
-                        ++ " r=\""  ++ show r  ++ "\""
-                        ++ " fill=\"red\""
-                        ++ " />"
-        where
-            [x',y'] = map (floor.(*SVG.scale)) [x,y]
-            r = 3

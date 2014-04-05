@@ -12,4 +12,4 @@ intersections l = nub $ go l
     where 
         go [] = []
         go [c] = []
-        go (c:cs) = (concatMap (circlesIntersections c) cs) ++ go cs
+        go (c:cs) = concatMap (circlesIntersections c) cs ++ go cs
