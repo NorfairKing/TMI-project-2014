@@ -21,6 +21,7 @@ instance NFData Circle
 benchmark = do
   let as = [1,2,3]
   let ns = [ c*10^e | e <- [0..1], c<- [1..9] ]
+  -- yes, this is necessary, nf is of the type (a -> b) -> a -> Pure
   let alg1 = solve 1
   let alg2 = solve 2
   let alg3 = solve 3
