@@ -25,7 +25,7 @@ benchmark = do
   let alg2 = solve 2
   let alg3 = solve 3
   cs <- mapM getRandomCircles ns
-  -- yeah my code sucks but I tried to write macros first and it sucked balls because of the type chaos so now i'm doing this shit and it's much better
+  -- yeah my code sucks but I tried to write macros first and it sucked balls because of the type chaos so now i'm doing this shit and it actually works end of rant
   defaultMain [
     bgroup "algorithm 1" [
        bench "10 circles" $ nf alg1 (cs !! 0)
