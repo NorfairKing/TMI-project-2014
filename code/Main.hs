@@ -15,7 +15,7 @@ dispatch str = lookup str
             [
               ("test", test)
             , ("visualize", Visual.visualize)
-            , ("quiet", Intersections.quietIntersections)
+            , ("quiet", \_ -> Intersections.quietIntersections)
             ]  
 
 main :: IO ()
