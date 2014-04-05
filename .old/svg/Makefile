@@ -9,7 +9,9 @@ dirty:
 example:
 	make all
 	./Main ../input/1.txt ../results/1.txt > example.svg
-	display example.svg
 
+show:
+	make example
+	display example.svg
 clean:
 	rm -f *.hi *.o Main
