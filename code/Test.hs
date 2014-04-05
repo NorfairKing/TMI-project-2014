@@ -33,7 +33,7 @@ test args = do
 
 -- Helper function
 doAll :: [IO ()] -> IO ()
-doAll fs = foldr (>>) (return ()) fs
+doAll = foldr (>>) (return ())
 
 
 -- Generation
@@ -48,9 +48,9 @@ generateTestCase nc = do
 makeFile :: [Circle] -> Int -> IO ()
 makeFile cs na = do
     outh <- openFile ("test_input/testcase_" ++ show na ++ "_" ++ show nc ++ ".txt") WriteMode
-    hPutStrLn outh $ show na
-    hPutStrLn outh $ show nc
-    mapM_ (hPutStrLn outh . show) cs
+    hPrint outh na
+    hPrint outh nc
+    mapM_ hPrint cs
     hClose outh
     putStrLn $ show na ++ "-" ++ show nc ++ " generated."
     where nc = length cs
