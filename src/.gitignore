@@ -1,5 +1,7 @@
 Main
 
+*.svg
+
 dist
 cabal-dev
 *.o
