@@ -13,7 +13,7 @@ pretty:
 
 example:
 	make all
-	./Main visualize ./test_input/testcase_1_10.txt ./test_output/testcase_1_10.txt > example.svg
+	./Main visualize ./test_input/testcase_2_80.txt ./test_output/testcase_2_80.txt > example.svg
 
 test:
 	make all
