@@ -24,10 +24,14 @@ intersections cs = L.nub $ concat $ A.asListL $ go (sort $ eventPointss cs) A.em
 ordering :: Circle -> Circle -> Ordering 
 ordering (Cir (Pos _ y1) _) (Cir (Pos _ y2) _) = compare y1 y2
 
+
 cordering :: Circle -> Circle -> COrdering Circle
 cordering c1 c2 = fstByCC ordering c1 c2
 
 interval :: Circle -> AVL Circle -> AVL Circle
 interval (Cir ct r) act = takeLE (ordering $ Cir max r) $ takeGE (ordering $ Cir min r) act
                       where (min,max) = (ct <-> r', ct <+> r')
-                            r' = (Pos 0 r)
+                            r' = (Pos 0 (r + maxRadius act))
+
+maxRadius :: AVL Circle -> Double
+maxRadius act = maximum [r | (Cir _ r) <- asListL act ]
