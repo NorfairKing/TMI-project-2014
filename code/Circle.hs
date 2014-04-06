@@ -4,7 +4,9 @@ import Text.Printf
 
 import Position
 
-data Circle = Cir Position Double
+data Circle = Cir { centre :: Position
+                  , radius :: double
+                  }
 
 -- Define a string representation for circles
 instance Show Circle where
