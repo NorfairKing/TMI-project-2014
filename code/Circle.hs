@@ -5,7 +5,7 @@ import Text.Printf
 import Position
 
 data Circle = Cir { centre :: Position
-                  , radius :: double
+                  , radius :: Double
                   }
 
 -- Define a string representation for circles

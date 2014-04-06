@@ -1,19 +1,33 @@
 module Linearithmic where
 
-import Data.Tree.AVL
+import Data.COrdering
+import Data.Tree.AVL as A
+import Data.List as L
 
 import Circle
+import Event
 import Position
+import Vector
 
 intersections :: [Circle] -> [Position]
-intersections cs = nub $ go (astree ordering $ eventPointss cs) []
+intersections cs = L.nub $ concat $ A.asListL $ go (sort $ eventPointss cs) A.empty
     where
-      go :: [Circle] -> [Event] -> AVL Circle -> [Position]
-      go [e] act = []
-      go (Insert (Cir ct r) : evl) act = concatMap (circlesIntersections c) act' ++ go evl (insert c act)
+      go :: [Event] -> AVL Circle -> AVL [Position]
+      go [e] act = A.empty
+      go (Insert c : evl) act = (intersects c) `A.join` next
         where
-          act' = asListL $ takeLE (ct,max) $ takeGE (ct,min) act -- where magic should happen, get all circles in the interval y - r to y + r
-          (min,max) = (ct <-> r', ct <+> r')
-          r' = (Pos 0 r)
-      go (Delete c : evl) act = go evl (delete c act)
-      ordering c1@(Pos _ y1,_) c1@(Pos _ y2,_) = compare y1 y2
+          intersects :: Circle -> AVL [Position]
+          intersects c = A.map (circlesIntersections c) (interval c act)
+          next = go evl (A.push (cordering c) c act)
+      go (Delete c : evl) act = go evl (A.delete (ordering c) act)
+
+ordering :: Circle -> Circle -> Ordering 
+ordering (Cir (Pos _ y1) _) (Cir (Pos _ y2) _) = compare y1 y2
+
+cordering :: Circle -> Circle -> COrdering Circle
+cordering c1 c2 = fstByCC ordering c1 c2
+
+interval :: Circle -> AVL Circle -> AVL Circle
+interval (Cir ct r) act = takeLE (ordering $ Cir max r) $ takeGE (ordering $ Cir min r) act
+                      where (min,max) = (ct <-> r', ct <+> r')
+                            r' = (Pos 0 r)

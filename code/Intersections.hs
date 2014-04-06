@@ -52,5 +52,5 @@ solve :: Int -> [Circle] -> Maybe [Position]
 solve 1 c = Just $ Naive.intersections         c
 solve 2 c = Just $ Quadratic.intersections     c
 -- Uncomment this when we implement this algorithm
---solve 3 c = Just $ Linearithmic.intersections  c
+solve 3 c = Just $ Linearithmic.intersections  c
 solve _ _ = Nothing
