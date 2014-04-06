@@ -3,8 +3,10 @@ module Test where
 import Control.Monad
 import Control.Monad.State
 import System.Cmd
+import System.Directory
 import System.IO
 import System.Random
+import Text.Printf
 
 import Circle
 import Parser
@@ -22,15 +24,17 @@ outputDir      = "test_output"
 casePrefix     = "testcase"
 caseExtension  = ".txt"
 
+caseName :: Int -> Int -> String
 caseName na nc
     =  casePrefix
     ++ show na
     ++ "_"
-    ++ show nc
+    ++ show nc --printf "%03d" nc
     ++ caseExtension
 
 test :: [String] -> IO () 
 test args = do
+    check
     let [command] = args
     case command of
         "generate"  -> generateTests
@@ -41,6 +45,20 @@ test args = do
                 runTests
                 compareTests
 
+check = do
+    bs <- mapM doesDirectoryExist dirs
+    mapM_ createDirectory $ select (map not bs) dirs
+    where
+        dirs = [inputDir, outputDir]
+
+select :: [Bool] -> [a] -> [a]
+select [] [] = []
+select  _ [] = []
+select [] _  = []
+select (b:bs) (a:as)
+    = if b
+    then a : select bs as
+    else select bs as
 
 -- Generation
 generateTests :: IO ()
@@ -76,26 +94,25 @@ getRandomCircle = do
 
 
 -- Running
-runTests :: IO ()
-runTests = mapM_ runTest circlesNrs
+runTests = do
+    files <- getDirectoryContents inputDir
+    putStrLn $ unlines files
+    --mapM_ runTest files
 
-runTest :: Int -> IO ()
-runTest nc = mapM_ (runTestIndividual nc) algorithmNrs
+runTest file = do
+    system $ cmd file 
+    putStrLn $ file ++ " done."
 
-runTestIndividual nc na = do
-    system (cmd na nc)
-    putStrLn $ caseName na nc ++ " done."
-
-cmd na nc = "./Main" ++ " " ++ input ++ " " ++ output
+cmd file = "./Main" ++ " " ++ input ++ " " ++ output
     where
         input = "< " 
             ++ inputDir 
             ++ "/" 
-            ++ caseName na nc
+            ++ file
         output = "> " 
             ++ outputDir 
             ++ "/" 
-            ++ caseName na nc
+            ++ file
 
 
 -- Comparison
