@@ -7,6 +7,7 @@ import System.IO
 import System.Random
 
 import Parser
+
 import Circle
 import Position
 
@@ -116,11 +117,3 @@ countDifferences rs ss = (correct, total)
         comb = sInR ++ rInS
         rInS = map (`elem` ss) rs
         sInR = map (`elem` rs) ss    
-
-
-
-
-
-
-
-
