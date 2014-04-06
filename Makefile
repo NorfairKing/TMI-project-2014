@@ -1,4 +1,4 @@
-.PHONY: code verslag build
+.PHONY: src verslag build
 
 
 all:
