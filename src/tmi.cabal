@@ -57,7 +57,7 @@ executable tmi
   -- other-extensions:    
   
   -- Other library packages from which modules are imported.
-  build-depends:       base >=4.6 && <4.7, deepseq >=1.3 && <1.4, mtl >=2.1 && <2.2, process >=1.1 && <1.2, random >=1.0 && <1.1, criterion, hastache < 0.6, hlint
+  build-depends:       base >=4.6 && <4.7, deepseq >=1.3 && <1.4, mtl >=2.1 && <2.2, process >=1.1 && <1.2, random >=1.0 && <1.1, criterion, hastache < 0.6, hlint, avltree
   
   -- Directories containing source files.
   -- hs-source-dirs:      
