@@ -1,12 +1,31 @@
 \documentclass[10pt,a4paper]{article}
-\usepackage[latin1]{inputenc}
+
 \usepackage[dutch]{babel}
+
+% Voor wiskunde
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+
+% Om het totaal aantal pagina's te tellen
+\usepackage{lastpage}
+
+% Om de marges aan te passen
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 
-\title{Verslag}
+% Voor headers en footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\lhead{Tom Sydney Kerckhove \& Xavier Go\'as Aguililla}
+\rhead{\thepage /\pageref{LastPage}}
+
+\lfoot{Practicum}
+\cfoot{Toepassingen van Meetkunde in Informatica}
+\rfoot{Snijdende Cirkels}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
 
 \begin{document}
 \input{titelblad}

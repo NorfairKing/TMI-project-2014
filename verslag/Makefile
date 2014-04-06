@@ -1,6 +1,6 @@
 INTERACTION=nonstopmode
 all:
-	make verslag.pdf
+	make verslag.pdf > /dev/null 2>&1
 	make clean
 %.pdf: %.tex
 	bash makepdf.sh $(INTERACTION) $<
