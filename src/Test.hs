@@ -2,6 +2,7 @@ module Test where
 
 import Control.Monad
 import Control.Monad.State
+import Data.List
 import System.Cmd
 import System.Directory
 import System.IO
@@ -27,9 +28,10 @@ caseExtension  = ".txt"
 caseName :: Int -> Int -> String
 caseName na nc
     =  casePrefix
+    ++ "_"
     ++ show na
     ++ "_"
-    ++ show nc --printf "%03d" nc
+    ++ printf "%03d" nc
     ++ caseExtension
 
 test :: [String] -> IO () 
@@ -88,16 +90,14 @@ getRandomCircle :: IO Circle
 getRandomCircle = do
     x <- randomIO :: IO Double
     y <- randomIO :: IO Double
-
     r <- randomIO :: IO Double
     return (Cir (Pos x y) r)
 
 
 -- Running
 runTests = do
-    files <- getDirectoryContents inputDir
-    putStrLn $ unlines files
-    --mapM_ runTest files
+    files <- (drop 2 . sort) `fmap` getDirectoryContents inputDir
+    mapM_ runTest files
 
 runTest file = do
     system $ cmd file 
@@ -138,12 +138,7 @@ getResults nc na = do
     inh <- openFile (
             outputDir 
             ++ "/" 
-            ++ casePrefix 
-            ++ "_" 
-            ++ show na 
-            ++ "_" 
-            ++ show nc 
-            ++ caseExtension
+            ++ caseName na nc
             ) ReadMode
     ll <- (drop 2 . reverse . lines) `fmap` hGetContents inh
     let np = length ll
