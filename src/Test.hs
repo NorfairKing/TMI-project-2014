@@ -15,12 +15,13 @@ algorithmNrs :: [Int]
 algorithmNrs = [1..3]
 
 circlesNrs :: [Int]
-circlesNrs = [ c*10^e | e <- [0..1], c<- [1..9] ]
+circlesNrs = [c*10^e | e <- [0..1], c<- [1..9]]
 
 input_dir       = "test_input"
 output_dir      = "test_output"
 case_prefix     = "testcase"
 case_extension  = ".txt"
+
 
 test :: [String] -> IO () 
 test args = do
@@ -35,14 +36,9 @@ test args = do
                 compareTests
 
 
--- Helper function
-doAll :: [IO ()] -> IO ()
-doAll = foldr (>>) (return ())
-
-
 -- Generation
 generateTests :: IO ()
-generateTests = doAll $ map generateTestCase circlesNrs
+generateTests = sequence_ $ map generateTestCase circlesNrs
 
 generateTestCase :: Int -> IO ()
 generateTestCase nc = do
@@ -51,7 +47,16 @@ generateTestCase nc = do
 
 makeFile :: [Circle] -> Int -> IO ()
 makeFile cs na = do
-    outh <- openFile (input_dir ++ "/" ++ case_prefix ++ "_" ++ show na ++ "_" ++ show nc ++ case_extension) WriteMode
+    outh <- openFile (
+                input_dir 
+                ++ "/" 
+                ++ case_prefix 
+                ++ "_"
+                ++ show na 
+                ++ "_" 
+                ++ show nc 
+                ++ case_extension
+                ) WriteMode
     hPrint outh na
     hPrint outh nc
     mapM_ (hPrint outh) cs
@@ -64,13 +69,14 @@ getRandomCircle :: IO Circle
 getRandomCircle = do
     x <- randomIO :: IO Double
     y <- randomIO :: IO Double
+
     r <- randomIO :: IO Double
     return (Cir (Pos x y) r)
 
 
 -- Running
 runTests :: IO ()
-runTests = doAll $ map runTest circlesNrs
+runTests = sequence_ $ map runTest circlesNrs
 
 runTest :: Int -> IO ()
 runTest nc = mapM_ (runTestIndividual nc) algorithmNrs
@@ -81,13 +87,29 @@ runTestIndividual nc na = do
 
 cmd na nc = "./Main" ++ " " ++ input ++ " " ++ output
     where
-        input = "< " ++ input_dir ++ "/" ++ case_prefix ++ "_" ++ show na ++ "_" ++ show nc ++ case_extension
-        output = "> " ++ output_dir ++ "/" ++ case_prefix ++ "_" ++ show na ++ "_" ++ show nc ++ case_extension
+        input = "< " 
+            ++ input_dir 
+            ++ "/" 
+            ++ case_prefix 
+            ++ "_" 
+            ++ show na 
+            ++ "_" 
+            ++ show nc 
+            ++ case_extension
+        output = "> " 
+            ++ output_dir 
+            ++ "/" 
+            ++ case_prefix 
+            ++ "_" 
+            ++ show na 
+            ++ "_" 
+            ++ show nc 
+            ++ case_extension
 
 
 -- Comparison
 compareTests :: IO ()
-compareTests = doAll $ map compareTest circlesNrs
+compareTests = sequence_ $ map compareTest circlesNrs
 
 compareTest :: Int -> IO ()
 compareTest nc = do
@@ -105,7 +127,16 @@ compareTest nc = do
 
 getResults :: Int -> Int -> IO [Position]
 getResults nc na = do
-    inh <- openFile (output_dir ++ "/" ++ case_prefix ++ "_" ++ show na ++ "_" ++ show nc ++ case_extension) ReadMode
+    inh <- openFile (
+            output_dir 
+            ++ "/" 
+            ++ case_prefix 
+            ++ "_" 
+            ++ show na 
+            ++ "_" 
+            ++ show nc 
+            ++ case_extension
+            ) ReadMode
     ll <- (drop 2 . reverse . lines) `fmap` hGetContents inh
     let np = length ll
     let (positions, _) = runState (replicateM np parseLine) ll
