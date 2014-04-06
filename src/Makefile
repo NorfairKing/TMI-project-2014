@@ -21,5 +21,5 @@ test:
 
 clean:
 	rm -f *.hi *.o *.svg Main
-	rm -f test_input/*
-	rm -f test_output/*
+	rm -rf test_input
+	rm -rf test_output

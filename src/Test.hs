@@ -2,9 +2,12 @@ module Test where
 
 import Control.Monad
 import Control.Monad.State
+import Data.List
 import System.Cmd
+import System.Directory
 import System.IO
 import System.Random
+import Text.Printf
 
 import Circle
 import Parser
@@ -15,15 +18,25 @@ algorithmNrs :: [Int]
 algorithmNrs = [1..3]
 
 circlesNrs :: [Int]
-circlesNrs = [ c*10^e | e <- [0..1], c<- [1..9] ]
+circlesNrs = [c*10^e | e <- [0..1], c<- [1..9]]
 
-input_dir       = "test_input"
-output_dir      = "test_output"
-case_prefix     = "testcase"
-case_extension  = ".txt"
+inputDir       = "test_input"
+outputDir      = "test_output"
+casePrefix     = "testcase"
+caseExtension  = ".txt"
+
+caseName :: Int -> Int -> String
+caseName na nc
+    =  casePrefix
+    ++ "_"
+    ++ show na
+    ++ "_"
+    ++ printf "%03d" nc
+    ++ caseExtension
 
 test :: [String] -> IO () 
 test args = do
+    check
     let [command] = args
     case command of
         "generate"  -> generateTests
@@ -34,15 +47,24 @@ test args = do
                 runTests
                 compareTests
 
+check = do
+    bs <- mapM doesDirectoryExist dirs
+    mapM_ createDirectory $ select (map not bs) dirs
+    where
+        dirs = [inputDir, outputDir]
 
--- Helper function
-doAll :: [IO ()] -> IO ()
-doAll = foldr (>>) (return ())
-
+select :: [Bool] -> [a] -> [a]
+select [] [] = []
+select  _ [] = []
+select [] _  = []
+select (b:bs) (a:as)
+    = if b
+    then a : select bs as
+    else select bs as
 
 -- Generation
 generateTests :: IO ()
-generateTests = doAll $ map generateTestCase circlesNrs
+generateTests = mapM_ generateTestCase circlesNrs
 
 generateTestCase :: Int -> IO ()
 generateTestCase nc = do
@@ -51,12 +73,16 @@ generateTestCase nc = do
 
 makeFile :: [Circle] -> Int -> IO ()
 makeFile cs na = do
-    outh <- openFile (input_dir ++ "/" ++ case_prefix ++ "_" ++ show na ++ "_" ++ show nc ++ case_extension) WriteMode
+    outh <- openFile (
+                inputDir 
+                ++ "/" 
+                ++ caseName na nc
+                ) WriteMode
     hPrint outh na
     hPrint outh nc
     mapM_ (hPrint outh) cs
     hClose outh
-    putStrLn $ show na ++ "-" ++ show nc ++ " generated."
+    putStrLn $ caseName na nc ++ " generated."
     where nc = length cs
 
 
@@ -69,25 +95,29 @@ getRandomCircle = do
 
 
 -- Running
-runTests :: IO ()
-runTests = doAll $ map runTest circlesNrs
+runTests = do
+    files <- (drop 2 . sort) `fmap` getDirectoryContents inputDir
+    mapM_ runTest files
 
-runTest :: Int -> IO ()
-runTest nc = mapM_ (runTestIndividual nc) algorithmNrs
+runTest file = do
+    system $ cmd file 
+    putStrLn $ file ++ " done."
 
-runTestIndividual nc na = do
-    system (cmd na nc)
-    putStrLn $ show na ++ "-" ++ show nc ++ " done."
-
-cmd na nc = "./Main" ++ " " ++ input ++ " " ++ output
+cmd file = "./Main" ++ " " ++ input ++ " " ++ output
     where
-        input = "< " ++ input_dir ++ "/" ++ case_prefix ++ "_" ++ show na ++ "_" ++ show nc ++ case_extension
-        output = "> " ++ output_dir ++ "/" ++ case_prefix ++ "_" ++ show na ++ "_" ++ show nc ++ case_extension
+        input = "< " 
+            ++ inputDir 
+            ++ "/" 
+            ++ file
+        output = "> " 
+            ++ outputDir 
+            ++ "/" 
+            ++ file
 
 
 -- Comparison
 compareTests :: IO ()
-compareTests = doAll $ map compareTest circlesNrs
+compareTests = mapM_ compareTest circlesNrs
 
 compareTest :: Int -> IO ()
 compareTest nc = do
@@ -101,11 +131,15 @@ compareTest nc = do
               else putStrLn $ caseStr ++ " FAILURE " ++ ratStr
             where
                 ratStr = show correct ++ "/" ++ show total
-                caseStr = show na ++ "-" ++ show nc
+                caseStr = caseName na nc
 
 getResults :: Int -> Int -> IO [Position]
 getResults nc na = do
-    inh <- openFile (output_dir ++ "/" ++ case_prefix ++ "_" ++ show na ++ "_" ++ show nc ++ case_extension) ReadMode
+    inh <- openFile (
+            outputDir 
+            ++ "/" 
+            ++ caseName na nc
+            ) ReadMode
     ll <- (drop 2 . reverse . lines) `fmap` hGetContents inh
     let np = length ll
     let (positions, _) = runState (replicateM np parseLine) ll
