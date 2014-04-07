@@ -2,6 +2,7 @@ Main
 
 *.txt
 *.svg
+*.html
 
 dist
 cabal-dev
