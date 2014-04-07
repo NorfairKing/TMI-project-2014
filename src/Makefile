@@ -8,6 +8,9 @@ dirty:
 verbose:
 	ghc --make -O2 -v Main
 
+fast:
+	ghc --make -O3 -fllvm -optlo-O3 -v Main
+
 pretty:
 	hlint *.hs
 
@@ -23,3 +26,8 @@ clean:
 	rm -f *.hi *.o *.svg Main
 	rm -rf test_input
 	rm -rf test_output
+
+benchmark:
+	./Main benchmark --samples=1000 --summary=1.csv "algorithm 1"
+	./Main benchmark --samples=1000 --summary=2.csv "algorithm 2"
+	./Main benchmark --samples=1000 --summary=3.csv "algorithm 3"
