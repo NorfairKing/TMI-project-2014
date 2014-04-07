@@ -37,7 +37,7 @@ clean:
 	rm -rf benchmarks
 
 benchmark:
-	mkdir benchmarks
-	./Main benchmark --samples=10000 --output=benchmarks/1.html "algorithm 1"
-	./Main benchmark --samples=10000 --output=benchmarks/2.html "algorithm 2"
-	./Main benchmark --samples=10000 --output=benchmarks/3.html "algorithm 3"
+	mkdir -p benchmarks
+	./Main benchmark --samples=1000 --output=benchmarks/1.html "algorithm 1"
+	./Main benchmark --samples=1000 --output=benchmarks/2.html "algorithm 2"
+	./Main benchmark --samples=1000 --output=benchmarks/3.html "algorithm 3"
