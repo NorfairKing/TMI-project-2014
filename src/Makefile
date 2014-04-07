@@ -9,7 +9,11 @@ verbose:
 	ghc --make -O2 -v Main
 
 fast:
-	ghc --make -O3 -fllvm -optlo-O3 -v Main
+	ghc --make -O3 -fllvm -optlo-O3 -fforce-recomp -v Main
+	rm -f *.hi *.o
+
+fastndirty:
+	ghc --make -O3 -fllvm -optlo-O3 -fforce-recomp -v Main
 
 pretty:
 	hlint *.hs
