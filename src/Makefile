@@ -26,12 +26,18 @@ test:
 	make all
 	./Main test all
 
+fasttest:
+	make fast
+	./Main test all
+
 clean:
 	rm -f *.hi *.o *.svg Main
 	rm -rf test_input
 	rm -rf test_output
+	rm -rf benchmarks
 
 benchmark:
-	./Main benchmark --samples=1000 --summary=1.csv "algorithm 1"
-	./Main benchmark --samples=1000 --summary=2.csv "algorithm 2"
-	./Main benchmark --samples=1000 --summary=3.csv "algorithm 3"
+	mkdir benchmarks
+	./Main benchmark --samples=10000 --output=benchmarks/1.html "algorithm 1"
+	./Main benchmark --samples=10000 --output=benchmarks/2.html "algorithm 2"
+	./Main benchmark --samples=10000 --output=benchmarks/3.html "algorithm 3"
