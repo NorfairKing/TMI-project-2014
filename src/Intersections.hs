@@ -4,13 +4,12 @@ import Control.Monad.State
 import Data.Maybe
 import System.CPUTime
 
-import Naive
-import Quadratic
+import Geometry.Circle
+import Geometry.Position
 import Linearithmic
-
+import Naive
 import Parser
-import Circle
-import Position
+import Quadratic
 
 intersections :: IO ()
 intersections = do

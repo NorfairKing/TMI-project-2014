@@ -1,18 +1,12 @@
 module Test.Generation where
 
-import Control.Monad
 import Control.Monad.State
-import Data.List
-import System.Cmd
-import System.Directory
 import System.IO
 import System.Random
-import Text.Printf
 
-import Circle
+import Geometry.Circle
+import Geometry.Position
 import Parser
-import Position
-
 import Test.Settings
 
 -- Generation

@@ -1,8 +1,8 @@
-module Position where
+module Geometry.Position where
 
 import Text.Printf
 
-import Vector
+import Geometry.Vector
 
 data Position = Pos Double Double
 

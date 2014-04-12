@@ -2,8 +2,8 @@ module Parser where
 
 import Control.Monad.State
 
-import Position
-import Circle
+import Geometry.Position
+import Geometry.Circle
 
 type Loader a = State [String] a
 

@@ -1,8 +1,7 @@
 module Event where
 
-import Circle
-import Position
-
+import Geometry.Circle
+import Geometry.Position
 
 data Event = Insert Circle | Delete Circle
 

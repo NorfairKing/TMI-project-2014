@@ -1,14 +1,11 @@
 module Test.Comparison where
 
 import Control.Monad.State
-
 import System.IO
 
-import Position
-import Circle
+import Geometry.Circle
+import Geometry.Position
 import Parser
-
-
 import Test.Settings
 
 compareTests :: IO ()

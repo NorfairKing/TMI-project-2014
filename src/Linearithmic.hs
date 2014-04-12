@@ -4,10 +4,10 @@ import Data.COrdering
 import Data.Tree.AVL as A
 import Data.List as L
 
-import Circle
 import Event
-import Position
-import Vector
+import Geometry.Circle
+import Geometry.Position
+import Geometry.Vector
 
 intersections :: [Circle] -> [Position]
 intersections cs = L.nub $ concat $ A.asListL $ go (sort $ eventPointss cs) A.empty A.empty

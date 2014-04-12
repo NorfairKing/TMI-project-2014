@@ -4,10 +4,10 @@ import Control.Monad.State
 import System.Environment
 import System.IO
 
-import Circle
-import Position
-import Visual.SVG
+import Geometry.Circle
+import Geometry.Position
 import Parser
+import Visual.SVG
 
 visualize :: [String] -> IO ()
 visualize args = do

@@ -4,10 +4,9 @@ import Control.Monad
 import Control.DeepSeq
 import Criterion.Main
 
-import Circle
-import Position
+import Geometry.Circle
+import Geometry.Position
 import Intersections
-
 import Test.Generation
 
 getRandomCircles :: Int -> IO [Circle]

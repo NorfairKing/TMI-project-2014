@@ -1,4 +1,4 @@
-module Line where
+module Geometry.Line where
     
 import Vector
 import Position

@@ -1,4 +1,4 @@
-module Vector where
+module Geometry.Vector where
 
 -- Define a euclidean vector space with...
 class Vector a where

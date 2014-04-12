@@ -2,8 +2,8 @@ module Naive where
 
 import Data.List
 
-import Circle
-import Position
+import Geometry.Circle
+import Geometry.Position
 
 intersections :: [Circle] -> [Position]
 intersections [] = []

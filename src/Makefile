@@ -1,4 +1,4 @@
-.PHONY: Test, Visual
+.PHONY: Geometry, Test, Visual
 
 all:
 	make dirty
@@ -38,6 +38,7 @@ clean:
 	rm -rf benchmarks
 	$(MAKE) -C Test clean
 	$(MAKE) -C Visual clean
+	$(MAKE) -C Geometry clean
 
 benchmark:
 	mkdir -p benchmarks

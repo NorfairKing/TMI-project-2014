@@ -1,7 +1,7 @@
 module Visual.SVG where
 
-import Circle
-import Position
+import Geometry.Circle
+import Geometry.Position
 
 -- Settings
 scale               = 250.0
