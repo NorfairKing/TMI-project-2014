@@ -1,6 +1,7 @@
+.PHONY: Test
+
 all:
 	make dirty
-	rm -f *.hi *.o
 
 dirty:
 	ghc --make -O2 Main
@@ -35,6 +36,7 @@ clean:
 	rm -rf test_input
 	rm -rf test_output
 	rm -rf benchmarks
+	$(MAKE) -C Test clean
 
 benchmark:
 	mkdir -p benchmarks

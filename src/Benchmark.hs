@@ -7,7 +7,8 @@ import Criterion.Main
 import Circle
 import Position
 import Intersections
-import Test
+
+import Test.Generation
 
 getRandomCircles :: Int -> IO [Circle]
 getRandomCircles n = replicateM n getRandomCircle

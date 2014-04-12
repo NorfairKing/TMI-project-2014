@@ -9,7 +9,7 @@ import Data.Maybe
 import Benchmark
 import Intersections
 import Visual
-import Test
+import Test.Facade
 
 dispatch :: String -> Maybe ([String] -> IO ())
 dispatch str = lookup str  
