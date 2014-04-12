@@ -10,9 +10,7 @@ import Intersections
 import Test
 
 getRandomCircles :: Int -> IO [Circle]
-getRandomCircles n = do
-  cs <- replicateM n getRandomCircle
-  return cs
+getRandomCircles n = replicateM n getRandomCircle
   
 instance NFData Position
 instance NFData Circle

@@ -126,9 +126,10 @@ compareTest nc = do
     mapM_ putOutcome diffs
     where
         putOutcome (na , (correct, total))
-            = if correct == total
-              then putStrLn $ caseStr ++ " SUCCESS " ++ ratStr
-              else putStrLn $ caseStr ++ " FAILURE " ++ ratStr
+            = putStrLn $
+                if correct == total
+                then caseStr ++ " SUCCESS " ++ ratStr
+                else caseStr ++ " FAILURE " ++ ratStr
             where
                 ratStr = show correct ++ "/" ++ show total
                 caseStr = caseName na nc
