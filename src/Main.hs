@@ -8,14 +8,14 @@ import Data.Maybe
   
 import Benchmark
 import Intersections
-import Visual
-import Test.Facade
+import Visual.Visual
+import Test.Test
 
 dispatch :: String -> Maybe ([String] -> IO ())
 dispatch str = lookup str  
             [
               ("test", test)
-            , ("visualize", Visual.visualize)
+            , ("visualize", visualize)
             , ("quiet", const Intersections.quietIntersections)
             , ("benchmark", const Benchmark.benchmark)
             ]  

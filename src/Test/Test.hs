@@ -1,4 +1,4 @@
-module Test.Facade where
+module Test.Test where
 
 import System.Directory
 

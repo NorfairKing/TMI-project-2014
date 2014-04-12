@@ -1,4 +1,4 @@
-.PHONY: Test
+.PHONY: Test, Visual
 
 all:
 	make dirty
@@ -37,6 +37,7 @@ clean:
 	rm -rf test_output
 	rm -rf benchmarks
 	$(MAKE) -C Test clean
+	$(MAKE) -C Visual clean
 
 benchmark:
 	mkdir -p benchmarks

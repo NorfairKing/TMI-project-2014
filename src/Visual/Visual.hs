@@ -1,4 +1,4 @@
-module Visual where
+module Visual.Visual where
 
 import Control.Monad.State
 import System.Environment
@@ -6,7 +6,7 @@ import System.IO
 
 import Circle
 import Position
-import SVG
+import Visual.SVG
 import Parser
 
 visualize :: [String] -> IO ()

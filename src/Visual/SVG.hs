@@ -1,4 +1,4 @@
-module SVG where
+module Visual.SVG where
 
 import Circle
 import Position
