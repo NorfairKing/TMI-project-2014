@@ -1,4 +1,4 @@
-.PHONY: Geometry, Test, Visual
+.PHONY: Intersections, Geometry, Test, Visual, Benchmark
 
 all:
 	make dirty
@@ -39,6 +39,8 @@ clean:
 	$(MAKE) -C Test clean
 	$(MAKE) -C Visual clean
 	$(MAKE) -C Geometry clean
+	$(MAKE) -C Intersections clean
+	$(MAKE) -C Benchmark clean
 
 benchmark:
 	mkdir -p benchmarks

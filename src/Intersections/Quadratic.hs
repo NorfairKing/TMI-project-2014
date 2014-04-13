@@ -1,10 +1,10 @@
-module Quadratic where
+module Intersections.Quadratic where
 
 import Data.List
 
-import Event
 import Geometry.Circle
 import Geometry.Position
+import Intersections.Event
 
 intersections :: [Circle] -> [Position]
 intersections cs = nub $ go (sort $ eventPointss cs) []

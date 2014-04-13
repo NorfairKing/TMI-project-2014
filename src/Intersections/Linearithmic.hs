@@ -1,13 +1,13 @@
-module Linearithmic where
+module Intersections.Linearithmic where
 
 import Data.COrdering
 import Data.Tree.AVL as A
 import Data.List as L
 
-import Event
 import Geometry.Circle
 import Geometry.Position
 import Geometry.Vector
+import Intersections.Event
 
 intersections :: [Circle] -> [Position]
 intersections cs = L.nub $ concat $ A.asListL $ go (sort $ eventPointss cs) A.empty A.empty

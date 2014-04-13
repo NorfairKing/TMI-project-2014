@@ -1,4 +1,4 @@
-module Intersections where
+module Intersections.Intersections where
 
 import Control.Monad.State
 import Data.Maybe
@@ -6,10 +6,10 @@ import System.CPUTime
 
 import Geometry.Circle
 import Geometry.Position
-import Linearithmic
-import Naive
+import qualified Intersections.Linearithmic as Linearithmic
+import qualified Intersections.Naive as Naive
+import qualified Intersections.Quadratic as Quadratic
 import Parser
-import Quadratic
 
 intersections :: IO ()
 intersections = do

@@ -1,4 +1,4 @@
-module Benchmark where
+module Benchmark.Benchmark where
 
 import Control.Monad
 import Control.DeepSeq
@@ -6,7 +6,7 @@ import Criterion.Main
 
 import Geometry.Circle
 import Geometry.Position
-import Intersections
+import Intersections.Intersections
 import Test.Generation
 
 getRandomCircles :: Int -> IO [Circle]

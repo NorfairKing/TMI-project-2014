@@ -1,4 +1,4 @@
-module Event where
+module Intersections.Event where
 
 import Geometry.Circle
 import Geometry.Position

@@ -1,23 +1,22 @@
 module Main where
 
-import System.Environment
-import System.IO  
-
 import Data.List  
 import Data.Maybe
+import System.Environment
+import System.IO  
   
-import Benchmark
-import Intersections
-import Visual.Visual
+import Benchmark.Benchmark
+import Intersections.Intersections
 import Test.Test
+import Visual.Visual
 
 dispatch :: String -> Maybe ([String] -> IO ())
 dispatch str = lookup str  
             [
               ("test", test)
             , ("visualize", visualize)
-            , ("quiet", const Intersections.quietIntersections)
-            , ("benchmark", const Benchmark.benchmark)
+            , ("quiet", const quietIntersections)
+            , ("benchmark", const benchmark)
             ]  
 
 main :: IO ()
@@ -27,7 +26,7 @@ main = do
 
     case args of
         -- If there are no arguments, run the program normally.
-        []                  -> Intersections.intersections
+        []                  -> intersections
 
         -- If there are arguments, the first one represents the command,
         -- while the other ones represent arguments to the command.

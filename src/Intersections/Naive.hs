@@ -1,4 +1,4 @@
-module Naive where
+module Intersections.Naive where
 
 import Data.List
 
