@@ -26,7 +26,7 @@ intersections :: [Circle] -> [Position]
 intersections [] = []
 
 -- 1 circle has no intersections.
-intersections [c] = 0
+intersections [c] = []
 
 -- A list of circles may have intersections.
 -- Remove all duplicates in a list of intersections found by the 'go' function.
