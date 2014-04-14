@@ -1,16 +1,16 @@
-module SVG where
+module Visual.SVG where
 
-import Circle
-import Position
+import Geometry.Circle
+import Geometry.Position
 
 -- Settings
-scale = 250.0
-offset = 1.0
-width = 1000
-height = 1000
-background = "#000000"
-circleColor = "#ffffff"
-intersectionColor = "#ff0000"
+scale               = 250.0
+offset              = 1.0
+width               = 1000
+height              = 1000
+background          = "#000000"
+circleColor         = "#ffffff"
+intersectionColor   = "#ff0000"
 
 class Drawable a where
     draw :: a -> String

@@ -1,6 +1,7 @@
+.PHONY: Intersections, Geometry, Test, Visual, Benchmark
+
 all:
 	make dirty
-	rm -f *.hi *.o
 
 dirty:
 	ghc --make -O2 Main
@@ -35,9 +36,14 @@ clean:
 	rm -rf test_input
 	rm -rf test_output
 	rm -rf benchmarks
+	$(MAKE) -C Test clean
+	$(MAKE) -C Visual clean
+	$(MAKE) -C Geometry clean
+	$(MAKE) -C Intersections clean
+	$(MAKE) -C Benchmark clean
 
 benchmark:
-	mkdir benchmarks
-	./Main benchmark --samples=10000 --output=benchmarks/1.html "algorithm 1"
-	./Main benchmark --samples=10000 --output=benchmarks/2.html "algorithm 2"
-	./Main benchmark --samples=10000 --output=benchmarks/3.html "algorithm 3"
+	mkdir -p benchmarks
+	./Main benchmark --samples=1000 --output=benchmarks/1.html "algorithm 1"
+	./Main benchmark --samples=1000 --output=benchmarks/2.html "algorithm 2"
+	./Main benchmark --samples=1000 --output=benchmarks/3.html "algorithm 3"

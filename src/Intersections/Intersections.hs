@@ -1,23 +1,20 @@
-module Intersections where
+module Intersections.Intersections where
 
 import Control.Monad.State
 import Data.Maybe
 import System.CPUTime
 
-import Naive
-import Quadratic
-import Linearithmic
-
+import Geometry.Circle
+import Geometry.Position
+import qualified Intersections.Linearithmic as Linearithmic
+import qualified Intersections.Naive as Naive
+import qualified Intersections.Quadratic as Quadratic
 import Parser
-import Circle
-import Position
 
 intersections :: IO ()
 intersections = do
-    input <- lines `fmap` getContents
-    let (algorithm, circleData) = runState readAlgorithm input
-    let (circles, _) = runState readCircles circleData
-    
+    (algorithm, circles) <- getInput
+
     start <- getCPUTime
     let solution = solve algorithm circles
     end <- getCPUTime
@@ -32,13 +29,18 @@ intersections = do
 
 quietIntersections :: IO ()
 quietIntersections = do
-    input <- lines `fmap` getContents
-    let (algorithm, circleData) = runState readAlgorithm input
-    let (circles, _) = runState readCircles circleData
+    (algorithm, circles) <- getInput
     let solution = solve algorithm circles
     case solution of
         Nothing -> putStrLn "Dit algoritme is niet geïmplementeerd."
-        Just _  -> putStrLn $ (show (length $ fromJust solution)) ++ " intersections found"
+        Just s  -> putStrLn $ show (length s) ++ " intersections found"
+
+getInput :: IO (Int, [Circle])
+getInput = do
+    input <- lines `fmap` getContents
+    let (algorithm, circleData) = runState readAlgorithm input
+    let (circles, _) = runState readCircles circleData
+    return (algorithm, circles)
 
 readAlgorithm :: Loader Int
 readAlgorithm = parseLine
@@ -47,6 +49,7 @@ readCircles :: Loader [Circle]
 readCircles = do
     nCircles <- parseLine
     replicateM nCircles parseLine
+
 
 solve :: Int -> [Circle] -> Maybe [Position]
 solve 1 c = Just $ Naive.intersections         c

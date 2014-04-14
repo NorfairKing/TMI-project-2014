@@ -1,8 +1,8 @@
-module Circle where
+module Geometry.Circle where
 
 import Text.Printf
 
-import Position
+import Geometry.Position
 
 data Circle = Cir { centre :: Position
                   , radius :: Double

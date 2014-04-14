@@ -1,13 +1,7 @@
-module Event where
+module Intersections.Event where
 
-import Circle
-import Position
-
-eventPointss :: [Circle] -> [Event]
-eventPointss = concatMap eventPoints
-
-eventPoints :: Circle -> [Event]
-eventPoints c = [Insert c, Delete c]
+import Geometry.Circle
+import Geometry.Position
 
 data Event = Insert Circle | Delete Circle
 
@@ -22,7 +16,13 @@ instance Show Event where
         Insert c -> "Insert " ++ show c        
         Delete c -> "Delete " ++ show c        
 
+eventPointss :: [Circle] -> [Event]
+eventPointss = concatMap eventPoints
+
+eventPoints :: Circle -> [Event]
+eventPoints c = [Insert c, Delete c]
+
 pos :: Event -> Position
-pos event = case event of
-     Insert (Cir (Pos x y) r) -> Pos (x-r) y
-     Delete (Cir (Pos x y) r) -> Pos (x+r) y
+pos (Insert (Cir (Pos x y) r)) = Pos (x-r) y
+pos (Delete (Cir (Pos x y) r)) = Pos (x+r) y
+
