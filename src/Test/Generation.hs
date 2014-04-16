@@ -1,12 +1,11 @@
 module Test.Generation where
 
-import Control.Monad.State
 import System.IO
 import System.Random
+import Control.Monad.State
 
 import Geometry.Circle
 import Geometry.Position
-import Parser
 import Test.Settings
 
 -- Generation

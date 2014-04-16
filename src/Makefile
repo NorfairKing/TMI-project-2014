@@ -18,6 +18,7 @@ fastndirty:
 
 pretty:
 	hlint *.hs
+	ghc --make -fwarn-unused-imports Main
 
 example:
 	make all
