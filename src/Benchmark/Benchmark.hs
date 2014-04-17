@@ -73,7 +73,7 @@ recordToStr na nc sc t
     ++ "," 
     ++ show sc
     ++ ","
-    ++ show t
+    ++ show (floor (t*1000000)) -- convert to us
 
 runAssignment :: Assignment -> IO ()
 runAssignment a@(A _ (C na _ _)) = do
@@ -82,4 +82,4 @@ runAssignment a@(A _ (C na _ _)) = do
     hPutStrLn outh csv
     hClose outh
    
-assignments = [ A ntDefault (C na nc sc) | na <- nas, nc <- ncs, sc <- scs ] 
+assignments = [ A ntDefault (C na nc sc) | nc <- ncs, na <- nas, sc <- scs ] 
