@@ -11,7 +11,6 @@ import Intersections.Intersections
 import System.Directory
 import System.IO
 import System.Random
-import Text.CSV
 
 instance NFData Position
 instance NFData Circle
