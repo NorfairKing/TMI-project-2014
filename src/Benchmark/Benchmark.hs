@@ -9,6 +9,7 @@ import Geometry.Circle
 import Geometry.Position
 import Intersections.Intersections
 import System.Directory
+import System.IO
 import System.Random
 import Text.CSV
 
@@ -17,11 +18,11 @@ instance NFData Circle
 
 benchmark = do
     check
-    putStrLn "hi"
+    mapM_ runAssignment assignments
 
 check = do
     b <- doesDirectoryExist resultsDir
-    if b
+    if not b
     then createDirectory resultsDir    
     else return ()
 
@@ -63,12 +64,23 @@ benchSolveN (A nt c) = replicateM nt $ benchSolve c
 timeToCsv :: Assignment -> IO String
 timeToCsv a@(A nt (C na nc sc)) = do
     ts <- benchSolveN a
-    return $ printCSV $ map toStr ts
-    where toStr t = [show na, show nc, show sc, show t]
+    return $ init $ unlines $ map (recordToStr na nc sc) ts
+
+recordToStr :: Int -> Int -> Double -> Double -> String
+recordToStr na nc sc t
+    = show na 
+    ++ "," 
+    ++ show nc 
+    ++ "," 
+    ++ show sc
+    ++ ","
+    ++ show t
 
 runAssignment :: Assignment -> IO ()
 runAssignment a@(A _ (C na _ _)) = do
     csv <- timeToCsv a
-    appendFile (csvFile na) csv
+    outh <- openFile (resultsDir ++ "/" ++ csvFile na) AppendMode
+    hPutStrLn outh csv
+    hClose outh
    
 assignments = [ A ntDefault (C na nc sc) | na <- nas, nc <- ncs, sc <- scs ] 
