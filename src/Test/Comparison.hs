@@ -3,7 +3,6 @@ module Test.Comparison where
 import Control.Monad.State
 import System.IO
 
-import Geometry.Circle
 import Geometry.Position
 import Parser
 import Test.Settings
