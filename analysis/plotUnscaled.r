@@ -1,7 +1,7 @@
 #!/usr/bin/Rscript
 nas = 1:3
 color = c("red","green","blue")
-scale = 0.5
+scale = 0.75
 err = 0.1
 
 png(filename="unscaled.png", height=450, width=800, bg="white")

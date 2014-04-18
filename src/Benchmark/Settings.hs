@@ -5,10 +5,10 @@ nas = [ 1..3 ]
 ncs = [ 10..100 ]
 
 scs :: [Double]
-scs = [0.5]
+scs = [0.75]
 
 ntDefault :: Int
-ntDefault = 5
+ntDefault = 1
 
 resultsDir = "../analysis/results"
 
