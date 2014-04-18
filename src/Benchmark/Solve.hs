@@ -16,6 +16,9 @@ import Intersections.Intersections
 instance NFData Position
 instance NFData Circle
 
+rawDataExperiment = do
+    mapM_ runAssignment assignments
+
 -- Make a forced IO action out of the main solve function.
 ioSolve :: Int -> [Circle] -> IO [Position]
 ioSolve na cs | na `elem` nas
@@ -30,6 +33,11 @@ benchCase (C na nc sc) = do
 
 benchAssignment :: Assignment -> IO [Double]
 benchAssignment (A nt c) = replicateM nt $ benchCase c
+
+benchAssignmentAvg :: Assignment -> IO Double
+benchAssignmentAvg a = do
+    rs <- benchAssignment a
+    return $ (sum rs) / (fromIntegral (length rs))
 
 -- Time and output the results to a csv file.
 timeToCsv :: Assignment -> IO String

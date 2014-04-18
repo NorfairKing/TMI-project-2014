@@ -1,15 +1,24 @@
 module Benchmark.DoubleRatio where
 
-import Data.List
+import Benchmark.Assignment
+import Benchmark.Case
 import Benchmark.Settings
-import Benchmark.Benchmark
+import Benchmark.Solve
 
-drCases :: Int -> [[Case]]
-drCases na = map (drCases' na) drScs
-
-drCases' :: Int -> Double -> [Case]
-drCases' na sc = [ (C na nc sc) | nc <- drNcs]
+doubleRatioExperiment = do
+    rs <- doubleRatio 1
+    putStrLn $ unlines $ map (unwords . map show) $ rs
 
 doubleRatio na = do
-    mx <- mapM (mapM benchSolve) $ drCases na
-    return $ map (\x -> zipWith (/) (tail x) x) $ transpose mx
+    mx <- mapM (mapM benchAssignmentAvg) $ drAssignments na
+    return $ map ratios $ mx
+
+drAssignments :: Int -> [[Assignment]]
+drAssignments na = map (drAssignments' na) drScs
+
+drAssignments' :: Int -> Double -> [Assignment]
+drAssignments' na sc = [ (A drAcc (C na nc sc)) | nc <- drNcs]
+
+ratios [] = []
+ratios [x] = []
+ratios (x:y:ll) = (y/x) : ratios (y:ll)
