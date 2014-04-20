@@ -1,4 +1,6 @@
 all:
+	./plotFewIntersections.r
+	./plotManyIntersections.r
 	./plot3DScatter.r
 clean:
-	rm results/*
+	rm -f results/*

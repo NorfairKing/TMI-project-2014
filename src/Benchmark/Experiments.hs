@@ -13,14 +13,14 @@ allExperiments =
     ]
 
 
-accuracy = 1
+accuracy = 5
 
 
 -- 3D Plot Experiment
 threeDPlotExperiment = E "3D"
     [ 
     A accuracy (C na nc sc) 
-    | nc <- [10,15..100]
+    | nc <- [0,5..100]
     , na <- nas
     , sc <- [0.0,0.05..0.5]
     ]
@@ -30,7 +30,7 @@ threeDPlotExperiment = E "3D"
 fewIntersectionsExperiment = E "FewIntersections"
     [
     A accuracy (C na nc 0.002)
-    | nc <- [10..100]
+    | nc <- [10..1000]
     , na <- nas
     ]
 
