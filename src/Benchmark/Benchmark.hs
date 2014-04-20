@@ -2,17 +2,16 @@ module Benchmark.Benchmark where
 
 import System.Directory
 
-import Benchmark.Assignment
-import Benchmark.Case
+import Benchmark.Experiments
 import Benchmark.Settings
 import Benchmark.Solve
 import Benchmark.DoubleRatio
 
 benchmark = do
     check
---    rawDataExperiment
-    doubleRatioExperiment
+    mapM_ doExperiment allExperiments
 
+-- Create nececary directories
 check = do
     bs <- mapM doesDirectoryExist dirs
     mapM_ createDirectory $ select (map not bs) dirs

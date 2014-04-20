@@ -7,6 +7,7 @@ import Data.Maybe
 import System.IO
 
 import Benchmark.Assignment
+import Benchmark.Experiment
 import Benchmark.Case
 import Benchmark.Settings
 import Geometry.Circle
@@ -15,9 +16,6 @@ import Intersections.Intersections
 
 instance NFData Position
 instance NFData Circle
-
-rawDataExperiment = do
-    mapM_ runAssignment assignments
 
 -- Make a forced IO action out of the main solve function.
 ioSolve :: Int -> [Circle] -> IO [Position]
@@ -42,8 +40,8 @@ benchAssignmentAvg a = do
 -- Time and output the results to a csv file.
 timeToCsv :: Assignment -> IO String
 timeToCsv a@(A nt (C na nc sc)) = do
-    ts <- benchAssignment a
-    return $ init $ unlines $ map (recordToStr na nc sc) ts
+    t <- benchAssignmentAvg a
+    return $ recordToStr na nc sc t
 
 recordToStr :: Int -> Int -> Double -> Double -> String
 recordToStr na nc sc t
@@ -55,9 +53,18 @@ recordToStr na nc sc t
     ++ ","
     ++ show (floor (t*1000000)) -- convert to us
 
-runAssignment :: Assignment -> IO ()
-runAssignment a@(A _ (C na _ _)) = do
+runAssignment' :: String -> Assignment -> IO ()
+runAssignment' ofile a@(A _ (C na _ _))= do
     csv <- timeToCsv a
-    outh <- openFile (resultsDir ++ "/" ++ csvFile na) AppendMode
+    outh <- openFile ofile AppendMode
     hPutStrLn outh csv
     hClose outh
+
+-- Experiments
+doExperiment :: Experiment -> IO ()
+doExperiment (E name as) = do
+    let ofile = resultsDir ++ "/"
+                ++ experimentPrefix
+                ++ name
+                ++ experimentExtension
+    mapM_ (runAssignment' ofile) as

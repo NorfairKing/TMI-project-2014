@@ -9,17 +9,32 @@ png(filename="3DScatter.png", height=450, width=800, bg="white")
 library(scatterplot3d)
 attach(mtcars)
 
-for (i in nas) {
-    resFile = paste(c("scaleResults/results_", toString(i), ".csv"), collapse="")
-    res = read.csv(resFile, header=FALSE)
-    circles = res$V2
-    scales = res$V3
-    times = res$V4
+resFile = "results/experiment_3D.csv"
+res = read.csv(resFile, header=FALSE)
+
+for (i in nas){
+
+    
+    circles = res$V2[res$V1 == i]
+    scales = as.numeric(as.character(res$V3[res$V1 == i]))
+    times = res$V4[res$V1 == i]
+
     if(i==1){
-        o = scatterplot3d(scales,circles, times,
+        o = scatterplot3d(
+            scales, 
+            circles,
+            times,
+            xlab = "Circles",
+            ylab = "time (us)",
+            zlab = "scale",
             color=col[i])
     }else{
         o$points3d(scales,circles,times, col=col[i])
     }
+
 }
+
+title(main="3D", col.main="black", font.main=4)
+
+
 dev.off()

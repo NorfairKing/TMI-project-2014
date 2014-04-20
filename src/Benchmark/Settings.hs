@@ -3,21 +3,15 @@ module Benchmark.Settings where
 import Benchmark.Case
 import Benchmark.Assignment
 
-nas, ncs :: [Int]
+nas :: [Int]
 nas = [ 1..3 ]
-ncs = [ 10..100 ]
 
-scs :: [Double]
-scs = [0.75]
-
-ntDefault :: Int
-ntDefault = 1
-
+-- Paths
 resultsDir = "../analysis/results"
+experimentPrefix = "experiment_"
+experimentExtension = ".csv"
 
 csvFile na = "results_" ++ show na ++ ".csv"
-
-assignments = [ A ntDefault (C na nc sc) | nc <- ncs, na <- nas, sc <- scs ]
 
 doubleRatioDir = "../analysis/results_doubleRatio"
 

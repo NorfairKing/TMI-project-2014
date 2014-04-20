@@ -1,3 +1,4 @@
 all:
 	./plot3DScatter.r
-	./plotUnscaled.r
+clean:
+	rm results/*
