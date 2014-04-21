@@ -2,7 +2,7 @@
 nas = 1:3
 color = c("red","green","blue")
 
-png(filename="fewIntersections.png", height=450, width=800, bg="white")
+png(filename="fewIntersections.png", height=1080, width=1920, bg="white")
 
 for (i in nas) {
     resFile = paste("results/experiment_FewIntersections.csv", collapse="")

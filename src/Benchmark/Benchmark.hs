@@ -5,7 +5,6 @@ import System.Directory
 import Benchmark.Experiments
 import Benchmark.Settings
 import Benchmark.Solve
-import Benchmark.DoubleRatio
 
 benchmark = do
     check

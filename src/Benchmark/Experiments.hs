@@ -20,9 +20,9 @@ accuracy = 5
 threeDPlotExperiment = E "3D"
     [ 
     A accuracy (C na nc sc) 
-    | nc <- [0,5..100]
+    | nc <- [0,2..100]
     , na <- nas
-    , sc <- [0.0,0.05..0.5]
+    , sc <- [0.0,0.02..0.5]
     ]
 
 

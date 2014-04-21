@@ -3,7 +3,7 @@
 nas = 1:3
 col = c("red","green","blue")
 
-png(filename="3DScatter.png", height=450, width=800, bg="white")
+png(filename="3DScatter.png", height=1080, width=1920, bg="white")
 
 # 3D Scatterplot
 library(scatterplot3d)
@@ -24,9 +24,9 @@ for (i in nas){
             scales, 
             circles,
             times,
-            xlab = "Circles",
-            ylab = "time (us)",
-            zlab = "scale",
+            xlab = "Scales",
+            ylab = "Circles",
+            zlab = "Times (us)",
             color=col[i])
     }else{
         o$points3d(scales,circles,times, col=col[i])
