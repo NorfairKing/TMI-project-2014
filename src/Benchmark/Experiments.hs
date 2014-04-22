@@ -5,6 +5,7 @@ import Benchmark.Assignment
 import Benchmark.Case
 import Benchmark.Experiment
 
+allExperiments :: [Experiment]
 allExperiments = 
     [
       fewIntersectionsExperiment
@@ -13,10 +14,11 @@ allExperiments =
     ]
 
 
-accuracy = 5
-
+accuracy :: Int
+accuracy = 1
 
 -- 3D Plot Experiment
+threeDPlotExperiment :: Experiment
 threeDPlotExperiment = E "3D"
     [ 
     A accuracy (C na nc sc) 
@@ -27,6 +29,7 @@ threeDPlotExperiment = E "3D"
 
 
 -- Few Intersections Experiment
+fewIntersectionsExperiment :: Experiment
 fewIntersectionsExperiment = E "FewIntersections"
     [
     A accuracy (C na nc 0.002)
@@ -35,6 +38,7 @@ fewIntersectionsExperiment = E "FewIntersections"
     ]
 
 -- Many Intersections Experiment
+manyIntersectionsExperiment :: Experiment
 manyIntersectionsExperiment = E "ManyIntersections"
     [
     A accuracy (C na nc 0.4)
