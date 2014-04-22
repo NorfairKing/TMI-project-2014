@@ -11,7 +11,6 @@ dispatch str = lookup str
             [
               ("test", test)
             , ("visualize", visualize)
-            , ("quiet", const quietIntersections)
             , ("benchmark", const benchmark)
             ]  
 

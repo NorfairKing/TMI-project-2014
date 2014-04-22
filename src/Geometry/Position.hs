@@ -1,5 +1,6 @@
 module Geometry.Position where
 
+import Control.DeepSeq
 import Text.Printf
 
 import Geometry.Vector
@@ -40,3 +41,5 @@ instance Ord Position where
         then compare y1 y2
         else c1
         where c1 = compare x1 x2
+
+instance NFData Position

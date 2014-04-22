@@ -9,10 +9,14 @@ import System.IO
 import Benchmark.Assignment
 import Benchmark.Case
 import Benchmark.Experiment
+import Benchmark.Intersections
 import Benchmark.Settings
 import Geometry.Circle
 import Geometry.Position
 import Intersections.Intersections
+
+instance NFData Position
+instance NFData Circle
 
 benchCase :: Case -> IO Double
 benchCase (C na nc sc) = do
