@@ -1,7 +1,6 @@
 module Visual.Visual where
 
 import Control.Monad.State
-import System.Environment
 import System.IO
 
 import Geometry.Circle
