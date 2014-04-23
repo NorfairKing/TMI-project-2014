@@ -35,7 +35,7 @@ build:
 	cp verslag/verslag.pdf build/verslag/verslagKerckhoveGoasAguililla.pdf
 	mkdir -p build/src
 	cp src/Main build/Executable
-	cp src/*.hs build/src
+	cp -r src/* build/src
 
 zip:
 	zip -r codeKerckhoveGoasAguililla.zip build
