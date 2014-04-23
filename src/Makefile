@@ -22,7 +22,7 @@ pretty:
 
 example:
 	make all
-	./Main visualize ./test_input/testcase_3_008.txt ./test_output/testcase_3_008.txt > example.svg
+	./Main visualize ./test_input/testcase_3_020.txt ./test_output/testcase_3_020.txt > example.svg
 
 test:
 	make all
