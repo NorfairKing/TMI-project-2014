@@ -14,6 +14,7 @@ dispatch str = lookup str
             , ("benchmark", const benchmark)
             ]  
 
+
 main :: IO ()
 main = do
     -- Get the command line arguments.
