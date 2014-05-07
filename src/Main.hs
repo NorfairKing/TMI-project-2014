@@ -1,12 +1,8 @@
 module Main where
 
-import Data.List  
-import Data.Maybe
-import System.Environment
-import System.IO  
-  
 import Benchmark.Benchmark
 import Intersections.Intersections
+import System.Environment
 import Test.Test
 import Visual.Visual
 
@@ -15,9 +11,9 @@ dispatch str = lookup str
             [
               ("test", test)
             , ("visualize", visualize)
-            , ("quiet", const quietIntersections)
             , ("benchmark", const benchmark)
             ]  
+
 
 main :: IO ()
 main = do

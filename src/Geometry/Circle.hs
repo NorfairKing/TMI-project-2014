@@ -1,5 +1,6 @@
 module Geometry.Circle where
 
+import Control.DeepSeq
 import Text.Printf
 
 import Geometry.Position
@@ -48,3 +49,4 @@ circlesIntersections c1@(Cir p1@(Pos x1 y1) r1) c2@(Cir p2@(Pos x2 y2) r2) =
         d'  = d*d
         d   = distance p1 p2
 
+instance NFData Circle

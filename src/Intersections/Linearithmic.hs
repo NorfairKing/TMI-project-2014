@@ -9,8 +9,13 @@ import Geometry.Position
 import Geometry.Vector
 import Intersections.Event
 
+
+
 intersections :: [Circle] -> [Position]
-intersections cs = L.nub $ concat $ A.asListL $ go (sort $ eventPointss cs) A.empty A.empty
+
+intersections []  = []
+intersections [_] = []
+intersections cs  = L.nub $ concat $ A.asListL $ go (sort $ eventPointss cs) A.empty A.empty
     where
       go :: [Event] -> AVL Circle -> AVL Circle -> AVL [Position]
       go [e] act _ = A.empty

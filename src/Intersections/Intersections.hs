@@ -1,6 +1,8 @@
 module Intersections.Intersections where
 
+import Control.DeepSeq
 import Control.Monad.State
+import Criterion.Measurement
 import Data.Maybe
 import System.CPUTime
 
@@ -10,30 +12,20 @@ import qualified Intersections.Linearithmic as Linearithmic
 import qualified Intersections.Naive as Naive
 import qualified Intersections.Quadratic as Quadratic
 import Parser
+import Settings
 
 intersections :: IO ()
 intersections = do
     (algorithm, circles) <- getInput
 
-    start <- getCPUTime
-    let solution = solve algorithm circles
-    end <- getCPUTime
-    let diff = fromIntegral (end - start) / (10^9)
-    
-    case solution of
-        Nothing -> putStrLn "Dit algoritme is niet geïmplementeerd."
-        Just _  -> do
-                mapM_ print $ fromJust solution
-                putStrLn ""
-                print $ floor diff
-
-quietIntersections :: IO ()
-quietIntersections = do
-    (algorithm, circles) <- getInput
-    let solution = solve algorithm circles
-    case solution of
-        Nothing -> putStrLn "Dit algoritme is niet geïmplementeerd."
-        Just s  -> putStrLn $ show (length s) ++ " intersections found"
+    (t, solution) <- time $ ioSolve algorithm circles
+   
+    if algorithm `elem` nas
+    then do
+        mapM_ print solution
+        putStrLn "" 
+        print $ floor (t * 1000)
+    else putStrLn "Dit algoritme is niet geïmplementeerd."
 
 getInput :: IO (Int, [Circle])
 getInput = do
@@ -50,9 +42,15 @@ readCircles = do
     nCircles <- parseLine
     replicateM nCircles parseLine
 
+-- Make a forced IO action out of the main solve function.
+ioSolve :: Int -> [Circle] -> IO [Position]
+ioSolve na cs | na `elem` nas 
+    -- $!! ensures that the right side is deeply evaluated before it's returned.
+    = return $!! solve na cs
+ioSolve _ _ = return []
 
-solve :: Int -> [Circle] -> Maybe [Position]
-solve 1 c = Just $ Naive.intersections         c
-solve 2 c = Just $ Quadratic.intersections     c
-solve 3 c = Just $ Linearithmic.intersections  c
-solve _ _ = Nothing
+solve :: Int -> [Circle] -> [Position]
+solve 1 c = Naive.intersections         c
+solve 2 c = Quadratic.intersections     c
+solve 3 c = Linearithmic.intersections  c
+solve _ _ = []

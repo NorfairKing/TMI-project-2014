@@ -21,12 +21,6 @@ intersections [c] = []
 -- A list of circles may have intersections.
 intersections l = nub $ go l
     where 
-        -- 0 circles have no intersections
-        go [] = []
-        
-        -- 1 circle has no intersections.
-        go [c] = []
-        
         -- find the intersections of the first circle with every other circles,
         -- then go on to the next circle and put all intersections together in a list.
         go (c:cs) = concatMap (circlesIntersections c) cs ++ go cs

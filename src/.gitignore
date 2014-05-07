@@ -3,6 +3,7 @@ Main
 *.txt
 *.svg
 *.html
+*.csv
 
 dist
 cabal-dev
