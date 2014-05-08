@@ -16,11 +16,13 @@ intersections :: [Circle] -> [Position]
 intersections [] = []
 
 -- 1 circle has no intersections.
-intersections [c] = []
+intersections [_] = []
 
 -- A list of circles may have intersections.
 intersections l = nub $ go l
     where 
+        go [] = []
+        go [_] = []
         -- find the intersections of the first circle with every other circles,
         -- then go on to the next circle and put all intersections together in a list.
         go (c:cs) = concatMap (circlesIntersections c) cs ++ go cs
