@@ -9,7 +9,10 @@ instance Eq Event where
     (==) e1 e2 = (==) (pos e1) (pos e2)
 
 instance Ord Event where
-    compare e1 e2 = compare (pos e1) (pos e2)
+    compare = eventOrdering
+
+eventOrdering  e1 e2 = positionOrdering  (pos e1) (pos e2)
+eventOrdering' e1 e2 = positionOrdering' (pos e1) (pos e2)
 
 instance Show Event where
     show e = case e of
@@ -17,7 +20,6 @@ instance Show Event where
         Delete c -> "Delete " ++ show c        
 
 
-otherEventOrdering e2 e3 = otherPositionOrdering (otherPos e2) (otherPos e3)
 
 -- A circle has two event points
 eventPoints :: Circle -> [Event]
@@ -27,12 +29,8 @@ eventPoints c = [Insert c, Delete c]
 eventPointss :: [Circle] -> [Event]
 eventPointss = concatMap eventPoints
 
-otherPos :: Event -> Position
-otherPos (Insert (Cir (Pos x y) r)) = Pos (x-r) y
-otherPos (Delete (Cir (Pos x y) r)) = Pos (x+r) y
-
 pos :: Event -> Position
-pos (Insert (Cir (Pos x y) r)) = Pos x (y-r)
-pos (Delete (Cir (Pos x y) r)) = Pos x (y+r)
+pos (Insert (Cir (Pos x y) r)) = Pos (x-r) (y-r)
+pos (Delete (Cir (Pos x y) r)) = Pos (x+r) (y+r)
 
 

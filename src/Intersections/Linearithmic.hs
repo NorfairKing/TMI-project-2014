@@ -14,7 +14,7 @@ intersections :: [Circle] -> [Position]
 intersections []  = []
 intersections [_] = []
 
-intersections cs = A.nub $ go (L.sortBy otherEventOrdering $ eventPointss cs) I.empty
+intersections cs = A.nub $ go (L.sortBy eventOrdering' $ eventPointss cs) I.empty
     where
         go :: [Event] -> IntervalMap Position Circle -> [Position]
         

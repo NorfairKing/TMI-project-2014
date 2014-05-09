@@ -6,7 +6,7 @@ algorithmNrs :: [Int]
 algorithmNrs = [1..3]
 
 circlesNrs :: [Int]
-circlesNrs = [10,20..100]
+circlesNrs = [0,1,10]
 
 inputDir       = "test_input"
 outputDir      = "test_output"
