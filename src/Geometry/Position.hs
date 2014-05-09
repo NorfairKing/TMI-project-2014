@@ -36,10 +36,8 @@ instance Show Position where
 
 -- Define an ordering for a position
 instance Ord Position where
-    compare (Pos x1 y1) (Pos x2 y2) =
-        if c1 == EQ
-        then compare y1 y2
-        else c1
-        where c1 = compare x1 x2
+    compare (Pos x1 y1) (Pos x2 y2) = compare y1 y2
+
+otherPositionOrdering (Pos x1 y1) (Pos x2 y2) = compare x1 x2
 
 instance NFData Position

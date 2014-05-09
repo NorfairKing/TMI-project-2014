@@ -3,20 +3,53 @@ module Intersections.Linearithmic where
 import Data.COrdering
 import Data.Tree.AVL as A
 import Data.List as L
+import Data.IntervalMap.Strict as I
 
 import Geometry.Circle
 import Geometry.Position
 import Geometry.Vector
 import Intersections.Event
 
-
--- All intersections of a list of circles
 intersections :: [Circle] -> [Position]
-
--- 0 or 1 circles have no intersections
 intersections []  = []
 intersections [_] = []
 
+intersections cs = A.nub $ go (L.sortBy otherEventOrdering $ eventPointss cs) I.empty
+    where
+        go :: [Event] -> IntervalMap Position Circle -> [Position]
+        
+        go [e] _ = []
+         
+        go (Insert c : es) act = intersects ++ next
+            where
+                intersects = L.concatMap (circlesIntersections c) overlapping
+                overlapping = L.map snd $ I.intersecting act thisInterval
+        
+                next = go es newAct
+                newAct = I.insert thisInterval c act
+
+                thisInterval = circleInterval c
+    
+        go (Delete c : es) act = go es newAct
+            where newAct = I.delete (circleInterval c) act
+
+
+toIntervalMap :: [Circle] -> IntervalMap Position Circle        
+toIntervalMap cs = fromList $ L.map (\c -> (circleInterval c, c)) cs
+
+circleInterval :: Circle -> Interval Position
+circleInterval c@(Cir (Pos x y) r) = (ClosedInterval (Pos x (y-r)) (Pos x (y+r)))
+
+testCircles =
+    [
+    Cir (Pos x y) r | x <- [1], y <- [1..3], r <- [0.5]
+    ]
+
+testMap = [ (circleInterval c, c) | c <- testCircles ]
+ivmap = fromList testMap
+
+
+{-
 -- 2 or more circle may have intersections
 intersections cs  = A.nub $ -- Remove duplicate positions
                     concat $ -- Concat all computed lists of intersections
@@ -26,10 +59,6 @@ intersections cs  = A.nub $ -- Remove duplicate positions
         -- The main computing function
         go :: [Event] -> AVL Circle -> AVL Circle -> AVL [Position]
 
-        -- The last event is always a delete events
-        -- there are no more intersections to be found at this point.
-        go [e] act _ = A.empty
-        
         -- At an insertion event:
         go (Insert c : evl) act rad = intersects c `A.join` next
             where
@@ -55,4 +84,4 @@ interval c@(Cir ct r) act rad
         max_r = radius $ assertReadR rad
         r' = Pos 0 (r + max_r)
 
-
+-}

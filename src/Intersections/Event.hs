@@ -17,6 +17,8 @@ instance Show Event where
         Delete c -> "Delete " ++ show c        
 
 
+otherEventOrdering e2 e3 = otherPositionOrdering (otherPos e2) (otherPos e3)
+
 -- A circle has two event points
 eventPoints :: Circle -> [Event]
 eventPoints c = [Insert c, Delete c]
@@ -25,7 +27,12 @@ eventPoints c = [Insert c, Delete c]
 eventPointss :: [Circle] -> [Event]
 eventPointss = concatMap eventPoints
 
+otherPos :: Event -> Position
+otherPos (Insert (Cir (Pos x y) r)) = Pos (x-r) y
+otherPos (Delete (Cir (Pos x y) r)) = Pos (x+r) y
+
 pos :: Event -> Position
-pos (Insert (Cir (Pos x y) r)) = Pos (x-r) y
-pos (Delete (Cir (Pos x y) r)) = Pos (x+r) y
+pos (Insert (Cir (Pos x y) r)) = Pos x (y-r)
+pos (Delete (Cir (Pos x y) r)) = Pos x (y+r)
+
 
