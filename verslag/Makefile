@@ -1,4 +1,5 @@
 INTERACTION=nonstopmode
+
 all:
 	make verslag.pdf
 	make clean
