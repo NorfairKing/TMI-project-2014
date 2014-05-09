@@ -3,7 +3,7 @@
 nas = 1:3
 col = c("red","green","blue")
 
-png(filename="../verslag/illustraties/3DScatter.png", height=1080, width=1920, bg="white")
+png(filename="../verslag/illustraties/3DScatter.png", height=540, width=960, bg="white")
 
 # 3D Scatterplot
 library(scatterplot3d)
@@ -34,7 +34,11 @@ for (i in nas){
 
 }
 
-title(main="3D", col.main="black", font.main=4)
+title(
+    main="3D"
+    , col.main="black"
+    , font.main=4
+    )
 
 
 dev.off()
