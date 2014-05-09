@@ -1,6 +1,7 @@
 module Intersections.Naive where
 
-import Data.List
+import Data.List as L
+import Data.Tree.AVL as A
 
 import Geometry.Circle
 import Geometry.Position
@@ -19,7 +20,7 @@ intersections [] = []
 intersections [_] = []
 
 -- A list of circles may have intersections.
-intersections l = nub $ go l
+intersections l = A.nub $ go l
     where 
         go [] = []
         go [_] = []

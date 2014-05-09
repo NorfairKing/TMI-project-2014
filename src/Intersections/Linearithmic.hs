@@ -15,7 +15,7 @@ intersections :: [Circle] -> [Position]
 
 intersections []  = []
 intersections [_] = []
-intersections cs  = L.nub $ concat $ A.asListL $ go (sort $ eventPointss cs) A.empty A.empty
+intersections cs  = A.nub $ concat $ A.asListL $ go (sort $ eventPointss cs) A.empty A.empty
     where
       go :: [Event] -> AVL Circle -> AVL Circle -> AVL [Position]
       go [e] act _ = A.empty
@@ -30,8 +30,7 @@ ordering :: Circle -> Circle -> Ordering
 ordering (Cir (Pos _ y1) _) (Cir (Pos _ y2) _) = compare y1 y2
 
 ordering' :: Circle -> Circle -> Ordering 
-ordering' (Cir (Pos _ _) r1) (Cir (Pos _ _) r2) = compare r1 r2
-
+ordering' (Cir _ r1) (Cir _ r2) = compare r1 r2
 
 cordering :: Circle -> Circle -> COrdering Circle
 cordering = fstByCC ordering
@@ -40,7 +39,10 @@ cordering' :: Circle -> Circle -> COrdering Circle
 cordering' = fstByCC ordering'
 
 interval :: Circle -> AVL Circle -> AVL Circle ->AVL Circle
-interval (Cir ct r) act rad = takeLE (ordering $ Cir max r) $ takeGE (ordering $ Cir min r) act
+interval c@(Cir ct r) act rad = A.filter (overlapY c) $ takeLE (ordering $ Cir max r) $ takeGE (ordering $ Cir min r) act
                       where (min,max) = (ct <-> r', ct <+> r')
                             max_r = radius $ assertReadR rad
                             r' = Pos 0 (r + max_r)
+
+overlapY :: Circle -> Circle -> Bool
+overlapY (Cir (Pos _ y1) r1) (Cir (Pos _ y2) r2) = abs(r2+r1) > abs(y2-y1)

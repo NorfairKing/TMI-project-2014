@@ -1,6 +1,7 @@
 module Intersections.Quadratic where
 
-import Data.List
+import Data.List as L
+import Data.Tree.AVL as A
 
 import Geometry.Circle
 import Geometry.Position
@@ -32,7 +33,7 @@ intersections [c] = []
 -- Remove all duplicates in a list of intersections found by the 'go' function.
 -- Sort the eventpoints of all circles
 -- and perform the 'go' algorithm with an initially empty eventqueue.
-intersections cs = nub $ go (sort $ eventPointss cs) []
+intersections cs = A.nub $ go (sort $ eventPointss cs) []
     where
         -- The last event is always a delete event, so there won't be any new intersections.
         go [e] act = []
@@ -42,4 +43,4 @@ intersections cs = nub $ go (sort $ eventPointss cs) []
         go (Insert c : evl) act = concatMap (circlesIntersections c) act ++ go evl (c:act)
         
         -- For a delete event, delete the circle from the status queue, and move on.
-        go (Delete c : evl) act = go evl (delete c act)
+        go (Delete c : evl) act = go evl (L.delete c act)
