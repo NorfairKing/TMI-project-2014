@@ -1,6 +1,9 @@
 \documentclass[12pt,a4paper]{article}
 
 \usepackage[dutch]{babel}
+\usepackage{listings}
+
+\usepackage[]{algorithm2e}
 
 % Voor todo's
 \usepackage{todonotes}
@@ -47,8 +50,61 @@
 
 \section{Algoritmen}
 
+\subsection{Snijpunt van twee cirkels berekenen}
+\label{sec:snijpunt}
+
+\begin{algorithm}[H]
+  \KwData{twee cirkels, C en C' met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
+  \KwResult{waar als en slechts als de twee cirkels snijden}
+  d $\leftarrow$ afstand(p1,p2)\\
+  \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
+    \Return{true}
+  }{
+    \Return{false}
+  }
+
+ \caption{Nagaan of twee cirkels snijden}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \KwData{twee cirkels, C en C' met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
+  \KwResult{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
+  \eIf{$circlesIntersect(c1, c2) \land c1 \neq c2$}{
+    px1 $\leftarrow$ s + 2*(y1-y2)/d'*δ\\
+    px2 $\leftarrow$ s - 2*(y1-y2)/d'*δ\\
+    py1 $\leftarrow$ t - 2*(x1-x2)/d'*δ\\
+    py2 $\leftarrow$ t + 2*(x1-x2)/d'*δ\\
+    s   $\leftarrow$ ((x1+x2)/2) + (x2-x1)*α\\
+    t   $\leftarrow$ ((y1+y2)/2) + (y2-y1)*α\\
+    α   $\leftarrow$ (r1*r1-r2*r2)/(2*d')\\
+    δ   $\leftarrow$ (1/4) * sqrt ( (d+r1+r2)*(d+r1-r2)*(d-r1+r2)*(r1+r2-d)  )\\
+    d'  $\leftarrow$ d*d\\
+    d   $\leftarrow$ distance p1 p2\\
+    \Return{$\left\{S_1,S_2\right\}$}
+  }{
+    \Return{$\varnothing$}
+  }
+
+ \caption{Snijpunten van twee cirkels berekenen}
+\end{algorithm}
+
 \subsection{Na\"ief}
 \label{sec:naief}
+
+De naïeve aanpak is gegarandeerd $O(n^2)$ en kunnen we als volgt beschrijven:
+
+\begin{algorithm}[H]
+  \KwData{een lijst van $n$ cirkels C, gegeven door hun middelpunt en straal}
+  \KwResult{een verzameling van $S$ snijpunten R van de cirkels in C}
+  S = $\varnothing$\;
+  \For{$i\leftarrow 1$ \KwTo $n$}{
+    \For{$j\leftarrow i$ \KwTo $n$}{
+      $S = S \cup circleIntersection(c(i),c(j))$
+    }
+
+  }
+ \caption{Na\"ieve aanpak (imperatief)}
+\end{algorithm}
 
 \subsection{Kwadratisch}
 \label{sec:kwadratisch}
