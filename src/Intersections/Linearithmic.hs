@@ -46,9 +46,10 @@ intersections cs  = A.nub $ -- Remove duplicate positions
 -- Take all intervals that overlap in the y-direction
 interval :: Circle -> AVL Circle -> AVL Circle -> AVL Circle
 interval c@(Cir ct r) act rad
-    = A.filter (yOverlap c) 
-    $ takeLE (yOrdering $ Cir max r) 
-    $ takeGE (yOrdering $ Cir min r) act
+    = A.filter (yOverlap c)
+    $ takeLE (yOrdering $ Cir max r) -- log N
+    $ takeGE (yOrdering $ Cir min r) -- log N
+    act 
     where 
         (min,max) = (ct <-> r', ct <+> r')
         max_r = radius $ assertReadR rad
