@@ -16,11 +16,14 @@ instance Show Event where
         Insert c -> "Insert " ++ show c        
         Delete c -> "Delete " ++ show c        
 
-eventPointss :: [Circle] -> [Event]
-eventPointss = concatMap eventPoints
 
+-- A circle has two event points
 eventPoints :: Circle -> [Event]
 eventPoints c = [Insert c, Delete c]
+
+-- All eventpoints of a list of circles
+eventPointss :: [Circle] -> [Event]
+eventPointss = concatMap eventPoints
 
 pos :: Event -> Position
 pos (Insert (Cir (Pos x y) r)) = Pos (x-r) y

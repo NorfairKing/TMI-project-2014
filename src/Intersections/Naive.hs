@@ -13,15 +13,14 @@ import Geometry.Position
 -}
 intersections :: [Circle] -> [Position]
 
--- 0 circles have no intersections.
+-- 0 or 1 circles have no intersections.
 intersections [] = []
-
--- 1 circle has no intersections.
 intersections [_] = []
 
 -- A list of circles may have intersections.
 intersections l = A.nub $ go l
     where 
+        -- 0 or 1 circles have no intersections
         go [] = []
         go [_] = []
         -- find the intersections of the first circle with every other circles,
