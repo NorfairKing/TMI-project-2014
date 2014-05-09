@@ -2,7 +2,7 @@
 nas = 1:3
 color = c("red","green","blue")
 
-png(filename="../verslag/illustraties/manyIntersections.png", height=1080, width=1920, bg="white")
+png(filename="../verslag/illustraties/manyIntersections.png", height=540, width=960, bg="white")
 
 for (i in nas) {
     resFile = paste("results/experiment_ManyIntersections.csv", collapse="")
@@ -30,5 +30,14 @@ title(
     , col.main="black"
     , font.main=4
     )
+
+legend(
+    'topright'
+    , c("Algoritme 1","Algoritme 2","Algoritme 3")
+    , lty=c(1,1)
+    , lwd=c(2.5,2.5)
+    , col=color
+    )
+
 
 dev.off()
