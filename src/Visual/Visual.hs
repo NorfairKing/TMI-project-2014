@@ -29,7 +29,6 @@ visualize args = do
 drawing :: [Circle] -> [Position] -> String
 drawing cs is = unlines $
                    [draw Header]
-                ++ [draw Background]
                 ++  map draw cs
                 ++  map draw is
                 ++ [draw Footer]

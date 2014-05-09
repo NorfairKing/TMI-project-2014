@@ -4,19 +4,17 @@ import Geometry.Circle
 import Geometry.Position
 
 -- Settings
-scale               = 250.0
+scale               = 200.0
 offset              = 1.0
-width               = 1000
-height              = 1000
-background          = "#000000"
-circleColor         = "#ffffff"
+width               = 600
+height              = 600
+circleColor         = "#000000"
 intersectionColor   = "#ff0000"
 
 class Drawable a where
     draw :: a -> String
 
 data SVGUtil = Header
-                | Background
                 | Footer
 
 instance Drawable SVGUtil where
@@ -25,13 +23,6 @@ instance Drawable SVGUtil where
             ++ " width=\"" ++ show width ++ "\""
             ++ " height=\"" ++ show height ++ "\""
             ++ " >"
-    
-    draw Background
-        = " <rect "
-            ++ " width=\"100%\""
-            ++ " height=\"100%\""
-            ++ " fill=\"" ++ background ++ "\""
-            ++ " />"
     
     draw Footer
         = "</svg>"
