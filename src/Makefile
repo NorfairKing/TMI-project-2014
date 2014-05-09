@@ -10,7 +10,11 @@ verbose:
 	ghc --make -O2 Main
 
 fast:
-	ghc --make -O3 -fllvm --fforce-recomp Main
+	ghc --make -O3 Main
+	rm -f *.hi *.o
+
+veryfast:
+	ghc --make -O3 -fllvm Main
 	rm -f *.hi *.o
 
 pretty:
@@ -41,5 +45,5 @@ clean:
 	$(MAKE) -C Benchmark clean
 
 benchmark:
-	rm ../analysis/results/*.csv
+	rm -f ../analysis/results/*.csv
 	./Main benchmark
