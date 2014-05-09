@@ -1,5 +1,6 @@
 module Geometry.Circle where
 
+import Data.COrdering
 import Control.DeepSeq
 import Text.Printf
 
@@ -50,3 +51,25 @@ circlesIntersections c1@(Cir p1@(Pos x1 y1) r1) c2@(Cir p2@(Pos x2 y2) r2) =
         d   = distance p1 p2
 
 instance NFData Circle
+
+-- Circle orderings
+xOrdering, yOrdering, rOrdering :: Circle -> Circle -> Ordering
+xOrdering (Cir (Pos x1 _ ) _) (Cir (Pos x2 _ ) _) = compare x1 x2
+yOrdering (Cir (Pos _  y1) _) (Cir (Pos _  y2) _) = compare y1 y2
+rOrdering (Cir _ r1) (Cir _ r2) = compare r1 r2
+
+-- Circle COrderings
+xCOrdering, yCOrdering, rCOrdering :: Circle -> Circle -> COrdering Circle
+xCOrdering = co xOrdering
+yCOrdering = co yOrdering
+rCOrdering = co rOrdering
+
+-- Helper
+co :: (a -> b -> Ordering) -> a -> b -> COrdering a
+co = fstByCC
+
+-- Quick overlap functions
+xOverlap, yOverlap :: Circle -> Circle -> Bool
+xOverlap (Cir (Pos x1 _) r1) (Cir (Pos x2 _ ) r2) = abs(r2+r1) > abs(x2-x1)
+yOverlap (Cir (Pos _ y1) r1) (Cir (Pos _  y2) r2) = abs(r2+r1) > abs(y2-y1)
+

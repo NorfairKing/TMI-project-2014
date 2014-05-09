@@ -23,10 +23,8 @@ import Intersections.Event
 -}
 intersections :: [Circle] -> [Position]
 
--- 0 circles have no intersections.
+-- 0 or 1 circles have no intersections.
 intersections [] = []
-
--- 1 circle has no intersections.
 intersections [c] = []
 
 -- A list of circles may have intersections.
