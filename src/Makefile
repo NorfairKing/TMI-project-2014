@@ -10,7 +10,7 @@ verbose:
 	ghc --make -O2 Main
 
 fast:
-	ghc --make -O3 -fforce-recomp Main
+	ghc --make -O3 -fllvm --fforce-recomp Main
 	rm -f *.hi *.o
 
 pretty:
