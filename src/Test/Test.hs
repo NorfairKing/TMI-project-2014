@@ -6,6 +6,7 @@ import Test.Settings
 import Test.Generation
 import Test.Execution
 import Test.Comparison
+import Test.BaseTest
 
 test :: [String] -> IO () 
 test args = do
@@ -16,6 +17,7 @@ test args = do
         "run"       -> runTests
         "compare"   -> compareTests
         "all"       -> do
+                baseTest
                 generateTests
                 runTests
                 compareTests
