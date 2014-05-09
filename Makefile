@@ -4,6 +4,8 @@
 all:
 	make clean
 	make src
+	$(MAKE) -C src test
+	$(MAKE) -C src example
 	make analysis
 	make verslag
 	make build
