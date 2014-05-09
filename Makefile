@@ -13,6 +13,8 @@ all:
 final:
 	make clean
 	$(MAKE) -C src fast
+	$(MAKE) -C src test
+	$(MAKE) -C src example
 	$(MAKE) -C analysis clean-results
 	$(MAKE) -C src benchmark
 	make analysis

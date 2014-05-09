@@ -1,6 +1,9 @@
 INTERACTION=nonstopmode
 
+.PHONY: illustraties
+
 all:
+	make illustraties
 	make verslag.pdf
 	make clean
 %.pdf: %.tex
