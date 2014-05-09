@@ -15,16 +15,16 @@ allExperiments =
 
 
 accuracy :: Int
-accuracy = 1
+accuracy = 5
 
 -- 3D Plot Experiment
 threeDPlotExperiment :: Experiment
 threeDPlotExperiment = E "3D"
     [ 
     A accuracy (C na nc sc) 
-    | nc <- [0,2..100]
+    | nc <- [0,1..100]
     , na <- nas
-    , sc <- [0.0,0.02..0.5]
+    , sc <- [0.0,0.01..0.5]
     ]
 
 
@@ -41,7 +41,7 @@ fewIntersectionsExperiment = E "FewIntersections"
 manyIntersectionsExperiment :: Experiment
 manyIntersectionsExperiment = E "ManyIntersections"
     [
-    A accuracy (C na nc 0.4)
-    | nc <- [10..100]
+    A accuracy (C na nc 1000)
+    | nc <- [10..1000]
     , na <- nas
     ]
