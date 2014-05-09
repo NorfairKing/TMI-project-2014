@@ -9,12 +9,16 @@ instance Eq Event where
     (==) e1 e2 = (==) (pos e1) (pos e2)
 
 instance Ord Event where
-    compare e1 e2 = compare (pos e1) (pos e2)
+    compare = eventOrdering
+
+eventOrdering  e1 e2 = positionOrdering  (pos e1) (pos e2)
+eventOrdering' e1 e2 = positionOrdering' (pos e1) (pos e2)
 
 instance Show Event where
     show e = case e of
         Insert c -> "Insert " ++ show c        
         Delete c -> "Delete " ++ show c        
+
 
 
 -- A circle has two event points
@@ -26,6 +30,7 @@ eventPointss :: [Circle] -> [Event]
 eventPointss = concatMap eventPoints
 
 pos :: Event -> Position
-pos (Insert (Cir (Pos x y) r)) = Pos (x-r) y
-pos (Delete (Cir (Pos x y) r)) = Pos (x+r) y
+pos (Insert (Cir (Pos x y) r)) = Pos (x-r) (y-r)
+pos (Delete (Cir (Pos x y) r)) = Pos (x+r) (y+r)
+
 

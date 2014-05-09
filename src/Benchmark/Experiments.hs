@@ -15,7 +15,7 @@ allExperiments =
 
 
 accuracy :: Int
-accuracy = 5
+accuracy = 10
 
 -- 3D Plot Experiment
 threeDPlotExperiment :: Experiment

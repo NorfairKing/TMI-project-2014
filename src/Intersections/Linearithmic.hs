@@ -3,56 +3,64 @@ module Intersections.Linearithmic where
 import Data.COrdering
 import Data.Tree.AVL as A
 import Data.List as L
+import Data.IntervalMap.Strict as I
 
 import Geometry.Circle
 import Geometry.Position
 import Geometry.Vector
 import Intersections.Event
 
+{-
+    Calculate all intersections of a list of circles in O((N+S)log(N)) worst case time.
+    This is a sweepline algorithm, based on the quadratic algorithm.
+    The eventpoints for this algorithm are all circle events of the input circles.
 
--- All intersections of a list of circles
+    We go through every eventpoint from bottom to top,
+    inserting circles for insert events into the status 
+    and deleting cirlces for delete events.
+
+    For every insertion, we calculate the intersections for each circle in the status whose y-wise interval overlaps with that of the current one.
+
+    When we are done with all events, we will have found every intersection.
+-}
 intersections :: [Circle] -> [Position]
 
 -- 0 or 1 circles have no intersections
 intersections []  = []
 intersections [_] = []
 
--- 2 or more circle may have intersections
-intersections cs  = A.nub $ -- Remove duplicate positions
-                    concat $ -- Concat all computed lists of intersections
-                    A.asListL $ -- Convert the tree to a list of lists
-                    go (sort $ eventPointss cs) A.empty A.empty -- Go !
+-- A list of circles may have intersections.
+-- Remove all duplactes in a list of intersections found by the 'go' function.
+-- Sort the eventpoints of all circles by y coordinate.
+-- and perform the 'go' algorithms with an initially empty interval map.
+intersections cs = A.nub $ go (L.sortBy eventOrdering' $ eventPointss cs) I.empty
     where
-        -- The main computing function
-        go :: [Event] -> AVL Circle -> AVL Circle -> AVL [Position]
-
-        -- The last event is always a delete events
-        -- there are no more intersections to be found at this point.
-        go [e] act _ = A.empty
+        -- The working function.
+        go :: [Event] -> IntervalMap Position Circle -> [Position]
         
-        -- At an insertion event:
-        go (Insert c : evl) act rad = intersects c `A.join` next
+        -- The last event is always a delete event, so there won't be any new intersections.
+        go [e] _ = []
+        
+        -- For an insert event, insert the circle into the status interval map
+        -- and find the intersections with the circles in the interval map with overlapping y-wise intervals
+        go (Insert c : es) act = intersects ++ next
             where
-                -- Intersections for the current circle
-                intersects :: Circle -> AVL [Position]
-                intersects c = A.map (circlesIntersections c) (interval c act rad)                       
-                
-                -- Go onto the next circle
-                next = go evl (A.push (yCOrdering c) c act) (A.push (rCOrdering c) c rad)
+                intersects = L.concatMap (circlesIntersections c) overlapping
+                overlapping = L.map snd $ I.intersecting act thisInterval
+        
+                next = go es newAct
+                newAct = I.insert thisInterval c act
 
-        -- At a deletion event:
-        go (Delete c : evl) act rad = go evl (A.delete (yOrdering c) act) (A.delete (rOrdering c) rad)
+                thisInterval = circleInterval c
+        
+        -- For a delete event, delete the circle from the status interval map and move on.    
+        go (Delete c : es) act = go es newAct
+            where newAct = I.delete (circleInterval c) act
 
--- Take all intervals that overlap in the y-direction
-interval :: Circle -> AVL Circle -> AVL Circle -> AVL Circle
-interval c@(Cir ct r) act rad
-    = A.filter (yOverlap c)
-    $ takeLE (yOrdering $ Cir max r) -- log N
-    $ takeGE (yOrdering $ Cir min r) -- log N
-    act 
-    where 
-        (min,max) = (ct <-> r', ct <+> r')
-        max_r = radius $ assertReadR rad
-        r' = Pos 0 (r + max_r)
 
+toIntervalMap :: [Circle] -> IntervalMap Position Circle        
+toIntervalMap cs = fromList $ L.map (\c -> (circleInterval c, c)) cs
+
+circleInterval :: Circle -> Interval Position
+circleInterval c@(Cir (Pos x y) r) = (ClosedInterval (Pos x (y-r)) (Pos x (y+r)))
 
