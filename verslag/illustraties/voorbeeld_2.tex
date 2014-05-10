@@ -6,38 +6,15 @@
       \draw[very thin,color=lightgray] (0,0) grid (7,7);
       \draw [<->,thick] (0,7) node (yaxis) [left] {Y} |- (7,0) node (xaxis) [right] {X};
       
-      % Index, x, y, r
-      \def\circle[#1,#2,#3,#4] {
-    	% The middlepoint
-    	\coordinate (C#1) at (#2,#3);
-    	
-    	
-    	% The point
-        \draw[fill,color=black] (C#1) circle (1.5pt) node[left, yshift=-10pt, color=black] {$C_#1$};
-        
-        % The circle
-        \draw[thick,color=blue] (C#1) circle (#4);		
-        
-        % The eventpoints
-        \coordinate (E#1_1) at (#2,#3-#4);
-        \coordinate (E#1_2) at (#2,#3+#4);
-    	
-        \draw[fill, color=green] (E#1_1) circle (1.5pt) node[left, yshift=-10pt, color=red] {$e_{#1_1}$};
-        \draw[fill, color=green] (E#1_2) circle (1.5pt) node[left, yshift=-10pt, color=red] {$e_{#1_2}$};
-      }
-      
-      \circle[1,2,1.5,1]
-      \circle[2,4.5,2,1]    
-      \circle[3,5.5,3,1]
-      \circle[4,5,5.5,1]
+      \indexedcircle[1,2,1.5,1]
+      \indexedcircle[2,4.5,2,1]    
+      \indexedcircle[3,5.5,3,1]
+      \indexedcircle[4,5,5.5,1]
       
 
-      \draw[thick,<->] (C1) -- (C2);
-      \draw[thick,<->] (C1) -- (C3);
-      \draw[thick,<->] (C2) -- (C3);
-
-
-      
+      \draw[thick,color=blue,<->] (C1) -- (C2);
+      \draw[thick,color=blue,<->] (C1) -- (C3);
+      \draw[thick,color=blue,<->] (C2) -- (C3);
     \end{tikzpicture}
   }
   \label{fig:voorbeeld_2}

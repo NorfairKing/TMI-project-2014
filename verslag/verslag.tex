@@ -36,24 +36,14 @@
 
 % Voor headers en footers
 \usepackage{fancyhdr}
-\pagestyle{fancy}
 
-\lhead{Tom Sydney Kerckhove \& Xavier Go\'as Aguililla}
-\rhead{\thepage /\pageref{LastPage}}
-
-\lfoot{Practicum}
-\cfoot{Toepassingen van Meetkunde in Informatica}
-\rfoot{Snijdende Cirkels}
-
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
-
+\input{header}
 \begin{document}
 \input{titelblad}
 \tableofcontents
 \section{Inleiding}
-%% \todo{inleiding}
 
+\input{inleiding}
 
 \section{Algoritmen}
 
@@ -61,7 +51,7 @@
 
 \section{Implementatie}
 
-\input{algoritmen}
+\input{implementatie}
 
 \section{Experimenten}
 \input{experimenten}
