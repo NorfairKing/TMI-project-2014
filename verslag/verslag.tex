@@ -54,156 +54,17 @@
 
 \section{Algoritmen}
 
-\subsection{Snijpunt van twee cirkels berekenen}
-\label{sec:snijpunt}
+\input{algoritmen}
 
-\begin{algorithm}[H]
-  \KwData{twee cirkels, C en C' met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
-  \KwResult{waar als en slechts als de twee cirkels snijden}
-  d $\leftarrow$ afstand(p1,p2)\\
-  \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
-    \Return{true}
-  }{
-    \Return{false}
-  }
+\section{Implementatie}
 
- \caption{Nagaan of twee cirkels snijden}
-\end{algorithm}
-
-\begin{algorithm}[H]
-  \KwData{twee cirkels, C en C' met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
-  \KwResult{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
-  \eIf{$circlesIntersect(c1, c2) \land c1 \neq c2$}{
-    $d \leftarrow afstand(p_1, p_2)$\\
-    $\alpha \leftarrow \frac{r_1^2 -r_2^2}{2d^2}$\\
-    $s \leftarrow \frac{x_1+x_2}{2} + \alpha(x_2-x_1)$\\
-    $t \leftarrow \frac{y_1+y_2}{2} + \alpha(y_2-y_1)$\\
-
-    $\delta \leftarrow \frac{1}{4}  \sqrt { (d+r_1+r_2)(d+r_1-r_2)(d-r_1+r_2)(r_1+r_2-d)}$\\
-    $x_1' \leftarrow s + 2\delta\frac{y_1-y_2}{d^2}$\\
-    $x_2' \leftarrow s - 2\delta\frac{y_1-y_2}{d^2}$\\
-    $y_1' \leftarrow t - 2\delta\frac{x_1-x_2}{d^2}$\\
-    $y_2' \leftarrow t + 2\delta\frac{x_1-x_2}{d^2}$\\
-    \Return{$\left\{(x_1',y_1'),(x_2',y_2')\right\}$}
-  }{
-    \Return{$\varnothing$}
-  }
-
- \caption{Snijpunten van twee cirkels berekenen}
-\end{algorithm}
-
-
-\subsection{Na\"ief}
-\label{sec:naief}
-
-De naïeve aanpak is gegarandeerd $O(n^2)$ en kunnen we als volgt beschrijven:
-
-\begin{algorithm}[H]
-  \KwData{een lijst van $n$ cirkels C, gegeven door hun middelpunt en straal}
-  \KwResult{een verzameling van $S$ snijpunten R van de cirkels in C}
-  S = $\varnothing$\;
-  \For{$i\leftarrow 1$ \KwTo $n$}{
-    \For{$j\leftarrow i$ \KwTo $n$}{
-      $S = S \cup circleIntersections(c(i),c(j))$
-    }
-
-  }
- \caption{Na\"ieve aanpak (imperatief)}
-\end{algorithm}
-
-\begin{figure}
-\[
-intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\ \leftarrow\\ cs \}
-\]
-\label{naief_functioneel}
-\caption{Na\"ieve aanpak (functioneel)}
-\end{figure}
-
-
-\subsection{Kwadratisch}
-\label{sec:kwadratisch}
-\begin{algorithm}[H]
-  \KwData{een lijst van $n$ cirkels C, gegeven door hun middelpunt en straal}
-  \KwResult{een verzameling van $S$ snijpunten R van de cirkels in C}
-  $E$ = events($C$)\;
-  sorteer($E$)\;
-  $T = R = \varnothing$\;
-  \For{$e \in E$}{
-    \uIf {e = insert c} {
-      \For{$c' \in T$} {
-        $R = R \cup circleIntersections(c,c')$
-      }
-      $T = T \cup {c}$
-    } \uElseIf {e = delete c} {
-      $T = T \setminus \left\{c\right\} $
-    }
-  }
- \caption{Kwadratische aanpak (imperatief)}
-\end{algorithm}
-
-\begin{figure}
-\[
-intersections\ cs = go\ (sort\ (events\ cs))\ [\ ]
-\]
-\[
-where 
-\]
-\[
-\begin{array}{l c l}
-go\ [\ ] &= &[\ ]\\
-go (Insert\ c\ :\ es) T &= &(map\ (circleIntersections\ c)\ T) \cup (go\ es\ T\cup\{c\})\\
-go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
-\end{array}
-\]
-\label{naief_functioneel}
-\caption{Kwadratische aanpak (functioneel)}
-\end{figure}
-
-\subsection{Linearitmisch}
-\label{sec:linearitmisch}
-\begin{algorithm}[H]
-  \KwData{een lijst van $n$ cirkels C, gegeven door hun middelpunt en straal}
-  \KwResult{een verzameling van $S$ snijpunten R van de cirkels in C}
-  S = $\varnothing$\;
-  \For{$i\leftarrow 1$ \KwTo $n$}{
-    \For{$j\leftarrow i$ \KwTo $n$}{
-      $S = S \cup circleIntersection(c(i),c(j))$
-    }
-
-  }
- \caption{Linearitmische aanpak (imperatief)}
-\end{algorithm}
-
+\input{algoritmen}
 
 \section{Experimenten}
 %% \todo{Doubling ratio experiment voor runtime}
 %% \todo{experiment ivm stralen}
+\input{experimenten}
 
-\input{illustraties/snijpunten_theorie}
-\input{illustraties/voorbeeld_opgave}
-
-
-\input{illustraties/voorbeeld_1}
-\input{illustraties/voorbeeld_2}
-\input{illustraties/voorbeeld_3}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1\textwidth]{illustraties/fewIntersections.png}
-\end{figure}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1\textwidth]{illustraties/manyIntersections.png}
-\end{figure}
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1\textwidth]{illustraties/3DScatter.png}
-\end{figure}
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1\textwidth]{illustraties/visuele_output.png}
-\end{figure}
 
 \section{Resultaten}
 %% \todo{grafieken}
