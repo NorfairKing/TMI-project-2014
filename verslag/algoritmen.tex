@@ -88,7 +88,7 @@ intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\
         \For{$c' \in T$} {
           $R \leftarrow R \cup snijpunten(c,c')$
         }
-        $T \leftarrow T \cup {c}$
+        $T \leftarrow T \cup \left\{c\right\}$
       } \ElseIf {e == delete c} {
         $T \leftarrow T \setminus \left\{c\right\} $
       }
@@ -107,7 +107,7 @@ intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\
       het gebeurt met zich meedraagt}
     $x_1 \leftarrow  y - r$\;
     $x_2 \leftarrow  y + r$\;
-    $R \leftarrow {(y_1, insert\ c), (y_2, delete\ c)}$\;
+    $R \leftarrow \left\{(y_1, insert\ c), (y_2, delete\ c)\right\}$\;
     \Return{R}
     \caption{Events}
   \end{algorithm}
