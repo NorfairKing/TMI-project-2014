@@ -41,12 +41,12 @@
       \draw[thick,dashed] (C) -- (CZ);
       \draw[thick,dashed] (D) -- (DX);
       \draw[thick,dashed] (D) -- (DY);
-      \draw[very thick,color=red] (A) -- (B);
-      \draw[very thick,color=red] (A) -- (D);
-      \draw[very thick,color=red] (A) -- (E);
-      \draw[very thick,color=red] (B) -- (D);
-      \draw[very thick,color=red] (B) -- (E);
-      \draw[very thick,color=red] (D) -- (E);
+      \draw[very thick,color=blue] (A) -- (B);
+      \draw[very thick,color=blue] (A) -- (D);
+      \draw[very thick,color=blue] (A) -- (E);
+      \draw[very thick,color=blue] (B) -- (D);
+      \draw[very thick,color=blue] (B) -- (E);
+      \draw[very thick,color=blue] (D) -- (E);
       
       % curly braces
       \draw[thick,color=gray,decorate,decoration={brace,amplitude=10pt,mirror,raise=1pt}] (AX) -- (BX) node[midway,yshift=-18pt] {$dx$};
@@ -59,15 +59,15 @@
       \draw[thick,decorate,decoration={brace,amplitude=5pt,mirror,raise=1pt}] (C) -- (D) node[midway,xshift=10pt,yshift=8pt] {$h$};
       
       % mark the positions
-      \draw[fill,color=blue] (A) circle (1.5pt) node[left, yshift=-10pt] {$M_1$};
-      \draw[fill,color=blue] (B) circle (1.5pt) node[right, yshift=10pt] {$M_2$};
-      \draw[fill,color=blue] (C) circle (1.5pt) node[right] {$P_0$};
-      \draw[fill,color=blue] (D) circle (1.5pt) node[left, yshift=6pt] {$P_1$};
-      \draw[fill,color=blue] (E) circle (1.5pt) node[right, yshift=-10pt, xshift=-4pt] {$P_2$};
+      \draw[fill,color=red] (A) circle (1.5pt) node[left, yshift=-10pt] {$M_1$};
+      \draw[fill,color=red] (B) circle (1.5pt) node[right, yshift=10pt] {$M_2$};
+      \draw[fill,color=red] (C) circle (1.5pt) node[right] {$P_0$};
+      \draw[fill,color=red] (D) circle (1.5pt) node[left, yshift=6pt] {$P_1$};
+      \draw[fill,color=red] (E) circle (1.5pt) node[right, yshift=-10pt, xshift=-4pt] {$P_2$};
       
       % draw the circles
-      \draw[thick,color=blue] (A) circle (\radiusA);
-      \draw[thick,color=blue] (B) circle (\radiusB);
+      \draw[thick,color=black] (A) circle (\radiusA);
+      \draw[thick,color=black] (B) circle (\radiusB);
     \end{tikzpicture}
   % }
   \caption{Illustratie bij de methode voor het vinden van snijpunten tussen twee cirkels}

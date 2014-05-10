@@ -1,92 +1,112 @@
 
-\subsection{Snijpunt van twee cirkels berekenen}
+\subsection{Het snijpunt van twee cirkels berekenen}
 \label{sec:snijpunt}
 
+\subsubsection{Algoritme}
 \begin{algorithm}[H]
-  \KwData{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
-  \KwResult{waar als en slechts als de twee cirkels snijden}
-  d $\leftarrow$ afstand(p1,p2)\\
-  \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
-    \Return{true}
-  }{
-    \Return{false}
+  \SetAlgoLined
+  \KwIn{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
+  \KwOut{waar als en slechts als de twee cirkels snijden}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{intersect($c$,$c'$)}{
+    d $\leftarrow$ distance(p1,p2)\\
+    \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
+      \Return{true}
+    }{
+      \Return{false}
+    }
   }
 
- \caption{Nagaan of twee cirkels snijden}
+  \caption{Nagaan of twee cirkels snijden}
 \end{algorithm}
 
 \begin{algorithm}[H]
-  \KwData{twee cirkels, $c$ en $c'$ met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
-  \KwResult{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
-  \eIf{$snijden(c1, c2) \land c1 \neq c2$}{
-    $d \leftarrow afstand(p_1, p_2)$\\
-    $\alpha \leftarrow \frac{r_1^2 -r_2^2}{2d^2}$\\
-    $s \leftarrow \frac{x_1+x_2}{2} + \alpha(x_2-x_1)$\\
-    $t \leftarrow \frac{y_1+y_2}{2} + \alpha(y_2-y_1)$\\
+  \SetAlgoLined
+  \KwIn{twee cirkels, $c$ en $c'$ met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
+  \KwOut{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{intersections($c$,$c'$)}{
+    \eIf{$intersect(c1, c2) \land c1 \neq c2$}{
+      $d \leftarrow distance(p_1, p_2)$\\
+      $\alpha \leftarrow \frac{r_1^2 -r_2^2}{2d^2}$\\
+      $s \leftarrow \frac{x_1+x_2}{2} + \alpha(x_2-x_1)$\\
+      $t \leftarrow \frac{y_1+y_2}{2} + \alpha(y_2-y_1)$\\
 
-    $\delta \leftarrow \frac{1}{4}  \sqrt { (d+r_1+r_2)(d+r_1-r_2)(d-r_1+r_2)(r_1+r_2-d)}$\\
-    $x_1' \leftarrow s + 2\delta\frac{y_1-y_2}{d^2}$\\
-    $x_2' \leftarrow s - 2\delta\frac{y_1-y_2}{d^2}$\\
-    $y_1' \leftarrow t - 2\delta\frac{x_1-x_2}{d^2}$\\
-    $y_2' \leftarrow t + 2\delta\frac{x_1-x_2}{d^2}$\\
-    \Return{$\left\{(x_1',y_1'),(x_2',y_2')\right\}$}
-  }{
-    \Return{$\varnothing$}
+      $\delta \leftarrow \frac{1}{4}  \sqrt { (d+r_1+r_2)(d+r_1-r_2)(d-r_1+r_2)(r_1+r_2-d)}$\\
+      $x_1' \leftarrow s + 2\delta\frac{y_1-y_2}{d^2}$\\
+      $x_2' \leftarrow s - 2\delta\frac{y_1-y_2}{d^2}$\\
+      $y_1' \leftarrow t - 2\delta\frac{x_1-x_2}{d^2}$\\
+      $y_2' \leftarrow t + 2\delta\frac{x_1-x_2}{d^2}$\\
+      \Return{$\left\{(x_1',y_1'),(x_2',y_2')\right\}$}
+    }{
+      \Return{$\varnothing$}
+    }
   }
-
- \caption{Snijpunten van twee cirkels berekenen}
+  \caption{Snijpunten van twee cirkels berekenen}
 \end{algorithm}
+
+\subsubsection{Correctheidsbewijs}
+\subsubsection{Complexiteit}
 
 
 \subsection{Na\"ief}
 \label{sec:naief}
 
-De naïeve aanpak heeft complexiteit $O(n^2)$ en vinden we beschreven in
-figuur \ref{algo:naive}. 
+\subsubsection{Algoritme}
 
-\begin{figure}
-  \begin{algorithm}[H]
-    \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
-    \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
+  \KwOut{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{intersections1($C$)}{
     R $\leftarrow \varnothing$\;
     \For{$i\leftarrow 1$ \KwTo $n$}{
       \For{$j\leftarrow i$ \KwTo $n$}{
-        $R \leftarrow R \cup snijpunten(C(i),C(j))$
+        $R \leftarrow R \cup intersections(C(i),C(j))$
       }
 
     }
     \Return{R}
-    \caption{Na\"ieve aanpak (imperatief)}
-  \end{algorithm}
+  }
+  \caption{Na\"ieve aanpak (imperatief)}
   \label{algo:naive}
-\end{figure}
+\end{algorithm}
 
-\begin{figure}
-\[
-intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\ \leftarrow\\ cs \}
-\]
-\label{naief_functioneel}
-\caption{Na\"ieve aanpak (functioneel)}
-\end{figure}
+\subsubsection{Correctheidsbewijs}
+\subsubsection{Complexiteit}
+De naïeve aanpak heeft complexiteit $O(n^2)$.
+
+% \begin{figure}
+%   \[
+%   intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\ \leftarrow\\ cs \}
+%   \]
+%   \label{naief_functioneel}
+%   \caption{Na\"ieve aanpak (functioneel)}
+% \end{figure}
 
 
 \subsection{Kwadratisch}
 \label{sec:kwadratisch}
 
-\begin{figure}
-  \begin{algorithm}[H]
-    \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
-    \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
+\subsubsection{Algoritme}
+
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
+  \KwOut{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{intersections2($C$)}{
     $E \leftarrow \varnothing$\;
     \For{$c \in C$}{
       $E \leftarrow E \cup events(c)$;
     }
-    $E \leftarrow sorteer(E)$\;
+    $E \leftarrow sort(E)$\;
     $T, R \leftarrow \varnothing$\;
     \For{$e \in E$}{
       \uIf {e == insert c} {
         \For{$c' \in T$} {
-          $R \leftarrow R \cup snijpunten(c,c')$
+          $R \leftarrow R \cup intersections(c,c')$
         }
         $T \leftarrow T \cup \left\{c\right\}$
       } \ElseIf {e == delete c} {
@@ -94,81 +114,95 @@ intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\
       }
     }
     \Return{R}
-    \caption{Kwadratische aanpak (imperatief)}
-  \end{algorithm}
-\end{figure}
+  }
+  \caption{Kwadratische aanpak (imperatief)}
+\end{algorithm}
 
-\begin{figure}
-  \begin{algorithm}[H]
-    \KwData{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
-    \KwResult{twee \textit{events} $e_1$ en $e_2$,
-      corresponderend aan het toevoegen en verwijderen van $c$ aan de
-      doorlooplijn, waarbij elk event ook de $y$-co\"ordinaat waarop
-      het gebeurt met zich meedraagt}
-    $x_1 \leftarrow  y - r$\;
-    $x_2 \leftarrow  y + r$\;
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
+  \KwOut{twee \textit{events} $e_1$ en $e_2$,
+    corresponderend aan het toevoegen en verwijderen van $c$ aan de
+    doorlooplijn, waarbij elk event ook de $y$-co\"ordinaat waarop
+    het gebeurt met zich meedraagt}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{events($c$)}{
+    $y_1 \leftarrow  y - r$\;
+    $y_2 \leftarrow  y + r$\;
     $R \leftarrow \left\{(y_1, insert\ c), (y_2, delete\ c)\right\}$\;
     \Return{R}
-    \caption{Events}
-  \end{algorithm}
-\end{figure}
+  }
+  \caption{Events}
+\end{algorithm}
 
-\begin{figure}
-\[
-intersections\ cs = go\ (sort\ (events\ cs))\ [\ ]
-\]
-\[
-where 
-\]
-\[
-\begin{array}{l c l}
-go\ [\ ] &= &[\ ]\\
-go (Insert\ c\ :\ es) T &= &(map\ (circleIntersections\ c)\ T) \cup (go\ es\ T\cup\{c\})\\
-go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
-\end{array}
-\]
-\label{naief_functioneel}
-\caption{Kwadratische aanpak (functioneel)}
-\end{figure}
+% \begin{figure}
+%   \[
+%   intersections\ cs = go\ (sort\ (events\ cs))\ [\ ]
+%   \]
+%   \[
+%   where 
+%   \]
+%   \[
+%   \begin{array}{l c l}
+%     go\ [\ ] &= &[\ ]\\
+%     go (Insert\ c\ :\ es) T &= &(map\ (circleIntersections\ c)\ T) \cup (go\ es\ T\cup\{c\})\\
+%     go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
+%   \end{array}
+%   \]
+%   \label{naief_functioneel}
+%   \caption{Kwadratische aanpak (functioneel)}
+% \end{figure}
+\subsubsection{Correctheidsbewijs}
+\subsubsection{Complexiteit}
 
-\begin{figure}
-  \begin{algorithm}[H]
-    \KwData{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
-    \KwResult{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
-    $x_1 \leftarrow x - r$\;
-    $x_2 \leftarrow x + r$\;
-    $I \leftarrow [x_1, x_2]$\;
-    \Return{R}
-    \caption{Breedte-interval van een cirkel}
-  \end{algorithm}
-  \label{algo:interval}
-\end{figure}
 
 \subsection{Linearitmisch}
 \label{sec:linearitmisch}
-\begin{figure}
-  \begin{algorithm}[H]
-    \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
-    \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
+
+\subsubsection{Algoritme}
+
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
+  \KwOut{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{interval($c$)}{
+    $x_1 \leftarrow x - r$\;
+    $x_2 \leftarrow x + r$\;
+    $I \leftarrow [x_1, x_2]$\;
+    \Return{I}
+  }
+  \caption{Breedte-interval van een cirkel}
+\end{algorithm}
+\label{algo:interval}
+
+\begin{algorithm}[H]
+  \KwIn{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
+  \KwOut{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
+  \SetAlgoLined
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{intersections3($C$)}{
     $E \leftarrow \varnothing$\;
     \For{$c \in C$}{
       $E \leftarrow E \cup events(c)$;
     }
-    $E \leftarrow sorteer(E)$\;
+    $E \leftarrow sort(E)$\;
     $T, R \leftarrow \varnothing$\;
     \For{$e \in E$}{
-      \uIf {e = insert c} {
+      \uIf {e == insert c} {
         \For{$c' \in T$} {
           \If {$interval(c) \cap interval(c') \neq \varnothing$} {
-            $R \leftarrow R \cup snijpunten(c,c')$
+            $R \leftarrow R \cup intersections(c,c')$
           }
         }
-        $T \leftarrow T \cup {c}$
-      } \ElseIf {e = delete c} {
+        $T \leftarrow T \cup \left\{c\right\}$
+      } \ElseIf {e == delete c} {
         $T \leftarrow T \setminus \left\{c\right\} $
       }
     }
     \Return{R}
-    \caption{Linearitmische aanpak (imperatief)}
-  \end{algorithm}
-\end{figure}
+  }
+  \caption{Linearitmische aanpak (imperatief)}
+\end{algorithm}
+\subsubsection{Correctheidsbewijs}
+\subsubsection{Complexiteit}
