@@ -2,19 +2,19 @@
 \subsection{Snijpunt van twee cirkels berekenen}
 \label{sec:snijpunt}
 
+
+\begin{figure}
 \begin{algorithm}[H]
   \KwData{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
   \KwResult{waar als en slechts als de twee cirkels snijden}
-  d $\leftarrow$ afstand(p1,p2)\\
-  \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
-    \Return{true}
-  }{
-    \Return{false}
-  }
-
+  $d \leftarrow \Vert p_2-p_1\Vert$\\
+  \Return{$d \leq r_1 + r_2 \land d \geq abs (r_1 - r_2)$}
  \caption{Nagaan of twee cirkels snijden}
 \end{algorithm}
+\label{algo:snijden}
+\end{figure}
 
+\begin{figure}
 \begin{algorithm}[H]
   \KwData{twee cirkels, $c$ en $c'$ met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
   \KwResult{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
@@ -36,6 +36,8 @@
 
  \caption{Snijpunten van twee cirkels berekenen}
 \end{algorithm}
+  \label{algo:snijpunten}
+\end{figure}
 
 
 \subsection{Na\"ief}
