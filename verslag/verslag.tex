@@ -75,15 +75,15 @@
   \KwResult{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
   \eIf{$circlesIntersect(c1, c2) \land c1 \neq c2$}{
     $d \leftarrow afstand(p_1, p_2)$\\
-    $\alpha \leftarrow \frac{r_1r_1-r_2r_2}{2d^2}$\\
-    $s \leftarrow \frac{x_1+x_2}{2} + (x_2-x_1) \alpha$\\
-    $t \leftarrow \frac{y_1+y_2}{2} + (y_2-y_1) \alpha$\\
+    $\alpha \leftarrow \frac{r_1^2 -r_2^2}{2d^2}$\\
+    $s \leftarrow \frac{x_1+x_2}{2} + \alpha(x_2-x_1)$\\
+    $t \leftarrow \frac{y_1+y_2}{2} + \alpha(y_2-y_1)$\\
 
     $\delta \leftarrow \frac{1}{4}  \sqrt { (d+r_1+r_2)(d+r_1-r_2)(d-r_1+r_2)(r_1+r_2-d)}$\\
-    $x_1' \leftarrow s + \frac{2 (y_1-y_2)}{d^2} \delta$\\
-    $x_2' \leftarrow s - \frac{2 (y_1-y_2)}{d^2} \delta$\\
-    $y_1' \leftarrow t - \frac{2 (x_1-x_2)}{d^2} \delta$\\
-    $y_2' \leftarrow t + \frac{2 (x_1-x_2)}{d^2} \delta$\\
+    $x_1' \leftarrow s + 2\delta\frac{y_1-y_2}{d^2}$\\
+    $x_2' \leftarrow s - 2\delta\frac{y_1-y_2}{d^2}$\\
+    $y_1' \leftarrow t - 2\delta\frac{x_1-x_2}{d^2}$\\
+    $y_2' \leftarrow t + 2\delta\frac{x_1-x_2}{d^2}$\\
     \Return{$\left\{(x_1',y_1'),(x_2',y_2')\right\}$}
   }{
     \Return{$\varnothing$}
@@ -115,10 +115,9 @@ De naïeve aanpak is gegarandeerd $O(n^2)$ en kunnen we als volgt beschrijven:
 \begin{algorithm}[H]
   \KwData{een lijst van $n$ cirkels C, gegeven door hun middelpunt en straal}
   \KwResult{een verzameling van $S$ snijpunten R van de cirkels in C}
-  E = events(C)\;
-  sorteer(C)\;
-  $T = \varnothing$\;
-  $R = \varnothing$\;
+  $E$ = events($C$)\;
+  sorteer($E$)\;
+  $T = R = \varnothing$\;
   \For{$e \in E$}{
     \uIf {e = insert c} {
       \For{$c' \in T$} {
@@ -129,7 +128,7 @@ De naïeve aanpak is gegarandeerd $O(n^2)$ en kunnen we als volgt beschrijven:
       $T = T \setminus \left\{c\right\} $
     }
   }
- \caption{Na\"ieve aanpak (imperatief)}
+ \caption{Kwadratische aanpak (imperatief)}
 \end{algorithm}
 
 \subsection{Linearitmisch}
@@ -144,7 +143,7 @@ De naïeve aanpak is gegarandeerd $O(n^2)$ en kunnen we als volgt beschrijven:
     }
 
   }
- \caption{Kwadratische aanpak (imperatief)}
+ \caption{Linearitmische aanpak (imperatief)}
 \end{algorithm}
 
 
