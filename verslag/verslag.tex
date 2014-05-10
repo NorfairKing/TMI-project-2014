@@ -113,7 +113,7 @@ De naïeve aanpak is gegarandeerd $O(n^2)$ en kunnen we als volgt beschrijven:
 
 \begin{figure}
 \[
-intersections\ cs\ = uniques\ [\ circlesIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\ \leftarrow\\ cs]
+intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\ \leftarrow\\ cs \}
 \]
 \label{naief_functioneel}
 \caption{Na\"ieve aanpak (functioneel)}
@@ -140,6 +140,24 @@ intersections\ cs\ = uniques\ [\ circlesIntersections\ c1\ c2\ |\ c1 \leftarrow\
   }
  \caption{Kwadratische aanpak (imperatief)}
 \end{algorithm}
+
+\begin{figure}
+\[
+intersections\ cs = go\ (sort\ (events\ cs))\ [\ ]
+\]
+\[
+where 
+\]
+\[
+\begin{array}{l c l}
+go\ [\ ] &= &[\ ]\\
+go (Insert\ c\ :\ es) T &= &(map\ (circleIntersections\ c)\ T) \cup (go\ es\ T\cup\{c\})\\
+go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
+\end{array}
+\]
+\label{naief_functioneel}
+\caption{Kwadratische aanpak (functioneel)}
+\end{figure}
 
 \subsection{Linearitmisch}
 \label{sec:linearitmisch}
