@@ -5,9 +5,24 @@ werkelijke inhoud van dit verslag, willen we een aantal zaken
 aankaarten met betrekking tot onze algoritmische notatie en de
 implementatie van de algoritmen.
 
-Wat betreft de notatie van de algoritmen volgen we in het algemeen de
+\textbf{Notatie.} Wat betreft de notatie van de algoritmen volgen we in het algemeen de
 wiskundige notatie voor verzamelingen en operaties daarop. De
 algoritmes volgen globaal een imperatief stramien: de stappen worden
 sequentieel uitgevoerd zoals bepaald door de besturingsstructuren in
 het algoritme. Logische expressies en functies worden zoals hoort in
 standaard logische notatie weergegeven.
+
+\textbf{Implementatie.} Wij hebben ervoor gekozen de algoritmen te
+implementeren in Haskell, een functionele programmeertaal. Dit zorgt
+ervoor dat de algoritmen op een andere manier moeten of kunnen worden
+uitgedrukt dan in de klassieke notatie. Dit kan code veel leesbaarder
+en beknopter maken. Anderzijds is het moeilijker om een traditionele
+complexiteitsanalyse te maken: zo kent Haskell geen iteratieve lussen,
+maar wordt overvloedig gebruik gemaakt van recursie.
+
+\textbf{Invoer en uitvoer.} De invoer en uitvoer gebeurt via de
+standaard \textit{streams} voor invoer en uitvoer op Linux. Het
+programma wordt dus als volgt aangeroepen:
+\begin{verbatim}
+Main < input.txt > output.txt
+\end{verbatim}
