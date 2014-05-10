@@ -58,7 +58,7 @@
 \label{sec:snijpunt}
 
 \begin{algorithm}[H]
-  \KwData{twee cirkels, C en C' met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
+  \KwData{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
   \KwResult{waar als en slechts als de twee cirkels snijden}
   d $\leftarrow$ afstand(p1,p2)\\
   \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
@@ -71,9 +71,9 @@
 \end{algorithm}
 
 \begin{algorithm}[H]
-  \KwData{twee cirkels, C en C' met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
+  \KwData{twee cirkels, $c$ en $c'$ met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
   \KwResult{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
-  \eIf{$circlesIntersect(c1, c2) \land c1 \neq c2$}{
+  \eIf{$snijden(c1, c2) \land c1 \neq c2$}{
     $d \leftarrow afstand(p_1, p_2)$\\
     $\alpha \leftarrow \frac{r_1^2 -r_2^2}{2d^2}$\\
     $s \leftarrow \frac{x_1+x_2}{2} + \alpha(x_2-x_1)$\\
@@ -97,54 +97,93 @@
 
 De naïeve aanpak is gegarandeerd $O(n^2)$ en kunnen we als volgt beschrijven:
 
-\begin{algorithm}[H]
-  \KwData{een lijst van $n$ cirkels C, gegeven door hun middelpunt en straal}
-  \KwResult{een verzameling van $S$ snijpunten R van de cirkels in C}
-  S = $\varnothing$\;
-  \For{$i\leftarrow 1$ \KwTo $n$}{
-    \For{$j\leftarrow i$ \KwTo $n$}{
-      $S = S \cup circleIntersections(c(i),c(j))$
-    }
+\begin{figure}
+  \begin{algorithm}[H]
+    \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
+    \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
+    R = $\varnothing$\;
+    \For{$i\leftarrow 1$ \KwTo $n$}{
+      \For{$j\leftarrow i$ \KwTo $n$}{
+        $R = R \cup snijpunten(C(i),C(j))$
+      }
 
-  }
- \caption{Na\"ieve aanpak (imperatief)}
-\end{algorithm}
+    }
+    \Return{R}
+    \caption{Na\"ieve aanpak (imperatief)}
+  \end{algorithm}
+\end{figure}
 
 \subsection{Kwadratisch}
 \label{sec:kwadratisch}
-\begin{algorithm}[H]
-  \KwData{een lijst van $n$ cirkels C, gegeven door hun middelpunt en straal}
-  \KwResult{een verzameling van $S$ snijpunten R van de cirkels in C}
-  $E$ = events($C$)\;
-  sorteer($E$)\;
-  $T = R = \varnothing$\;
-  \For{$e \in E$}{
-    \uIf {e = insert c} {
-      \For{$c' \in T$} {
-        $R = R \cup circleIntersections(c,c')$
-      }
-      $T = T \cup {c}$
-    } \uElseIf {e = delete c} {
-      $T = T \setminus \left\{c\right\} $
+
+\begin{figure}
+  \begin{algorithm}[H]
+    \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
+    \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
+    $E = \varnothing$\;
+    \For{$c \in C$}{
+      $E = E \cup events(c)$;
     }
-  }
- \caption{Kwadratische aanpak (imperatief)}
-\end{algorithm}
+    $E = sorteer(E)$\;
+    $T = R = \varnothing$\;
+    \For{$e \in E$}{
+      \uIf {e = insert c} {
+        \For{$c' \in T$} {
+          $R = R \cup snijpunten(c,c')$
+        }
+        $T = T \cup {c}$
+      } \ElseIf {e = delete c} {
+        $T = T \setminus \left\{c\right\} $
+      }
+    }
+    \Return{R}
+    \caption{Kwadratische aanpak (imperatief)}
+  \end{algorithm}
+\end{figure}
+
+\begin{figure}
+  \begin{algorithm}[H]
+    \KwData{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
+    \KwResult{twee \textit{events} $e_1$ en $e_2$,
+      corresponderend aan het toevoegen en verwijderen van $c$ aan de
+      doorlooplijn, waarbij elk event ook de $y$-co\"ordinaat waarop
+      het gebeurt met zich meedraagt}
+    $x_1 =  x - r$\;
+    $x_2 =  x + r$\;
+    $R = {(x_1, insert\ c), (x_2, delete\ c)}$\;
+    \Return{R}
+    \caption{Events}
+  \end{algorithm}
+\end{figure}
 
 \subsection{Linearitmisch}
 \label{sec:linearitmisch}
-\begin{algorithm}[H]
-  \KwData{een lijst van $n$ cirkels C, gegeven door hun middelpunt en straal}
-  \KwResult{een verzameling van $S$ snijpunten R van de cirkels in C}
-  S = $\varnothing$\;
-  \For{$i\leftarrow 1$ \KwTo $n$}{
-    \For{$j\leftarrow i$ \KwTo $n$}{
-      $S = S \cup circleIntersection(c(i),c(j))$
+\begin{figure}
+  \begin{algorithm}[H]
+    \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
+    \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
+    $E = \varnothing$\;
+    \For{$c \in C$}{
+      $E = E \cup events(c)$;
     }
-
-  }
- \caption{Linearitmische aanpak (imperatief)}
-\end{algorithm}
+    $E = sorteer(E)$\;
+    $T = R = \varnothing$\;
+    \For{$e \in E$}{
+      \uIf {e = insert c} {
+        \For{$c' \in T$} {
+          \If {$interval(c) \cap interval(c') \neq \varnothing$} {
+            $R = R \cup snijpunten(c,c')$
+          }
+        }
+        $T = T \cup {c}$
+      } \ElseIf {e = delete c} {
+        $T = T \setminus \left\{c\right\} $
+      }
+    }
+    \Return{R}
+    \caption{Linearitmische aanpak (imperatief)}
+  \end{algorithm}
+\end{figure}
 
 
 \section{Experimenten}
@@ -153,8 +192,6 @@ De naïeve aanpak is gegarandeerd $O(n^2)$ en kunnen we als volgt beschrijven:
 
 \input{illustraties/snijpunten_theorie}
 \input{illustraties/voorbeeld_opgave}
-
-
 \input{illustraties/voorbeeld_1}
 \input{illustraties/voorbeeld_2}
 \input{illustraties/voorbeeld_3}
