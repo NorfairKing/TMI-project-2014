@@ -2,17 +2,33 @@
 \subsection{Het snijpunt van twee cirkels berekenen}
 \label{sec:snijpunt}
 
+<<<<<<< HEAD
 
 \begin{figure}
 \begin{algorithm}[H]
-  \SetAlgoLined
-  \KwIn{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
+  \KwData{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
+  \KwResult{waar als en slechts als de twee cirkels snijden}
   $d \leftarrow \Vert p_2-p_1\Vert$\\
   \Return{$d \leq r_1 + r_2 \land d \geq abs (r_1 - r_2)$}
+ \caption{Nagaan of twee cirkels snijden}
+=======
+\subsubsection{Algoritme}
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
+  \KwOut{waar als en slechts als de twee cirkels snijden}
+  \SetKwProg{Fn}{Procedure}{:}{end}
   \Fn{intersect($c$,$c'$)}{
     d $\leftarrow$ distance(p1,p2)\\
+    \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
+      \Return{true}
+    }{
+      \Return{false}
+    }
   }
+
   \caption{Nagaan of twee cirkels snijden}
+>>>>>>> ab52b9314ee92161d01a27191bf54854b3328ca9
 \end{algorithm}
 \label{algo:snijden}
 \end{figure}
