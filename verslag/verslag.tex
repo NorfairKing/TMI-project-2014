@@ -92,6 +92,7 @@
  \caption{Snijpunten van twee cirkels berekenen}
 \end{algorithm}
 
+
 \subsection{Na\"ief}
 \label{sec:naief}
 
@@ -109,6 +110,15 @@ De naïeve aanpak is gegarandeerd $O(n^2)$ en kunnen we als volgt beschrijven:
   }
  \caption{Na\"ieve aanpak (imperatief)}
 \end{algorithm}
+
+\begin{figure}
+\[
+intersections\ cs\ = uniques\ [\ circlesIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\ \leftarrow\\ cs]
+\]
+\label{naief_functioneel}
+\caption{Na\"ieve aanpak (functioneel)}
+\end{figure}
+
 
 \subsection{Kwadratisch}
 \label{sec:kwadratisch}
