@@ -46,7 +46,7 @@ readCircles = do
 ioSolve :: Int -> [Circle] -> IO [Position]
 ioSolve na cs | na `elem` nas 
     -- $!! ensures that the right side is deeply evaluated before it's returned.
-    = return $!! solve na cs
+    = return $!! filter realPos $ solve na cs
 ioSolve _ _ = return []
 
 solve :: Int -> [Circle] -> [Position]

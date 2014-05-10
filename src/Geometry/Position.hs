@@ -42,3 +42,5 @@ positionOrdering  (Pos _  y1) (Pos _  y2) = compare y1 y2
 positionOrdering' (Pos x1 _ ) (Pos x2 _ ) = compare x1 x2
 
 instance NFData Position
+
+realPos (Pos x y) = not $ isNaN x || isNaN y

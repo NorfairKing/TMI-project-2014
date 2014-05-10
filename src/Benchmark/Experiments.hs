@@ -18,7 +18,7 @@ allExperiments =
 
 
 accuracy :: Int
-accuracy = 10
+accuracy = 1
 
 -- 3D Plot Experiment
 threeDPlotExperiment :: Experiment
@@ -49,10 +49,10 @@ manyIntersectionsExperiment = RawDataExperiment "ManyIntersections"
     , na <- nas
     ]
 
-drAccuracy = 10
+drAccuracy = 1
 
-drNcs = [ 10 * 2^i | i <- [0..6] ]
-drScs = [ 0.001, 0.002,0.004,0.008,0.016,0.032,0.064,0.128,0.256 ]
+drNcs = [ 5 * 2^i | i <- [0..8] ]
+drScs = [ 0.001 * 2^i | i <- [0..8]  ]
 
 doublingRatioExperiment :: Int -> Experiment
 doublingRatioExperiment na = DoublingRatioExperiment ("DoublingRatio_" ++ show na)
