@@ -3,12 +3,15 @@ module Benchmark.Solve where
 import Control.DeepSeq
 import Control.Monad
 import Criterion.Measurement
+import Data.List
 import Data.Maybe
 import System.IO
+import Text.Printf
 
 import Benchmark.Assignment
 import Benchmark.Case
 import Benchmark.Experiment
+import Benchmark.Experiments
 import Benchmark.Settings
 import Geometry.Circle
 import Geometry.Position
@@ -52,9 +55,49 @@ runAssignment' ofile a@(A _ (C na _ _))= do
 
 -- Experiments
 doExperiment :: Experiment -> IO ()
-doExperiment (E name as) = do
+doExperiment (RawDataExperiment name as) = do
     let ofile = resultsDir ++ "/"
                 ++ experimentPrefix
                 ++ name
                 ++ experimentExtension
     mapM_ (runAssignment' ofile) as
+
+doExperiment ( DoublingRatioExperiment name ass) = do
+    let ofile = figuresDir ++ "/"
+                ++ doublingRatioPrefix
+                ++ name
+                ++ doublingRatioExtension
+    outh <- openFile ofile WriteMode
+    times <- mapM ( mapM benchAssignmentAvg ) ass
+    let ratioss = times `deepseq` map ratios times
+    hPutStrLn outh $ latexTable ratioss
+    hClose outh
+
+ratios :: [Double] -> [Double]
+ratios [] = []
+ratios [_] = []
+ratios (t1:t2:ts) = (t2/t1) : ratios (t2:ts)
+
+latexTable :: [[Double]] -> String
+latexTable ratioss =
+       "\\[\n"
+    ++ "\\begin{array}{|c||" ++ replicate (length $ head ratioss) 'c' ++ "|}\n"    
+    ++ "\\hline \n"
+    ++ "& " ++ concat (intersperse " & " $ map show $ tail drNcs) ++ "\\\\\n"
+    ++ "\\hline \\hline \n"
+    ++ concatMap row (zip drScs ratioss)
+    ++ "\\end{array}\n"
+    ++ "\\]\n"
+    where 
+        row (sc, rs) = printf "%.3f" sc ++ " & " ++ row' rs
+        row' [] = ""
+        row' [r] = pretty r ++ " \\\\ \\hline \n"
+        row' (r:rs) = pretty r ++ " & " ++ row' rs
+        pretty d = printf "%.1f" d
+
+
+
+
+
+
+

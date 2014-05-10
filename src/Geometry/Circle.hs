@@ -35,9 +35,10 @@ circlesIntersect (Cir p1 r1) (Cir p2 r2)
 -- This works in O(1) time
 circlesIntersections :: Circle -> Circle -> [Position]
 circlesIntersections c1@(Cir p1@(Pos x1 y1) r1) c2@(Cir p2@(Pos x2 y2) r2) =
-    if circlesIntersect c1 c2 && (c1 /= c2) 
-        then [ Pos px1 py1, Pos px2 py2 ]
-        else []
+    --if circlesIntersect c1 c2 && (c1 /= c2) 
+    --    then [ Pos px1 py1, Pos px2 py2 ]
+    --    else []
+    [ Pos px1 py1, Pos px2 py2 ]
     where
         px1 = s + 2*(y1-y2)/d'*δ
         px2 = s - 2*(y1-y2)/d'*δ
