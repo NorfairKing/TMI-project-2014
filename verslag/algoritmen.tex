@@ -41,17 +41,17 @@
 \subsection{Na\"ief}
 \label{sec:naief}
 
-De naïeve aanpak is gegarandeerd $O(n^2)$ en vinden we beschreven in
-figuur \ref{algo:naive}.
+De naïeve aanpak heeft complexiteit $O(n^2)$ en vinden we beschreven in
+figuur \ref{algo:naive}. 
 
 \begin{figure}
   \begin{algorithm}[H]
     \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
     \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
-    R = $\varnothing$\;
+    R $\leftarrow \varnothing$\;
     \For{$i\leftarrow 1$ \KwTo $n$}{
       \For{$j\leftarrow i$ \KwTo $n$}{
-        $R = R \cup snijpunten(C(i),C(j))$
+        $R \leftarrow R \cup snijpunten(C(i),C(j))$
       }
 
     }
@@ -77,20 +77,20 @@ intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\
   \begin{algorithm}[H]
     \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
     \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
-    $E = \varnothing$\;
+    $E \leftarrow \varnothing$\;
     \For{$c \in C$}{
-      $E = E \cup events(c)$;
+      $E \leftarrow E \cup events(c)$;
     }
-    $E = sorteer(E)$\;
-    $T = R = \varnothing$\;
+    $E \leftarrow sorteer(E)$\;
+    $T, R \leftarrow \varnothing$\;
     \For{$e \in E$}{
-      \uIf {e = insert c} {
+      \uIf {e == insert c} {
         \For{$c' \in T$} {
-          $R = R \cup snijpunten(c,c')$
+          $R \leftarrow R \cup snijpunten(c,c')$
         }
-        $T = T \cup {c}$
-      } \ElseIf {e = delete c} {
-        $T = T \setminus \left\{c\right\} $
+        $T \leftarrow T \cup {c}$
+      } \ElseIf {e == delete c} {
+        $T \leftarrow T \setminus \left\{c\right\} $
       }
     }
     \Return{R}
@@ -105,9 +105,9 @@ intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\
       corresponderend aan het toevoegen en verwijderen van $c$ aan de
       doorlooplijn, waarbij elk event ook de $y$-co\"ordinaat waarop
       het gebeurt met zich meedraagt}
-    $x_1 =  y - r$\;
-    $x_2 =  y + r$\;
-    $R = {(y_1, insert\ c), (y_2, delete\ c)}$\;
+    $x_1 \leftarrow  y - r$\;
+    $x_2 \leftarrow  y + r$\;
+    $R \leftarrow {(y_1, insert\ c), (y_2, delete\ c)}$\;
     \Return{R}
     \caption{Events}
   \end{algorithm}
@@ -135,9 +135,9 @@ go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
   \begin{algorithm}[H]
     \KwData{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
     \KwResult{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
-    $x_1 =  x - r$\;
-    $x_2 =  x + r$\;
-    $I = [x_1, x_2]$\;
+    $x_1 \leftarrow x - r$\;
+    $x_2 \leftarrow x + r$\;
+    $I \leftarrow [x_1, x_2]$\;
     \Return{R}
     \caption{Breedte-interval van een cirkel}
   \end{algorithm}
@@ -150,22 +150,22 @@ go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
   \begin{algorithm}[H]
     \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
     \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
-    $E = \varnothing$\;
+    $E \leftarrow \varnothing$\;
     \For{$c \in C$}{
-      $E = E \cup events(c)$;
+      $E \leftarrow E \cup events(c)$;
     }
-    $E = sorteer(E)$\;
-    $T = R = \varnothing$\;
+    $E \leftarrow sorteer(E)$\;
+    $T, R \leftarrow \varnothing$\;
     \For{$e \in E$}{
       \uIf {e = insert c} {
         \For{$c' \in T$} {
           \If {$interval(c) \cap interval(c') \neq \varnothing$} {
-            $R = R \cup snijpunten(c,c')$
+            $R \leftarrow R \cup snijpunten(c,c')$
           }
         }
-        $T = T \cup {c}$
+        $T \leftarrow T \cup {c}$
       } \ElseIf {e = delete c} {
-        $T = T \setminus \left\{c\right\} $
+        $T \leftarrow T \setminus \left\{c\right\} $
       }
     }
     \Return{R}

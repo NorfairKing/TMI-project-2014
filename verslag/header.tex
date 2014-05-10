@@ -1,0 +1,56 @@
+
+\pagestyle{fancy}
+
+\lhead{Tom Sydney Kerckhove \& Xavier Go\'as Aguililla}
+\rhead{\thepage /\pageref{LastPage}}
+
+\lfoot{Practicum}
+\cfoot{Toepassingen van Meetkunde in Informatica}
+\rfoot{Snijdende Cirkels}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Index, x, y, r
+\def\circle[#1,#2,#3,#4] {
+  % The middlepoint
+  \coordinate (C#1) at (#2,#3);
+  
+  % The point
+  \draw[fill,color=black] (C#1) circle (1.5pt)
+  node[left, yshift=-10pt, color=black] {$C_#1$};
+  
+  % The radius
+  \draw[dotted] (C#1) -- ($(C#1) + (#4,0)$)
+  node[left, yshift=-10pt, color=black] {$r_#1$};
+  
+  
+  % The circle
+  \draw[thick,color=black] (C#1) circle (#4);
+  
+}
+  
+\def\indexedcircle[#1,#2,#3,#4] {
+  % The middlepoint
+  \coordinate (C#1) at (#2,#3);
+  
+  % The point
+  \draw[fill,color=black] (C#1) circle (1.5pt)
+  node[left, yshift=-10pt, color=black] {$C_#1$};
+  
+  % The radius
+  \draw[dotted] (C#1) -- ($(C#1) + (#4,0)$)
+  node[left, yshift=-10pt, color=black] {$r_#1$};
+  
+  
+  % The circle
+  \draw[thick,color=black] (C#1) circle (#4);
+  % Event points
+  \coordinate (E#1_1) at (#2,#3-#4);
+  \coordinate (E#1_2) at (#2,#3+#4);
+  
+  % \draw[fill, color=red] (E#1_1) circle (1.5pt) node[left, yshift=-10pt, color=red] {$e_{#1,1}$};
+  % \draw[fill, color=red] (E#1_2) circle (1.5pt) node[left, yshift=-10pt, color=red] {$e_{#1,2}$};
+  \draw[fill, color=red] (E#1_1) circle (1.5pt) node[left, yshift=-10pt, color=red] {};
+  \draw[fill, color=red] (E#1_2) circle (1.5pt) node[left, yshift=-10pt, color=red] {};
+}
