@@ -8,9 +8,10 @@ import Benchmark.Experiment
 allExperiments :: [Experiment]
 allExperiments = 
     [
-      fewIntersectionsExperiment
-    , manyIntersectionsExperiment
-    , threeDPlotExperiment
+    --  fewIntersectionsExperiment
+    --, manyIntersectionsExperiment
+    --, threeDPlotExperiment
+    doublingRatioExperiment 1
     ]
 
 
@@ -19,7 +20,7 @@ accuracy = 10
 
 -- 3D Plot Experiment
 threeDPlotExperiment :: Experiment
-threeDPlotExperiment = E "3D"
+threeDPlotExperiment = RawDataExperiment "3D"
     [ 
     A accuracy (C na nc sc) 
     | nc <- [0,1..100]
@@ -30,7 +31,7 @@ threeDPlotExperiment = E "3D"
 
 -- Few Intersections Experiment
 fewIntersectionsExperiment :: Experiment
-fewIntersectionsExperiment = E "FewIntersections"
+fewIntersectionsExperiment = RawDataExperiment "FewIntersections"
     [
     A accuracy (C na nc 0.002)
     | nc <- [10..1000]
@@ -39,9 +40,23 @@ fewIntersectionsExperiment = E "FewIntersections"
 
 -- Many Intersections Experiment
 manyIntersectionsExperiment :: Experiment
-manyIntersectionsExperiment = E "ManyIntersections"
+manyIntersectionsExperiment = RawDataExperiment "ManyIntersections"
     [
     A accuracy (C na nc 1000)
     | nc <- [10..1000]
     , na <- nas
     ]
+
+drAccuracy = 10
+
+doublingRatioExperiment :: Int -> Experiment
+doublingRatioExperiment na = DoublingRatioExperiment ("DoublingRatio_" ++ show na)
+    [
+    [ A drAccuracy (C na nc sc) | nc <- [ 10 * 2^i | i <- [0..5] ] ]
+    | sc <- [ 0.1, 0.2 .. 0.5 ]
+    ]
+
+
+
+    
+

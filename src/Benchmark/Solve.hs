@@ -5,6 +5,7 @@ import Control.Monad
 import Criterion.Measurement
 import Data.Maybe
 import System.IO
+import Text.Printf
 
 import Benchmark.Assignment
 import Benchmark.Case
@@ -52,9 +53,43 @@ runAssignment' ofile a@(A _ (C na _ _))= do
 
 -- Experiments
 doExperiment :: Experiment -> IO ()
-doExperiment (E name as) = do
+doExperiment (RawDataExperiment name as) = do
     let ofile = resultsDir ++ "/"
                 ++ experimentPrefix
                 ++ name
                 ++ experimentExtension
     mapM_ (runAssignment' ofile) as
+
+doExperiment ( DoublingRatioExperiment name ass) = do
+    let ofile = figuresDir ++ "/"
+                ++ doublingRatioPrefix
+                ++ name
+                ++ doublingRatioExtension
+    outh <- openFile ofile WriteMode
+    times <- mapM ( mapM benchAssignmentAvg ) ass
+    let ratioss = map ratios times
+    hPutStrLn outh $ latexTable ratioss
+    hClose outh
+
+ratios :: [Double] -> [Double]
+ratios [] = []
+ratios [_] = []
+ratios (t1:t2:ts) = (t2/t1) : ratios (t2:ts)
+
+latexTable :: [[Double]] -> String
+latexTable ratioss =
+       "\\begin{array}{" ++ replicate (length ratioss) 'c' ++ "}\n"    
+    ++ concatMap row ratioss
+    ++ "\\end{array}\n"
+    where 
+        row [] = ""
+        row [r] = oneDecimal r ++ "\\\\\n"
+        row (r:rs) = oneDecimal r ++ " & " ++ row rs
+        oneDecimal d = printf "%.2f" d
+
+
+
+
+
+
+

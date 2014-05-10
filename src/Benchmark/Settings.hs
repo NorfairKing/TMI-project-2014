@@ -11,6 +11,10 @@ resultsDir = "../analysis/results"
 experimentPrefix = "experiment_"
 experimentExtension = ".csv"
 
+figuresDir = "../verslag/illustraties"
+doublingRatioPrefix = "table_"
+doublingRatioExtension = ".tex"
+
 csvFile na = "results_" ++ show na ++ ".csv"
 
 dirs = [resultsDir]
