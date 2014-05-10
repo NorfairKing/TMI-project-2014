@@ -3,6 +3,7 @@ module Benchmark.Solve where
 import Control.DeepSeq
 import Control.Monad
 import Criterion.Measurement
+import Data.List
 import Data.Maybe
 import System.IO
 import Text.Printf
@@ -10,6 +11,7 @@ import Text.Printf
 import Benchmark.Assignment
 import Benchmark.Case
 import Benchmark.Experiment
+import Benchmark.Experiments
 import Benchmark.Settings
 import Geometry.Circle
 import Geometry.Position
@@ -67,7 +69,7 @@ doExperiment ( DoublingRatioExperiment name ass) = do
                 ++ doublingRatioExtension
     outh <- openFile ofile WriteMode
     times <- mapM ( mapM benchAssignmentAvg ) ass
-    let ratioss = map ratios times
+    let ratioss = times `deepseq` map ratios times
     hPutStrLn outh $ latexTable ratioss
     hClose outh
 
@@ -78,14 +80,20 @@ ratios (t1:t2:ts) = (t2/t1) : ratios (t2:ts)
 
 latexTable :: [[Double]] -> String
 latexTable ratioss =
-       "\\begin{array}{" ++ replicate (length ratioss) 'c' ++ "}\n"    
-    ++ concatMap row ratioss
+       "\\[\n"
+    ++ "\\begin{array}{|c||" ++ replicate (length $ head ratioss) 'c' ++ "|}\n"    
+    ++ "\\hline \n"
+    ++ "& " ++ concat (intersperse " & " $ map show $ tail drNcs) ++ "\\\\\n"
+    ++ "\\hline \\hline \n"
+    ++ concatMap row (zip drScs ratioss)
     ++ "\\end{array}\n"
+    ++ "\\]\n"
     where 
-        row [] = ""
-        row [r] = oneDecimal r ++ "\\\\\n"
-        row (r:rs) = oneDecimal r ++ " & " ++ row rs
-        oneDecimal d = printf "%.2f" d
+        row (sc, rs) = printf "%.3f" sc ++ " & " ++ row' rs
+        row' [] = ""
+        row' [r] = pretty r ++ " \\\\ \\hline \n"
+        row' (r:rs) = pretty r ++ " & " ++ row' rs
+        pretty d = printf "%.1f" d
 
 
 

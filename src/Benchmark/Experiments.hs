@@ -11,8 +11,10 @@ allExperiments =
     --  fewIntersectionsExperiment
     --, manyIntersectionsExperiment
     --, threeDPlotExperiment
-    doublingRatioExperiment 1
     ]
+    ++
+    map doublingRatioExperiment nas
+    
 
 
 accuracy :: Int
@@ -49,11 +51,14 @@ manyIntersectionsExperiment = RawDataExperiment "ManyIntersections"
 
 drAccuracy = 10
 
+drNcs = [ 10 * 2^i | i <- [0..6] ]
+drScs = [ 0.001, 0.002,0.004,0.008,0.016,0.032,0.064,0.128,0.256 ]
+
 doublingRatioExperiment :: Int -> Experiment
 doublingRatioExperiment na = DoublingRatioExperiment ("DoublingRatio_" ++ show na)
     [
-    [ A drAccuracy (C na nc sc) | nc <- [ 10 * 2^i | i <- [0..5] ] ]
-    | sc <- [ 0.1, 0.2 .. 0.5 ]
+    [ A drAccuracy (C na nc sc) | nc <- drNcs ]
+    | sc <- drScs
     ]
 
 
