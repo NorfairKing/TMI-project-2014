@@ -45,5 +45,5 @@ clean:
 	$(MAKE) -C Benchmark clean
 
 benchmark:
-	rm -f ../analysis/results/*.csv
+	#rm -f ../analysis/results/*.csv
 	./Main benchmark

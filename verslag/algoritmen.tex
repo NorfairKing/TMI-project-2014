@@ -1,5 +1,8 @@
+\section{Algoritmen}
 
-\subsection{Het snijpunt van twee cirkels berekenen}
+\input{illustraties/voorbeeld_opgave}
+
+\subsection{Snijpunt van twee cirkels berekenen}
 \label{sec:snijpunt}
 
 \subsubsection{Algoritme}
@@ -85,6 +88,7 @@ De naïeve aanpak heeft complexiteit $O(n^2)$.
 %   \caption{Na\"ieve aanpak (functioneel)}
 % \end{figure}
 
+\input{illustraties/voorbeeld_1}
 
 \subsection{Kwadratisch}
 \label{sec:kwadratisch}
@@ -161,6 +165,20 @@ De naïeve aanpak heeft complexiteit $O(n^2)$.
 
 \subsubsection{Algoritme}
 
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
+  \KwOut{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{interval($c$)}{
+    $x_1 \leftarrow x - r$\;
+    $x_2 \leftarrow x + r$\;
+    $I \leftarrow [x_1, x_2]$\;
+    \Return{I}
+  }
+  \caption{Breedte-interval van een cirkel}
+\end{algorithm}
+\label{algo:interval}
 
 \begin{algorithm}[H]
   \KwIn{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
@@ -189,21 +207,6 @@ De naïeve aanpak heeft complexiteit $O(n^2)$.
     \Return{R}
   }
   \caption{Linearitmische aanpak (imperatief)}
-\end{algorithm}
-
-\begin{algorithm}[H]
-  \SetAlgoLined
-  \KwIn{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
-  \KwOut{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
-  \SetKwProg{Fn}{Procedure}{:}{end}
-  \Fn{interval($c$)}{
-    $x_1 \leftarrow x - r$\;
-    $x_2 \leftarrow x + r$\;
-    $I \leftarrow [x_1, x_2]$\;
-    \Return{I}
-  }
-  \caption{Breedte-interval van een cirkel}
-  \label{algo:interval}
 \end{algorithm}
 \subsubsection{Correctheidsbewijs}
 \subsubsection{Complexiteit}
