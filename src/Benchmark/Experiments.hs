@@ -8,12 +8,12 @@ import Benchmark.Experiment
 allExperiments :: [Experiment]
 allExperiments = 
     [
-      fewIntersectionsExperiment
-    , manyIntersectionsExperiment
-    , threeDPlotExperiment
+--      fewIntersectionsExperiment
+     manyIntersectionsExperiment
+--    , threeDPlotExperiment
     ]
-    ++
-    map doublingRatioExperiment nas
+--    ++
+--    map doublingRatioExperiment nas
     
 
 
@@ -36,7 +36,7 @@ fewIntersectionsExperiment :: Experiment
 fewIntersectionsExperiment = RawDataExperiment "FewIntersections"
     [
     A accuracy (C na nc 0.002)
-    | nc <- [10..1000]
+    | nc <- [10..500]
     , na <- nas
     ]
 
@@ -44,8 +44,8 @@ fewIntersectionsExperiment = RawDataExperiment "FewIntersections"
 manyIntersectionsExperiment :: Experiment
 manyIntersectionsExperiment = RawDataExperiment "ManyIntersections"
     [
-    A accuracy (C na nc 1)
-    | nc <- [10..1000]
+    A accuracy (C na nc 1000)
+    | nc <- [10..500]
     , na <- nas
     ]
 

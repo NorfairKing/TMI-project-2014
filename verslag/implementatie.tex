@@ -1,0 +1,13 @@
+\section{Implementatie}
+In deze sectie beschrijven we de implementatiedetails van de algoritmes en de gebruikte gegevensstructuren.
+
+\subsection{Naief}
+Het naieve algoritme maakt gebruik van staartrecursie zodat er nooit twee cirkels maar dan \'e\'en keer met elkaar vergeleken worden.
+
+\subsection{Kwadratisch}
+Het kwadratische algoritme maakt geen gebruik van externe datastructuren. Het gebruikt de ingebouwde lijsten van haskell om de status bij te houden.
+
+
+\subsection{Linearitmisch}
+het Linearitmische algoritme maakt gebruikt van een datastructuur genaamd `intervalmap' om de status bij te houden.
+Op deze manier kunnen de cirkels met overlappende intervallen kunnen gezocht worden in $O(R\log N)$ tijd (waarbij $R$ het aantal cirkels met overlappende intervallen voorstelt).

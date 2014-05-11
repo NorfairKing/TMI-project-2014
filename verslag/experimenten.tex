@@ -1,48 +1,89 @@
+\section{Experimenten}
+In deze sectie beschrijven we de experimenten die we hebben uitgevoerd, samen met de verwachtingen die we stelden van de resultaten.
 
+\subsection{Rauwe Data}
+De eerste groep experimenten die we hebben uitgevoerd zijn puur qualitatief. We meten de uitvoeringstijden van de verschillende algoritmes bij verschillende scaleringen van de straal bij verschillende aantallen cirkels.
 
+\subsubsection{Weinig snijpunten}
+Wanneer we de stralen van de willekeurig gegenereerde cirkels met een klein getal vermenigvuldigen zullen er minder snijpunten zijn tussen de cirkels. Wij kozen voor dit getal $0.002$ \todo{waarom dit?}.
 
-\input{illustraties/snijpunten_theorie}
-\input{illustraties/voorbeeld_opgave}
-\input{illustraties/voorbeeld_1}
-\input{illustraties/voorbeeld_2}
-\input{illustraties/voorbeeld_3}
+In de resulterende grafiek hopen we te zien dat het eerste algoritme het zich niet aantrekt dat de cirkels verschaald zijn. De grafiek zou er dan als een parabool moeten uitzien. Het tweede en derde algoritme zullen zich hopelijk linearitmisch gedragen. De grafiek van deze algoritmes zou er dan moeten uitzien als een weinig-gebogen rechte. De grafieken van het tweede en derde algoritme zouden onder de grafiek van het eerste algoritme moeten liggen voor grote $N$.
 
-\begin{figure}[H]
-   \centering
-   \includegraphics[width=\textwidth]{illustraties/fewIntersections.png}
-\end{figure}
-   
-\begin{figure}[H]
-   \centering
-   \includegraphics[width=\textwidth]{illustraties/manyIntersections.png}
-\end{figure}
+\subsubsection{Veel snijpunten}
+Wanneer we de stralen scaleren met een groot getal zullen er relatief veel snijpunten zijn tussen de cirkels. Wij kozen voor dit getal $1000$ \todo{waarom? uitleg intervallen}
 
-\begin{figure}[H]
-   \centering
-   \includegraphics[width=\textwidth]{illustraties/3DScatter.png}
-\end{figure}
+In de grafieken zouden we dan moeten zien dat algoritme \'e\'en en twee beide een parabool vormen. De grafiek van algoritme drie zou duidelijk boven de grafiek van de andere twee moeten liggen.
 
-\begin{figure}[H]
-   \centering
-   \includegraphics[width=\textwidth]{illustraties/visuele_output.png}
-\end{figure}
+\subsubsection{3D plot}
+Een 3D plot zou meer duidelijkheid kunnen scheppen, maar is vaak niet erg leesbaar. We hopen te zien dat het eerste algoritme ongeveer even snel werkt onafhankelijk van de scalering van de stralen. Bovendien hopen we te zien dat algoritme twee en drie beter presteren dan het eerste voor kleine scaleringen, en slechter presteren voor grote scaleringen.
+
 
 \subsection{Doubling Ratio}
+Een doubling ratio experiment voeren we uit om enigszins quantitatieve resultaten te bekomen. In de doubling ratio experimenten verdubbelen we het aantal cirkels en berekenen we de verhoudingen van de uitvoeringstijden. De verhouding van de uitvoeringstijd voor dubbel zo veel cirkels ten opzichte van de vorige uitvoeringstijd vertelt ons of ons vermoeden van de complexiteit juist is.
 
-\begin{figure}[H]
-\input{illustraties/table_DoublingRatio_1}
-\label{doublingratio_1}
-\caption{Doubling ratio 1}
-\end{figure}
-tekst
-\begin{figure}[H]
-\input{illustraties/table_DoublingRatio_2}
-\label{doublingratio_2}
-\caption{Doubling ratio 2}
-\end{figure}
+\subsubsection{Naief en Kwadratisch}
+Het na\"ieve algoritme zou een tijdscomplexiteit van $O(N^2)$ hebben. Dit houdt in de uitvoeringstijd vier keer groter wordt wanneer we het aantal cirkels verdubbelen.
+Het tweede algoritme heeft een slechtste-geval tijdscomplexiteit van $O(N^2)$. Het slechtste geval is wanneer elke twee cirkels snijden. Voor grote scaleringen zou de verhouding dus ook naar $4$ moeten convergeren.
+\[
+\lim_{N\rightarrow\infty}\frac{(2N)^2}{N^2}
+= \lim_{N\rightarrow\infty}\frac{4N^2}{N^2}
+= 4
+\]
 
-\begin{figure}[h]
-\input{illustraties/table_DoublingRatio_3}
-\label{doublingratio_3}
-\caption{Doubling ratio 3}
-\end{figure}
+\subsubsection{Linearitmisch}
+Voor het derde algoritme voorspellen we een tijdscomplexiteit van $O(N+S)\log(N)$ waarbij $S$ het aantal snijpunten is. Wanneer er (bijna) geen snijpunten zijn verwachten we een verhouding van $2$.
+\[
+\lim_{
+N\rightarrow \infty\\
+}
+\frac{(2N+S)\log(2N)}{(N+S)\log(N)}
+=
+\lim_{
+N\rightarrow \infty\\
+}
+\frac{2N\log(2N)}{N\log(N)}
+=
+\lim_{
+N\rightarrow \infty\\
+}
+\frac{2\log(2N)}{\log(N)}
+\]
+\[
+=
+\lim_{
+N\rightarrow \infty\\
+}
+2\frac{\log(2)+\log(N)}{\log(N)}
+=
+\lim_{
+N\rightarrow \infty\\
+}
+2\left(1 + \frac{\log(2)}{\log(N)}\right)
+= 2
+\]
+\noindent Wanneer (bijna) elke twee cirkels elkaar snijden ligt $S$ dicht bij $N^2$. We verwachten dan ook een verhouding van $4$.
+\[
+\lim_{
+N\rightarrow \infty\\
+}
+\frac{(2N)^2\log(2N)}{N^2\log(N)}
+=
+\lim_{
+N\rightarrow \infty\\
+}
+4\frac{N^2\log(2N)}{N^2\log(N)}
+=
+\lim_{
+N\rightarrow \infty\\
+}
+4\frac{\log(2)+\log(N)}{\log(N)}
+\]
+\[
+=
+\lim_{
+N\rightarrow \infty\\
+}
+4\left(1+\frac{\log(2)}{\log(N)}\right)
+= 4
+\]
+

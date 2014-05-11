@@ -1,69 +1,28 @@
 \documentclass[12pt,a4paper]{article}
 
-\usepackage[dutch]{babel}
-\usepackage{listings}
-
-% Voor algoritmes
-\usepackage{algorithm2e}
-
-% Voor todo's
-\usepackage{todonotes}
-
-% Voor wiskunde
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-
-% Om het totaal aantal pagina's te tellen
-\usepackage{lastpage}
-\usepackage{afterpage}
-
-% Voor tekeningen
-\usepackage{tikz}
-\usetikzlibrary{decorations}
-\usetikzlibrary{calc}
-
-% Nog tekeningen
-\usepackage{pgfplots}
-
-% SVG tekeningen
-\usepackage{svg}
-
-% Figuren op de juiste plaats
-\usepackage{float}
-
-% Om de marges aan te passen
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
-
-% Voor headers en footers
-\usepackage{fancyhdr}
-
+\input{packages}
 \input{header}
+
 \begin{document}
+
 \input{titelblad}
+
 \tableofcontents
-\section{Inleiding}
+\pagebreak
+
 
 \input{inleiding}
-
-\section{Algoritmen}
-
 \input{algoritmen}
-
-\section{Implementatie}
-
 \input{implementatie}
-
-\section{Experimenten}
 \input{experimenten}
+\input{resultaten}
+\input{besluit}
 
-
-\section{Resultaten}
-%% \todo{grafieken}
-
-\section{Besluit}
-%% \todo{besluit}
-
-\listoftodos
+\appendix
+\section{Voorbeeld Geval}
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=\textwidth]{illustraties/visuele_output.png}
+\end{figure}
 
 \end{document}

@@ -1,9 +1,12 @@
+\section{Algoritmen}
+
+\input{illustraties/voorbeeld_opgave}
 
 \subsection{Snijpunt van twee cirkels berekenen}
 \label{sec:snijpunt}
 
 
-\begin{figure}
+\begin{figure}[H]
 \begin{algorithm}[H]
   \KwData{twee cirkels, $c$ en $c'$ met respectievelijke middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
   \KwResult{waar als en slechts als de twee cirkels snijden}
@@ -14,7 +17,7 @@
 \label{algo:snijden}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{algorithm}[H]
   \KwData{twee cirkels, $c$ en $c'$ met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
   \KwResult{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
@@ -40,13 +43,16 @@
 \end{figure}
 
 
+\input{illustraties/snijpunten_theorie}
+
+
 \subsection{Na\"ief}
 \label{sec:naief}
 
 De naïeve aanpak heeft complexiteit $O(n^2)$ en vinden we beschreven in
 figuur \ref{algo:naive}. 
 
-\begin{figure}
+\begin{figure}[H]
   \begin{algorithm}[H]
     \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
     \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
@@ -55,7 +61,6 @@ figuur \ref{algo:naive}.
       \For{$j\leftarrow i$ \KwTo $n$}{
         $R \leftarrow R \cup snijpunten(C(i),C(j))$
       }
-
     }
     \Return{R}
     \caption{Na\"ieve aanpak (imperatief)}
@@ -63,7 +68,7 @@ figuur \ref{algo:naive}.
   \label{algo:naive}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \[
 intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\ \leftarrow\\ cs \}
 \]
@@ -72,10 +77,12 @@ intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\
 \end{figure}
 
 
+\input{illustraties/voorbeeld_1}
+
 \subsection{Kwadratisch}
 \label{sec:kwadratisch}
 
-\begin{figure}
+\begin{figure}[H]
   \begin{algorithm}[H]
     \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
     \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
@@ -100,7 +107,7 @@ intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\
   \end{algorithm}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
   \begin{algorithm}[H]
     \KwData{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
     \KwResult{twee \textit{events} $e_1$ en $e_2$,
@@ -115,7 +122,7 @@ intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\
   \end{algorithm}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \[
 intersections\ cs = go\ (sort\ (events\ cs))\ [\ ]
 \]
@@ -125,15 +132,21 @@ where
 \[
 \begin{array}{l c l}
 go\ [\ ] &= &[\ ]\\
-go (Insert\ c\ :\ es) T &= &(map\ (circleIntersections\ c)\ T) \cup (go\ es\ T\cup\{c\})\\
-go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
+go (Insert\ c\ :\ es)\ T &= &(map\ (circleIntersections\ c)\ T) \cup (go\ es\ T\cup\{c\})\\
+go (Delete\ c\ :\ es)\ T &= &go\ es\ T\backslash\{c\}\\
 \end{array}
 \]
-\label{naief_functioneel}
+\label{kwadratisch_functioneel}
 \caption{Kwadratische aanpak (functioneel)}
 \end{figure}
 
-\begin{figure}
+
+\input{illustraties/voorbeeld_2}
+
+
+\subsection{Linearitmisch}
+
+\begin{figure}[H]
   \begin{algorithm}[H]
     \KwData{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
     \KwResult{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
@@ -146,9 +159,8 @@ go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
   \label{algo:interval}
 \end{figure}
 
-\subsection{Linearitmisch}
 \label{sec:linearitmisch}
-\begin{figure}
+\begin{figure}[H]
   \begin{algorithm}[H]
     \KwData{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
     \KwResult{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
@@ -159,14 +171,14 @@ go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
     $E \leftarrow sorteer(E)$\;
     $T, R \leftarrow \varnothing$\;
     \For{$e \in E$}{
-      \uIf {e = insert c} {
+      \uIf {$e == insert$ $c$} {
         \For{$c' \in T$} {
           \If {$interval(c) \cap interval(c') \neq \varnothing$} {
             $R \leftarrow R \cup snijpunten(c,c')$
           }
         }
         $T \leftarrow T \cup {c}$
-      } \ElseIf {e = delete c} {
+      } \ElseIf {$e == delete$ $c$} {
         $T \leftarrow T \setminus \left\{c\right\} $
       }
     }
@@ -174,3 +186,26 @@ go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
     \caption{Linearitmische aanpak (imperatief)}
   \end{algorithm}
 \end{figure}
+
+\begin{figure}[H]
+\[
+intersections\ cs = go\ (sort\ (events\ cs))\ [\ ]
+\]
+\[
+where 
+\]
+\[
+\begin{array}{l c l}
+go\ [\ ] &= &[\ ]\\
+go (Insert\ c\ :\ es)\ T &= &(map\ (circleIntersections\ c)\ (map\ (inIntervalWith\ c)\ T))\\
+&& \cup\ (go\ es\ T\cup\{c\})\\
+go (Delete\ c\ :\ es)\ T &= &go\ es\ T\backslash\{c\}\\
+\end{array}
+\]
+\label{linearitmisch_functioneel}
+\caption{Linearitmische aanpak (functioneel)}
+\end{figure}
+
+
+
+\input{illustraties/voorbeeld_3}
