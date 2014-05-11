@@ -44,7 +44,7 @@ fewIntersectionsExperiment = RawDataExperiment "FewIntersections"
 manyIntersectionsExperiment :: Experiment
 manyIntersectionsExperiment = RawDataExperiment "ManyIntersections"
     [
-    A accuracy (C na nc 1000)
+    A accuracy (C na nc 100000)
     | nc <- [10..500]
     , na <- nas
     ]
