@@ -58,7 +58,24 @@ Gegeven twee cirkels $C_1$ en $C_2$ zoeken we $C_1 \cap C_2$.
 
 
 \paragraph{Mogelijke doorsneden}
-\todo{Mogelijke doorsneden}
+Twee cirkels kunnen op vier specifieke manieren gelegen zijn, met betrekking tot hun doorsnede.
+\begin{itemize}
+\item De cirkels vallen samen.\\
+\[C_1 \cap C_2 = C_1 = C_2\]
+Dit valt voor wanneer de cirkels concentrisch zijn en een even grote straal hebben.
+\[
+M_1 = M_2 \text{ en } r_1 = r_2
+\]
+
+\item De cirkels snijden in precies twee punten.\\
+\[C_1 \cap C_1 = \{P_1,P_2\}\]
+
+\item De cirkels raken aan elkaar.\\
+\[C_1 \cap C_2 = \{P\}\]
+
+\item De cirkels raken niet.
+\[C_1 \cap C_2 = \{P_1,P_2\} \text{ met } P_1,P_2 \in \mathbb{C}^2\]
+\end{itemize}
 
 \paragraph{Benaming}
 \todo{zie de figuur}
@@ -70,7 +87,8 @@ In de rest van dit deel bespreken we enkel het geval waarbij de snijpunt(en) re\
 Noem de snijpunten $P_1$ en $P_2$ in de berekening.
 Wanneer er maar \'e\'en snijpunt is zal de berekening nog steeds gelden, maar zal $P_1$ gelijk zijn aan $P_2$.
 
-Het snijpunt van de rechte door $M_1$ en $M_2$ en de rechte door $P_1$ en $P_2$ noemen we $P_0$.
+Noem de rechte door $M_1$ en $M_2$ $l_1$ en de rechte door $P_1$ en $P_2$ $l_2$.
+Het snijpunt van $l_1$ en $l_2$ noemen we $P_0$.
 Noem $a$ de afstand van $P_1$ tot $P_0$ en $b$ de afstand van $P_2$ tot $P_0$.
 Noem $d$ de afstand tussen $M_1$ en $M_2$.
 \[
@@ -94,20 +112,46 @@ Trekken we vergelijking $(2)$ van vergelijking $(1)$ af, dan krijgen we volgende
 \begin{array}{r l}
 r_1^2 -r_1^2 & = a^2 - b^2\\
 & = (a-b)(a+b)\\
-& = h(a-b)\\
-& = h(a-h+a)\\
-& = h(2a-h)
+& = d(a-b)\\
+& = d(a-d+a)\\
+r_1^2 -r_1^2 & = d(2a-d)
 \end{array}
 \]
+Vormen we deze vergelijking om om een uitdrukking voor $a$ te bekomen, dan krijgen we volgende uitdrukking.
 \[
-a = \frac{r_1^2-r_2^2 + h^2}{2h}
+a = \frac{r_1^2-r_2^2 + d^2}{2d}
 \]
+Noem de richtingscoeffici\"ent van $l_1$ $m$ en de richtingsco\"efficient van $l_2$ $n$.
+We kunnen $m$ berekenen uit de co\"ordinaten van $M_1$ en $M_2$.
 \[
 m = \frac{y_2-y_1}{x_2-x_1} \rightarrow n = -\frac{1}{m}
 \]
+Omdat $l_1$ loodrecht staat op $l_2$ weten we dat de richtingsco\"efficient $n$ van $l_2$ het omgekeerd tegengestelde is van de richtingsco\"efficient van $l_1$.
 \[
-P_0 = M_1 + a(M_2-M_1)
+n = -\frac{1}{m} = \frac{x_1-x_2}{y_1-y_2}
 \]
+Vervolgens kunnen we de co\"ordinaten van $P_0$ berekenen.
+\[
+P_0 = M_1 + a(M_2-M_1) = M_2 + b(M_1-M_2)
+\]
+\todo{2e gelijkheid nakijken}
+\[
+\begin{bmatrix}
+P_{0x}\\P_{0y}\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+M_{1x} + a(M_{2x}-M_{1x})\\
+M_{1y} + a(M_{2y}-M_{1y})\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+M_{2x} + b(M_{1x}-M_{2x})\\
+M_{2y} + b(M_{1y}-M_{2y})\\
+\end{bmatrix}
+\]
+Tenslotte kunnen we de co\"ordinaten van de snijpunten berekenen uit de co\"ordinaten van $M_1$, $M_2$ en $P_0$.
+\todo{meer uitleg hier, dit is niet vanzelfsprekend}
 \[
 \left\{
 \begin{array}{c l}

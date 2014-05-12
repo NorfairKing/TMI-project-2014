@@ -1,76 +1,60 @@
+
 \begin{figure}[H]
-  \centering
-  % \resizebox {\textwidth} {!} {
-    \begin{tikzpicture}[scale=1.5]
-      
-      % grid
-      \draw[very thin,color=lightgray] (0,0) grid (7,7);
-      \draw [<->,thick] (0,7) node (yaxis) [left] {Y} |- (7,0) node (xaxis) [right] {X};
+	\centering			
+	\begin{tikzpicture}[scale=1.5, domain=0:4]
+		% grid
+      	\draw[very thin,color=lightgray] (0,0) grid (6,5);
+      	\draw [<->,thick] (0,5) node (yaxis) [left] {Y} |- (6,0) node (xaxis) [right] {X};
 
-      % radius of the circles
-      \pgfmathsetlengthmacro{\radiusA}{1.7cm}
-      \pgfmathsetlengthmacro{\radiusB}{2.2cm}
+		% Definitions
+    	\pgfmathsetlengthmacro{\ra}{3cm}
+    	\pgfmathsetlengthmacro{\xa}{1cm}
+    	\pgfmathsetlengthmacro{\ya}{2cm}
+    
+    	\pgfmathsetlengthmacro{\rb}{2.5cm}
+    	\pgfmathsetlengthmacro{\xb}{5cm}
+    	\pgfmathsetlengthmacro{\yb}{3cm}
+	
+		% The middlepoints
+  		\coordinate (CA) at (\xa,\ya);
+  		\coordinate (CB) at (\xb,\yb);
+  
+  		% The point
+  		\draw[fill,color=black] (CA) circle (1.5pt) node[left, color=black] {$M_1$};
+  		\draw[fill,color=black] (CB) circle (1.5pt) node[right, yshift=10pt, color=black] {$M_2$};
+  
+  		% The circle
+  		%\draw[dashed,color=black] (CA) circle (\ra);
+		%\draw[dashed,color=black] (CB) circle (\rb);
+  
+		\draw [dotted,thick,domain=-40:110] plot ({1+3*cos(\x)}, {2+3*sin(\x)});
+		\draw [dotted,thick,domain=295:125] plot ({5+2.5*cos(\x)}, {3+2.5*sin(\x)});
+	
+		\coordinate (PA) at (2.885365678957660, 4.333537284169362);
+    	\coordinate (PB) at (3.761693144571752, 0.828227421712991);
+		\coordinate (PO) at (3.323529411764706, 2.580882352941176);
+		
+		\draw[very thick,color=blue,dashed] (CA) -- (CB);
+      	\draw[very thick,color=blue,dashed] (PA) -- (PB);
+      	\draw[very thick,color=blue,dashed] (CA) -- (PA);
+      	\draw[very thick,color=blue,dashed] (CA) -- (PB);
+      	\draw[very thick,color=blue,dashed] (CB) -- (PA);
+      	\draw[very thick,color=blue,dashed] (CB) -- (PB);
       
-      % positions of circles and points
-      \coordinate (A) at (2, 2);
-      \coordinate (AX) at (2, 0);
-      \coordinate (AY) at (0, 2);
-      \coordinate (AZ) at (4, 0);
-      \coordinate (B) at (4, 4);
-      \coordinate (BX) at (4, 0);
-      \coordinate (BY) at (0, 4);
-      \coordinate (BZ) at (6, 2);
-      \coordinate (C) at (2.75625, 2.75625);
-      \coordinate (CX) at (2.75625, 0);
-      \coordinate (CY) at (0, 2.75625);
-      \coordinate (CZ) at (4.75625, 0.75625);
-      \coordinate (D) at (1.8218593228739925,3.690640677126009);
-      \coordinate (DX) at (1.8218593228739925,0);
-      \coordinate (DY) at (0,3.690640677126009);
-      \coordinate (E) at (3.690640677126009, 1.8218593228739917);
+      	\draw[thick,decorate,decoration={brace,amplitude=5pt,mirror,raise=1pt}] (PO) -- (PA) node[midway,xshift=10pt,yshift=8pt] {$h$};
+	
+\draw[thick,decorate,decoration={brace,amplitude=10pt,mirror,raise=1pt}] (CA) -- (CB) node[midway,xshift=10pt,yshift=-15pt] {$d$};
+      \draw[thick,decorate,decoration={brace,amplitude=10pt,raise=1pt}] (CA) -- (PO) node[midway,xshift=-11pt,yshift=12pt] {$a$};
+      \draw[thick,decorate,decoration={brace,amplitude=10pt,raise=1pt}] (PO) -- (CB) node[midway,xshift=-11pt,yshift=12pt] {$b$};	
       
-      % connect the positions
-      \draw[thick,dashed,color=gray] (A) -- (AX);
-      \draw[thick,dashed,color=gray] (A) -- (AY);
-      \draw[thick,dashed] (A) -- (AZ);
-      \draw[thick,dashed,color=gray] (B) -- (BX);
-      \draw[thick,dashed,color=gray] (B) -- (BY);
-      \draw[thick,dashed] (B) -- (BZ);
-      \draw[thick,dashed] (C) -- (CX);
-      \draw[thick,dashed] (C) -- (CY);
-      \draw[thick,dashed] (C) -- (CZ);
-      \draw[thick,dashed] (D) -- (DX);
-      \draw[thick,dashed] (D) -- (DY);
-      \draw[very thick,color=blue] (A) -- (B);
-      \draw[very thick,color=blue] (A) -- (D);
-      \draw[very thick,color=blue] (A) -- (E);
-      \draw[very thick,color=blue] (B) -- (D);
-      \draw[very thick,color=blue] (B) -- (E);
-      \draw[very thick,color=blue] (D) -- (E);
+      \draw[thick,decorate,decoration={brace,amplitude=10pt,raise=1pt}] (CA) -- (PA) node[midway,xshift=-11pt,yshift=15pt] {$r_1$};	
+      \draw[thick,decorate,decoration={brace,amplitude=10pt,raise=1pt}] (PA) -- (CB) node[midway,xshift=+11pt,yshift=15pt] {$r_2$};	
       
-      % curly braces
-      \draw[thick,color=gray,decorate,decoration={brace,amplitude=10pt,mirror,raise=1pt}] (AX) -- (BX) node[midway,yshift=-18pt] {$dx$};
-      \draw[thick,color=gray,decorate,decoration={brace,amplitude=10pt,raise=1pt}] (AY) -- (BY) node[midway,xshift=-20pt] {$dy$};
-      \draw[thick,decorate,decoration={brace,amplitude=10pt,mirror,raise=1pt}] (CX) -- (DX) node[midway,above,yshift=7pt] {$rx$};
-      \draw[thick,decorate,decoration={brace,amplitude=10pt,mirror,raise=1pt}] (CY) -- (DY) node[midway,right,xshift=10pt] {$ry$};
-      \draw[thick,decorate,decoration={brace,amplitude=5pt,mirror,raise=1pt}] (AZ) -- (BZ) node[midway,xshift=10pt,yshift=-8pt] {$d$};
-      \draw[thick,decorate,decoration={brace,amplitude=5pt,raise=1pt}] (AZ) -- (CZ) node[midway,xshift=-11pt,yshift=7pt] {$a$};
-      \draw[thick,decorate,decoration={brace,amplitude=5pt,raise=1pt}] (CZ) -- (BZ) node[midway,xshift=-11pt,yshift=7pt] {$b$};
-      \draw[thick,decorate,decoration={brace,amplitude=5pt,mirror,raise=1pt}] (C) -- (D) node[midway,xshift=10pt,yshift=8pt] {$h$};
-      
-      % mark the positions
-      \draw[fill,color=red] (A) circle (1.5pt) node[left, yshift=-10pt] {$M_1$};
-      \draw[fill,color=red] (B) circle (1.5pt) node[right, yshift=10pt] {$M_2$};
-      \draw[fill,color=red] (C) circle (1.5pt) node[right] {$P_0$};
-      \draw[fill,color=red] (D) circle (1.5pt) node[left, yshift=6pt] {$P_1$};
-      \draw[fill,color=red] (E) circle (1.5pt) node[right, yshift=-10pt, xshift=-4pt] {$P_2$};
-      
-      % draw the circles
-      \draw[thick,color=black] (A) circle (\radiusA);
-      \draw[thick,color=black] (B) circle (\radiusB);
-    \end{tikzpicture}
-  % }
-  \caption{Illustratie bij de methode voor het vinden van snijpunten tussen twee cirkels}
-  \label{fig:snijpunten}
+      \draw[fill,color=black] (PA) circle (1.5pt) node[left, yshift=15pt, color=black] {$P_1$};
+      \draw[fill,color=black] (PB) circle (1.5pt) node[left, xshift=10pt, yshift=-15pt, color=black] {$P_2$};	
+      \draw[fill,color=black] (PO) circle (1.5pt) node[left, yshift=15pt, color=black] {$P_0$};
+	
+	\end{tikzpicture}
+	\caption{Snijpunten van twee cirkels}
+  	\label{fig:snijpunten}
 \end{figure}
-
