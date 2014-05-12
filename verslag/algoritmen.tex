@@ -48,9 +48,80 @@
   \caption{Snijpunten van twee cirkels berekenen}
 \end{algorithm}
 
-\subsubsection{Correctheidsbewijs}
-\subsubsection{Complexiteit}
+\subsubsection{Theoretische Achtergrond}
+\todo{aannames}
+\begin{figure}[H]
+\input{illustraties/snijpunten_theorie}
+\end{figure}
 
+Gegeven twee cirkels $C_1$ en $C_2$ zoeken we $C_1 \cap C_2$.
+
+
+\paragraph{Mogelijke doorsneden}
+\todo{Mogelijke doorsneden}
+
+\paragraph{Benaming}
+\todo{zie de figuur}
+We geven de twee stralen standaard de benaming $r_1$ en $r_2$ respectievelijk.
+Noem de middelpunten van de cirkels $M_1(x_1,y_1)$ en $M_2(x_2,y_2)$. 
+
+Noem de doorsnede van $C_1$ en $C_2$ $I$. Wanneer de twee cirkels gelijk zijn geldt $C_1 = C_2 = I$.
+In de rest van dit deel bespreken we enkel het geval waarbij de snijpunt(en) re\"eel zijn.
+Noem de snijpunten $P_1$ en $P_2$ in de berekening.
+Wanneer er maar \'e\'en snijpunt is zal de berekening nog steeds gelden, maar zal $P_1$ gelijk zijn aan $P_2$.
+
+Het snijpunt van de rechte door $M_1$ en $M_2$ en de rechte door $P_1$ en $P_2$ noemen we $P_0$.
+Noem $a$ de afstand van $P_1$ tot $P_0$ en $b$ de afstand van $P_2$ tot $P_0$.
+Noem $d$ de afstand tussen $M_1$ en $M_2$.
+\[
+d = a + b
+\]
+.\todo{herschrijven, beter uitleggen}
+Noem $h$ de afstand van $P_1$ (of $P_2$) tot $P_0$.
+
+\paragraph{Snijpunten berekenen}
+We zien dat de driehoeken $M_1P_1P_0$, $M_2P_1P_0$, $M_1P_2P_0$ en $M_2P_2P_0$ rechthoekige driehoeken zijn. We gebruiken nu de regel van Pythagoras om de volgende gelijkheden te bekomen.
+\[
+\left\{
+\begin{array}{c l r}
+r_1^2 = a^2 + h^2 & (1)\\
+r_2^2 = b^2 + h^2 & (2)
+\end{array}
+\right.
+\]
+Trekken we vergelijking $(2)$ van vergelijking $(1)$ af, dan krijgen we volgende vergelijking.
+\[
+\begin{array}{r l}
+r_1^2 -r_1^2 & = a^2 - b^2\\
+& = (a-b)(a+b)\\
+& = h(a-b)\\
+& = h(a-h+a)\\
+& = h(2a-h)
+\end{array}
+\]
+\[
+a = \frac{r_1^2-r_2^2 + h^2}{2h}
+\]
+\[
+m = \frac{y_2-y_1}{x_2-x_1} \rightarrow n = -\frac{1}{m}
+\]
+\[
+P_0 = M_1 + a(M_2-M_1)
+\]
+\[
+\left\{
+\begin{array}{c l}
+P_x &= x_0 \pm \frac{h}{d}(y_2-y_1)\\
+P_y &= y_0 \mp \frac{h}{d}(x_2-x_1)
+\end{array}
+\right.
+\]
+
+
+
+
+\subsubsection{Complexiteit}
+\todo{constant... duh}
 
 \subsection{Na\"ief}
 \label{sec:naief}
