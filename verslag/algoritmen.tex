@@ -12,7 +12,7 @@
   \KwOut{waar als en slechts als de twee cirkels snijden}
   \SetKwProg{Fn}{Procedure}{:}{end}
   \Fn{intersect($c$,$c'$)}{
-    d $\leftarrow$ distance(p1,p2)\\
+    d $\leftarrow \lVert p_2 - p_1\rVert $\\
     \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
       \Return{true}
     }{
@@ -29,8 +29,8 @@
   \KwOut{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
   \SetKwProg{Fn}{Procedure}{:}{end}
   \Fn{intersections($c$,$c'$)}{
-    \eIf{$intersect(c1, c2) \land c1 \neq c2$}{
-      $d \leftarrow distance(p_1, p_2)$\\
+    \eIf{$intersect(c, c') \land c1 \neq c2$}{
+      $d \leftarrow \lVert p_2 - p_1\rVert $ \\
       $\alpha \leftarrow \frac{r_1^2 -r_2^2}{2d^2}$\\
       $s \leftarrow \frac{x_1+x_2}{2} + \alpha(x_2-x_1)$\\
       $t \leftarrow \frac{y_1+y_2}{2} + \alpha(y_2-y_1)$\\
@@ -77,6 +77,31 @@
 \end{algorithm}
 
 \subsubsection{Correctheidsbewijs}
+% \begin{proof}
+\paragraph{Eindigheid.}
+Het algoritme eindigt: immers, de instructie in de binnenste for-lus
+wordt exact \[\sum_{i=1}^{n} \sum_{j<i}^{n} 1 = \frac{n(n-1)}{2} \]
+keer uitgevoerd. 
+
+\paragraph{Correctheid.}
+De correctheid van het algoritme bewijzen we met een lusinvariante:
+\begin{inv} 
+Na de $i^{\textrm{de}}$ iteratie van de buitenste lus zijn
+alle snijpunten van de eerste $i$ cirkels toegevoegd aan de
+verzameling snijpunten. 
+\end{inv} 
+
+\begin{proof}
+Dat deze lusinvariante geldt tonen we aan per
+inductie:
+
+\subparagraph{Basisgeval.} Het is duidelijk dat voor $i = 1$ de invariante
+geldt. Immers, na iteratie 1 hebben we cirkel 1 in de lijst nagekeken
+op snijpunten met alle $n-1$ andere cirkels.
+
+\subparagraph{Inductiestap.}
+\end{proof}
+
 \subsubsection{Complexiteit}
 De naïeve aanpak heeft complexiteit $O(n^2)$.
 
@@ -159,6 +184,7 @@ De naïeve aanpak heeft complexiteit $O(n^2)$.
 \subsubsection{Correctheidsbewijs}
 \subsubsection{Complexiteit}
 
+\input{illustraties/voorbeeld_2}
 
 \subsection{Linearitmisch}
 \label{sec:linearitmisch}
@@ -210,3 +236,5 @@ De naïeve aanpak heeft complexiteit $O(n^2)$.
 \end{algorithm}
 \subsubsection{Correctheidsbewijs}
 \subsubsection{Complexiteit}
+
+\input{illustraties/voorbeeld_3}
