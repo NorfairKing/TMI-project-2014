@@ -5,6 +5,7 @@ import Benchmark.Assignment
 data Experiment 
     = RawDataExperiment String [Assignment]
     | DoublingRatioExperiment String [[Assignment]]
+    |
 
 
 instance Show Experiment where
