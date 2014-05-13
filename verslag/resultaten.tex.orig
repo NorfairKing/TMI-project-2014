@@ -37,27 +37,39 @@ Het is duidelijk dat algoritme \'e\'en ongeveer evenveel tijd nodig heeft onafha
 \input{illustraties/table_DoublingRatio_1}
 \label{fig:doublingratio_1}
 \caption{Doubling ratio 1}
-\end{table}
+<<<<<<< HEAD
+\end{figure}
 Figuur \ref{fig:doublingratio_1} toont de resultaten van het doubling ratio exeriment voor algoritme \'e\'en. Het is makkelijk te zien dat de ratio zal convergeren naar $4$ voor een groot aantal cirkels. Dit bovendien onafhankelijk van de scalering van de stralen.
+=======
+\end{table}
+>>>>>>> a1c18a19e736223573d2200985f34ee881d4d953
 
 \subsubsection{Kwadratisch}
 \begin{table}[H]
 \input{illustraties/table_DoublingRatio_2}
 \label{fig:doublingratio_2}
 \caption{Doubling ratio 2}
-\end{table}
+<<<<<<< HEAD
+\end{figure}
 In Figuur \ref{fig:doublingratio_2} de resultaten van het doubling ratio experiment voor algoritme twee. Voor kleine scaleringen van de straal zien we dat de ratio rond $2.2$ schommelt. Wanneer er weinig snijpunten zijn is dit algoritme dus inderdaad beter dan kwadratisch.
 Voor grote scaleringen schommeld de ratio rond $4$ zoals verwacht van een kwadratisch algoritme.
+=======
+\end{table}
+>>>>>>> a1c18a19e736223573d2200985f34ee881d4d953
 
 \subsubsection{Linearitmisch}
 \begin{table}[h]
 \input{illustraties/table_DoublingRatio_3}
 \label{fig:doublingratio_3}
 \caption{Doubling ratio 3}
-\end{table}
+<<<<<<< HEAD
+\end{figure}
 In Figuur \ref{fig:doublingratio_3} staan de resultaten van het laatste doubling ratio experiment.
 We zien dat de ratio rond 2.2 schommelt voor kleine scaleringen.
 Dit komt overeen met onze voorspellingen.
 Bij kleine $S$ zal de uitvoeringstijd van het algoritme namelijk linearitmisch groeien.
 Bij grote scaleringen schommelt de ratio boven $4$ zoals verwacht van een $O(N^2\log(N))$ algoritme.
 
+=======
+\end{table}
+>>>>>>> a1c18a19e736223573d2200985f34ee881d4d953

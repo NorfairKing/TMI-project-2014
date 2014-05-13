@@ -8,9 +8,13 @@
 \input{titelblad}
 
 \tableofcontents
+\listoffigures
+\listoftables
+\listofalgorithms
 \pagebreak
 
 
+\pagestyle{fancy}
 \input{inleiding}
 \input{algoritmen}
 \input{implementatie}
@@ -19,10 +23,10 @@
 \input{besluit}
 
 \appendix
-\section{Voorbeeld Geval}
+\section{Voorbeeldgeval}
 \begin{figure}[H]
    \centering
-   \includegraphics[width=\textwidth]{illustraties/visuele_output.png}
+   \includesvg[width=\textwidth]{visuele_output}
 \end{figure}
 
 \end{document}

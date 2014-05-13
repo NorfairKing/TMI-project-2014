@@ -2,31 +2,15 @@
 
 \input{illustraties/voorbeeld_opgave}
 
-\subsection{Snijpunt van twee cirkels berekenen}
+\subsection{De snijpunten van twee cirkels berekenen}
 \label{sec:snijpunt}
 
 \subsubsection{Algoritme}
-\begin{algorithm}[H]
-  \SetAlgoLined
-  \KwIn{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
-  \KwOut{waar als en slechts als de twee cirkels snijden}
-  \SetKwProg{Fn}{Procedure}{:}{end}
-  \Fn{intersect($c$,$c'$)}{
-    d $\leftarrow \lVert p_2 - p_1\rVert $\\
-    \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
-      \Return{true}
-    }{
-      \Return{false}
-    }
-  }
-
-  \caption{Nagaan of twee cirkels snijden}
-\end{algorithm}
 
 \begin{algorithm}[H]
   \SetAlgoLined
   \KwIn{twee cirkels, $c$ en $c'$ met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
-  \KwOut{geen, of twee snijpunten van de twee cirkels (die dan identiek zijn)}
+  \KwOut{geen, of twee snijpunten van de twee cirkels (\'e\'en punt met multipliciteit twee of twee met multipliciteit \'e\'en)}
   \SetKwProg{Fn}{Procedure}{:}{end}
   \Fn{intersections($c$,$c'$)}{
     \eIf{$intersect(c, c') \land c1 \neq c2$}{
@@ -48,7 +32,24 @@
   \caption{Snijpunten van twee cirkels berekenen}
 \end{algorithm}
 
-\subsubsection{Theoretische Achtergrond}
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
+  \KwOut{waar als en slechts als de twee cirkels snijden}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{intersect($c$,$c'$)}{
+    d $\leftarrow \lVert p_2 - p_1\rVert $\\
+    \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
+      \Return{true}
+    }{
+      \Return{false}
+    }
+  }
+
+  \caption{Nagaan of twee cirkels snijden}
+\end{algorithm}
+
+\subsubsection{Theoretische achtergrond}
 \todo{aannames}
 \begin{figure}[H]
 \input{illustraties/snijpunten_theorie}
@@ -208,6 +209,7 @@ alle snijpunten van de eerste $i$ cirkels met de andere cirkels
 toegevoegd aan de verzameling snijpunten.
 \end{inv} 
 
+\begin{proof}
 We bewijzen dit per inductie.
 
 \textit{Basisstap.} Het is duidelijk dat voor $i = 1$ de invariante
@@ -230,8 +232,10 @@ iteraties is het snijpunt van elk van die cirkels met cirkel $i$ al
 berekend en toegevoegd aan de verzameling snijpunten. Bij krachte van
 het inductieprincipe bevat de verzameling snijpunten na iteratie $i$
 dus alle snijpunten van de eerste $i$ cirkels met alle andere
-cirkels. Na iteratie $n$ zijn dus alle snijpunten gevonden; het
-algoritme is correct.
+cirkels. 
+\end{proof}
+
+Na iteratie $n$ zijn dus alle snijpunten gevonden; het algoritme is correct.
 \end{proof}
 
 \subsubsection{Complexiteit}
@@ -316,7 +320,10 @@ De na\"ieve aanpak heeft complexiteit $O(n^2)$. Dit volgt rechtstreeks uit ons b
 %   \caption{Kwadratische aanpak (functioneel)}
 % \end{figure}
 \subsubsection{Correctheidsbewijs}
-\begin{stl} Algoritme \ref{algo:quadratic} is correct en eindig.\end{stl}
+\begin{stl} 
+  Algoritme \ref{algo:quadratic} is correct en eindig.
+  \label{thm:quadratic}
+\end{stl}
 \begin{proof}
 We bewijzen eerst dat het algoritme eindigt, dan dat het correct
 is. 
@@ -341,6 +348,7 @@ met een invariante.
 $T$ bevat na elke iteratie van de buitenste lus maximaal $n$ elementen.
 \end{inv}
 
+\begin{proof}
 Op het einde van elke iteratie van de buitenste lus wordt exact
 \'e\'en cirkel ofwel toegevoegd aan ofwel verwijderd uit $T$. Elke
 cirkel wordt exact \'e\'en keer toegevoegd aan of verwijderd uit $T$
@@ -350,16 +358,19 @@ bevatten. Er zijn maar $n$ cirkels, dus volgens het duiventilprincipe
 zou er ergens een cirkel tweemaal moeten toegevoegd zijn, wat in
 strijd is met het feit dat elke cirkel exact \'e\'en keer
 toegevoegd aan of verwijderd uit $T$. Dit kan niet en dus moet $T$
-maximaal $n$ elementen bevatten. Hiermee is de eindigheid van het
-algoritme bewezen.
+maximaal $n$ elementen bevatten. 
+\end{proof} 
 
-Nu gaan we over tot een correctheidsbewijs. Daarvoor volstaat het aan
-te tonen dat het voldoende is om een cirkel die we toevoegen tijdens
-iteratie $i$ te checken met de cirkels in $T$. We doen dit in meerdere stappen.
+Hiermee is de eindigheid van het algoritme bewezen. Nu gaan we over
+tot een correctheidsbewijs. Daarvoor volstaat het aan te tonen dat het
+voldoende is om een cirkel die we toevoegen tijdens iteratie $i$ te
+checken met de cirkels in $T$. We doen dit in meerdere stappen.
 
 We merken eerst op dat we de lijst $E$ voor gebruik sorteren op
 $y$-co\"ordinaat. Voor het voorbeeldgeval levert dit de volgende
-geordende verzameling $E$ op: \[E = \left\{insert\ c_1, delete\ c_1,
+geordende verzameling $E$ op: 
+
+\[E = \left\{insert\ c_1, delete\ c_1,
 insert\ c_2, insert\ c_4, insert\ c_3, delete\ c_2, delete\ c_4,
 delete\ c_3 \right\}.\]
 
@@ -367,45 +378,108 @@ Als we nader kijken, zien we dat $E$ eigenlijk een reeks van $n$
 intervallen op de $y$-as definieert die elk bepaald worden door de
 uiterste $y$-co\"ordinaten van elk van de $n$ cirkels in $C$. Wanneer
 we $E$ sorteren, bekomen we dan een geordende verzameling die aangeeft
-wanneer deze intervallen overlappen.
+wanneer deze intervallen overlappen. Dit gaan we nu formeel aantonen.
 
-Nu kunnen we bewijzen dat het algoritme correct is. In de binnenste
-lus wordt een cirkel ofwel toegevoegd ofwel verwijderd uit $T$, en
-voor deze twee gevallen stellen we volgende twee invarianten op:
+We construeren nu een verzameling $T'$ die bestaat uit alle mogelijke
+combinaties van cirkels wiens intervallen overlappen, geordend volgens
+toevoegpunt. Voor ons voorbeeld zou dit bijvoorbeeld de volgende
+verzameling zijn:
 
-\begin{inv}
-Elke cirkel die niet in $T$ zit v\'o\'or iteratie $i$ kan onmogelijk
-snijden met een cirkel die toegevoegd wordt tijdens iteratie $i$.
-\label{inv:t1}
-\end{inv}
+\[T' = \left\{\left\{c_2,c_4\right\},\left\{c_2,c_4,c_3\right\},\left\{c_4,c_3\right\}\right\}\]
 
+We willen het volgende aantonen:
+
+\begin{lemma}
+Elk element van $T'$ is een deelverzameling van een configuratie van $T$.
+\label{lemma:intervals}
+\end{lemma}
+\begin{proof}
+We tonen dit per constructie aan. Elke configuratie $t$ van $T$ is
+gegenereerd door een gesorteerde sequentie van toevoegpunten en
+verwijderpunten zoals we die in $E$ vinden. Elk tweetal
+toevoegpunt-verwijderpunt van een cirkel vormt een interval. De
+$i^{\textrm{de}}$ configuratie van $T$ wordt gegenereerd door de
+eerste $i - 1$ elementen van $E$. 
+
+Neem de $i^{de}$ configuratie van $T$. We kunnen gemakkelijk aantonen
+dat die een element uit $T'$ als deelverzameling heeft. Immers, alle
+cirkels die in $T$ zitten hebben overlappende intervallen door de
+manier waarop $T$ gegenereerd is.
+
+Neem anderzijds een element $t \in T'$. We tonen aan dat dit element
+een deelverzameling vormt van een configuratie van $T$ gegenereerd
+door $E$. Om te beginnen zijn configuraties van $T$ op dezelfde manier
+geordend als elementen van $T'$, en is het dus mogelijk dat zij
+elementen van $T'$ bevatten.
+
+$T'$ bevat voor een willekeurige opstelling maximaal $2^n - n - 1$
+elementen (we sluiten de lege verzameling en alle singletons uit,
+gezien die triviaal deel uitmaken van minstens \'e\'en configuratie
+van $T$).
+\todo{Dit bewijs moet nog afgewerkt worden.}
+\end{proof}
+
+\begin{gevolg}
+Elke configuratie van $T$ bevat minstens \'e\'en element van $T'$ als
+deelverzameling.
+\label{gevolg:sweepline}
+\end{gevolg}
+
+% Triviaal: immers, we hebben bij lemma \ref{lemma:intervals} aangetoond
+% dat elke $t \in T$ gegenereerd wordt door het toevoegen van een
+% overlappend interval aan een unie van overlappende intervallen of door
+% het verwijderen van het eerste interval in een unie van overlappende
+% intervallen. Dit levert terug een overlappend interval op.
+
+Nu kunnen we bewijzen dat het algoritme correct is. Daarvoor gebruiken
+we het het volgende lemma:
+
+\begin{lemma}
+Elke cirkel die v\'o\'or het begin van iteratie $i$ uit $T$ verwijderd is
+kan onmogelijk snijden met een cirkel die toegevoegd wordt tijdens
+iteratie $i$.
+\label{lemma:t1}
+\end{lemma}
+
+\begin{proof}
 We bewijzen uit het ongerijmde. Stel dat er een cirkel $c' \in C$
-bestaat die niet in $T$ zit maar die wel met $c$ snijdt. Dan wil dit
-zeggen dat het interval op de $y$-as dat correspondeert aan $c'$ niet
-overlapt met het interval dat correspondeert aan $c$. Dit is echter
-onmogelijk: als dit het geval zou zijn, zou de verticale afstand
-tussen de middelpunten van $c$ en $c'$ groter zijn dan de som van de
-stralen van beide cirkels, en dan is het onmogelijk dat ze snijden.
+bestaat die uit $T$ verwijderd is maar die wel met $c$ snijdt. Na het
+nakijken op snijpunten wordt $c$ toegevoegd aan $T$. Gezien $c$ en
+$c'$ snijden, overlapt het interval op de $y$-as dat correspondeert
+aan $c'$ met het interval dat correspondeert aan $c$.
 
-\begin{inv}
-Elke cirkel die uit $T$ verwijderd wordt tijdens iteratie $i$ kan onmogelijk
-snijden met een cirkel die toegevoegd wordt tijdens iteratie $j > i$.
-\label{inv:t2}
-\end{inv}
+Nu heeft $c'$ al eens in $T$ gezeten: uit gevolg 1
+\ref{gevolg:sweepline} volgt dan dat onze stelling een contradictie is;
+immers, dan is er een element $t \in T'$ waarin zowel $c$ als $c'$
+zitten, maar dit behoort dan tot geen enkele configuratie van $T$,
+gezien een cirkel die verwijderd is niet meer toegevoegd kan worden
+aan $T$. Daarmee is het lemma bewezen.
+\end{proof}
 
-We bewijzen uit het ongerijmde. Stel dat we tijdens iteratie $i$ een
-cirkel $c'$ verwijderen uit $T$ die toch snijdt met een cirkel $c$ die
-pas in een latere iteratie $j$ toegevoegd wordt. De intervallen
-corresponderend aan beide cirkels moeten overlappen (zoals aangetoond
-in het bewijs van invariante \ref{inv:t1}). We hebben echter
-aangetoond dat elke unie van overlappende intervallen vervat is in een
-configuratie van $T$; er moet dus een configuratie van $T$ zijn waarin
-zowel $c$ als $c'$ zitten, wat in tegenspraak is met de stelling.
+\begin{gevolg} 
+Als een cirkel aan $T$ wordt toegevoegd aan het einde van iteratie $i$
+hoeven tijdens die iteratie enkel snijpunten van die cirkel met de
+cirkels uit $T$ toegevoegd te worden aan de verzameling snijpunten.
+\end{gevolg} 
+\begin{proof}
+Als er cirkels zijn die voor iteratie $i$ niet in $T$ zitten, kan dat
+twee redenen hebben:
+\begin{geval}
+De cirkels zijn al toegevoegd en terug verwijderd uit $T$; dan geldt
+lemma \ref{lemma:t1} en hoeven wij niet na te kijken op snijpunten met
+$c$.
+\end{geval}
+\begin{geval}
+De cirkels zijn nog niet toegevoegd aan $T$: dan weten we dat die in
+een latere iteratie $j$ zullen toegevoegd worden. Op dat moment kunnen
+we terug lemma \ref{lemma:t1} toepassen.
+\end{geval}
+\end{proof}
 
-Uit deze twee invarianten volgt dat een cirkel toegevoegd tijdens
-iteratie enkel en alleen kan snijden met een cirkel die op dat moment
-al in $T$ zit. Het is dus voldoende om die cirkel te vergelijken met
-de cirkels in $T$. Daarmee is ons correctheidsbewijs afgerond.
+Het bewijs dat de snijpunten van alle cirkels op deze manier in de
+uiteindelijke verzameling snijpunten komen te zitten loopt analoog aan
+het bewijs van correctheid voor algoritme \ref{algo:naive}. Daarmee is
+ons correctheidsbewijs afgerond.
 \end{proof}
 \subsubsection{Complexiteit}
 
@@ -415,21 +489,6 @@ de cirkels in $T$. Daarmee is ons correctheidsbewijs afgerond.
 \label{sec:linearitmisch}
 
 \subsubsection{Algoritme}
-
-\begin{algorithm}[H]
-  \SetAlgoLined
-  \KwIn{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
-  \KwOut{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
-  \SetKwProg{Fn}{Procedure}{:}{end}
-  \Fn{interval($c$)}{
-    $x_1 \leftarrow x - r$\;
-    $x_2 \leftarrow x + r$\;
-    $I \leftarrow [x_1, x_2]$\;
-    \Return{I}
-  }
-  \caption{Breedte-interval van een cirkel}
-\end{algorithm}
-\label{algo:interval}
 
 \begin{algorithm}[H]
   \KwIn{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
@@ -457,9 +516,55 @@ de cirkels in $T$. Daarmee is ons correctheidsbewijs afgerond.
     }
     \Return{R}
   }
+  \label{algo:linearithmic}
   \caption{Linearitmische aanpak (imperatief)}
 \end{algorithm}
+
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
+  \KwOut{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{interval($c$)}{
+    $x_1 \leftarrow x - r$\;
+    $x_2 \leftarrow x + r$\;
+    $I \leftarrow [x_1, x_2]$\;
+    \Return{I}
+  }
+  \caption{Breedte-interval van een cirkel}
+  \label{algo:interval}
+\end{algorithm}
+
 \subsubsection{Correctheidsbewijs}
+\begin{stl} Algoritme \ref{algo:linearithmic} is correct en eindig.\end{stl}
+\begin{proof}
+Dit algoritme verschilt van algoritme \ref{algo:quadratic} op slechts
+één punt: in de binnenste for-lus wordt nog een extra check gedaan op
+het overlappen van de intervallen van de cirkels op de $x$-as. We
+voegen geen extra lussen toe, dus de eindigheid van het algoritme is
+gegarandeerd bij krachte van stelling \ref{thm:quadratic}.
+
+Door de check in de binnenste for-lus wordt nog slechts een
+deelverzameling van $T$ vergeleken met de cirkel $c$ toegevoegd in
+iteratie $i$ van de tweede for-lus. Noem deze deelverzameling $B$. Het
+volstaat aan te tonen dat er in $T \setminus B$ geen enkele cirkel zit die zou
+kunnen snijden met $c$. Dat is simpel: het criterium dat we opleggen
+is dat $c$ over de $x$-as moet overlappen met elke $c'$; formeel zien
+we in dat 
+
+\[B = \left\{c' | c' \in T, interval(c) \cap interval(c') \neq \varnothing \right\} \]
+
+en dus is het ook zo dat
+
+\[T \setminus B = \left\{c' | c' \in T, interval(c) \cap interval(c') = \varnothing \right\} \]
+
+Het is niet moeilijk in te zien dat geen enkele cirkel $c'$ in $T
+\setminus B$ kan snijden met de nieuw toegevoegde cirkel $c$: gezien
+ze niet overlappen op de $x$-as, is de horizontale afstand tussen hen
+groter dan de som van hun stralen, wat uitsluit dat ze
+snijden. Algoritme \ref{algo:linearithmic} is dus ook correct.
+\end{proof}
+
 \subsubsection{Complexiteit}
 
 \input{illustraties/voorbeeld_3}

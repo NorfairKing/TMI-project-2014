@@ -2,7 +2,11 @@
 \usepackage{listings}
 
 % Voor algoritmes
-\usepackage{algorithm2e}
+\usepackage[
+  boxruled
+, dotocloa
+, dutch
+]{algorithm2e}
 
 % Voor todo's
 \usepackage{todonotes}
@@ -12,6 +16,15 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsthm}
+
+% svg
+\usepackage[clean,pdf]{svg}
+\setsvg{svgpath = illustraties/}
+\setsvg{inkscape = inkscape -z -D}
+
+% font
+\usepackage{libertine}
+\usepackage[libertine]{newtxmath}
 
 % Om het totaal aantal pagina's te tellen
 \usepackage{lastpage}
@@ -36,3 +49,16 @@
 
 % Voor headers en footers
 \usepackage{fancyhdr}
+% fancy verbatim
+\usepackage{fancyvrb}
+% program listings
+\usepackage{listings}
+% clickable TOC
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
