@@ -77,13 +77,12 @@
 \end{algorithm}
 
 \subsubsection{Correctheidsbewijs}
-% \begin{proof}
-\paragraph{Eindigheid.}
+\begin{stl} Algoritme \ref{algo:naive} is correct en eindig.\end{stl}
+\begin{proof}
 Het algoritme eindigt: immers, de instructie in de binnenste for-lus
 wordt exact \[\sum_{i=1}^{n} \sum_{j<i}^{n} 1 = \frac{n(n-1)}{2} \]
 keer uitgevoerd. 
 
-\paragraph{Correctheid.}
 De correctheid van het algoritme bewijzen we met een lusinvariante:
 \begin{inv} 
 Na de $i^{\textrm{de}}$ iteratie van de buitenste lus zijn
@@ -91,19 +90,31 @@ alle snijpunten van de eerste $i$ cirkels toegevoegd aan de
 verzameling snijpunten. 
 \end{inv} 
 
-\begin{proof}
-Dat deze lusinvariante geldt tonen we aan per
-inductie:
+We bewijzen dit per inductie.
 
-\subparagraph{Basisgeval.} Het is duidelijk dat voor $i = 1$ de invariante
+\textit{Basisstap.} Het is duidelijk dat voor $i = 1$ de invariante
 geldt. Immers, na iteratie 1 hebben we cirkel 1 in de lijst nagekeken
 op snijpunten met alle $n-1$ andere cirkels.
 
-\subparagraph{Inductiestap.}
+\textit{Inductiestap.} Stel dat voor de eerste $i - 1$ iteraties de
+invariante geldt. We tonen aan dat na de $i^{\textrm{de}}$
+iteratie de invariante nog geldt. In de $i^{\textrm{de}}$ iteratie
+wordt cirkel $i$ nagekeken op snijpunten met alle cirkels die later in
+de lijst komen. De snijpunten van $i$ met alle cirkels die later in de
+lijst komen zullen dus zeker in de verzameling snijpunten zitten na
+afloop van deze iteratie. 
+
+Maar ook alle snijpunten met de cirkels die vroeger in de lijst zitten
+hebben we; immers, in \'e\'en van de vorige iteraties is het snijpunt
+van elk van die cirkels met cirkel $i$ al berekend en toegevoegd aan
+de verzameling snijpunten. Bij krachte van het inductieprincipe bevat
+de verzameling snijpunten na iteratie $i$ dus alle snijpunten van de
+eerste $i$ cirkels met alle andere cirkels, en dus is
+het algoritme correct.
 \end{proof}
 
 \subsubsection{Complexiteit}
-De naïeve aanpak heeft complexiteit $O(n^2)$.
+De na\"ieve aanpak heeft complexiteit $O(n^2)$. Dit volgt rechtstreeks uit ons bewijs van eindigheid.
 
 % \begin{figure}
 %   \[
