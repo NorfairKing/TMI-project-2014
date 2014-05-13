@@ -157,15 +157,17 @@ keer uitgevoerd.
 De correctheid van het algoritme bewijzen we met een lusinvariante:
 \begin{inv} 
 Na de $i^{\textrm{de}}$ iteratie van de buitenste lus zijn
-alle snijpunten van de eerste $i$ cirkels toegevoegd aan de
-verzameling snijpunten. 
+alle snijpunten van de eerste $i$ cirkels met de andere cirkels
+toegevoegd aan de verzameling snijpunten.
 \end{inv} 
 
 We bewijzen dit per inductie.
 
 \textit{Basisstap.} Het is duidelijk dat voor $i = 1$ de invariante
 geldt. Immers, na iteratie 1 hebben we cirkel 1 in de lijst nagekeken
-op snijpunten met alle $n-1$ andere cirkels.
+op snijpunten met alle $n-1$ andere cirkels, en zijn dus alle
+snijpunten van de eerste $i$ cirkels met alle andere cirkels
+toegevoegd aan de verzameling snijpunten.
 
 \textit{Inductiestap.} Stel dat voor de eerste $i - 1$ iteraties de
 invariante geldt. We tonen aan dat na de $i^{\textrm{de}}$
@@ -176,12 +178,13 @@ lijst komen zullen dus zeker in de verzameling snijpunten zitten na
 afloop van deze iteratie. 
 
 Maar ook alle snijpunten met de cirkels die vroeger in de lijst zitten
-hebben we; immers, in \'e\'en van de vorige iteraties is het snijpunt
-van elk van die cirkels met cirkel $i$ al berekend en toegevoegd aan
-de verzameling snijpunten. Bij krachte van het inductieprincipe bevat
-de verzameling snijpunten na iteratie $i$ dus alle snijpunten van de
-eerste $i$ cirkels met alle andere cirkels, en dus is
-het algoritme correct.
+hebben we al gevonden en bijgehouden; immers, in \'e\'en van de vorige
+iteraties is het snijpunt van elk van die cirkels met cirkel $i$ al
+berekend en toegevoegd aan de verzameling snijpunten. Bij krachte van
+het inductieprincipe bevat de verzameling snijpunten na iteratie $i$
+dus alle snijpunten van de eerste $i$ cirkels met alle andere
+cirkels. Na iteratie $n$ zijn dus alle snijpunten gevonden; het
+algoritme is correct.
 \end{proof}
 
 \subsubsection{Complexiteit}
@@ -227,6 +230,7 @@ De na\"ieve aanpak heeft complexiteit $O(n^2)$. Dit volgt rechtstreeks uit ons b
     \Return{R}
   }
   \caption{Kwadratische aanpak (imperatief)}
+  \label{algo:quadratic}
 \end{algorithm}
 
 \begin{algorithm}[H]
@@ -244,6 +248,7 @@ De na\"ieve aanpak heeft complexiteit $O(n^2)$. Dit volgt rechtstreeks uit ons b
     \Return{R}
   }
   \caption{Events}
+  \label{algo:events}
 \end{algorithm}
 
 % \begin{figure}
@@ -264,6 +269,57 @@ De na\"ieve aanpak heeft complexiteit $O(n^2)$. Dit volgt rechtstreeks uit ons b
 %   \caption{Kwadratische aanpak (functioneel)}
 % \end{figure}
 \subsubsection{Correctheidsbewijs}
+\begin{stl} Algoritme \ref{algo:quadratic} is correct en eindig.\end{stl}
+\begin{proof}
+We bewijzen eerst dat het algoritme eindigt, dan dat het correct
+is. 
+
+De eerste for-lus is eindig en levert een eindige verzameling van
+events $E$ op; dit volgt rechtstreeks uit de eindigheid van de
+verzameling cirkels $C$ en uit het feit dat algoritme
+\ref{algo:events} altijd een eindige verzameling teruggeeft. De tweede
+for-lus is genest; we bewijzen dat ook deze eindigt.
+
+De binnenste for-lus past de binnenste lus van het na\"ieve algoritme
+dat we in de vorige sectie besproken hebben toe op $T$, en is dus
+gegarandeerd eindig als de verzameling $T$ bij elke iteratie eindig
+is. Om dat aan te tonen, bewijzen we eerst dat de buitenste for-lus
+eindig is.  Die behandelt elk element in $E$ \'e\'enmaal; het aantal
+iteraties ligt dus vast op $\abs{E}$ en de lus eindigt.
+
+Nu kunnen we aantonen dat $T$ altijd eindig is. We doen dit wederom
+met een invariante.
+
+\begin{inv}
+$T$ bevat na elke iteratie van de buitenste lus maximaal $n$ elementen.
+\end{inv}
+
+Op het einde van elke iteratie van de buitenste lus wordt exact
+\'e\'en cirkel ofwel toegevoegd aan ofwel verwijderd uit $T$. Elke
+cirkel wordt exact \'e\'en keer toegevoegd aan of verwijderd uit $T$
+(zie algoritme \ref{algo:events}). Dus $E$ bevat exact $2n$
+elementen. Stel nu dat $T$ na iteratie $i$ $n + 1$ elementen zou
+bevatten. Er zijn maar $n$ cirkels, dus volgens het duiventilprincipe
+zou er ergens een cirkel tweemaal moeten toegevoegd zijn, wat in
+strijd is met het feit dat elke cirkel exact \'e\'en keer
+toegevoegd aan of verwijderd uit $T$. Dit kan niet en dus moet $T$
+maximaal $n$ elementen bevatten. Hiermee is de eindigheid van het
+algoritme bewezen.
+
+Nu gaan we over tot een correctheidsbewijs. We gebruiken hiervoor de
+volgende twee invarianten:
+
+\begin{inv}
+Elk element dat niet in $T$ zit v\'o\'or iteratie $i$ kan onmogelijk
+snijden met een cirkel die toegevoegd wordt tijdens iteratie $i$.
+\end{inv}
+
+\begin{inv}
+Elk element dat uit $T$ verwijderd wordt tijdens iteratie $i$ kan onmogelijk
+snijden met een cirkel die toegevoegd wordt tijdens iteratie $j > i$.
+\end{inv}
+
+\end{proof}
 \subsubsection{Complexiteit}
 
 \input{illustraties/voorbeeld_2}
