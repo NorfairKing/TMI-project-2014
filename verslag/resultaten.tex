@@ -31,6 +31,7 @@ De resultaten van het laatste rauwe data-experiment staan in Figuur \ref{fig:3d}
 Het is duidelijk dat algoritme \'e\'en ongeveer evenveel tijd nodig heeft onafhankelijk van de scalering van de stralen. We zien bovendien dat algoritme drie slechter presteert dan algoritme \'e\'en bij grote scaleringen en beter bij kleine scaleringen.
 
 \subsection{Doubling Ratio}
+\todo{doubling ratio resultaten uitleggen}
 \subsubsection{Naief}
 \begin{figure}[H]
 \input{illustraties/table_DoublingRatio_1}
@@ -45,6 +46,8 @@ Figuur \ref{fig:doublingratio_1} toont de resultaten van het doubling ratio exer
 \label{fig:doublingratio_2}
 \caption{Doubling ratio 2}
 \end{figure}
+In Figuur \ref{fig:doublingratio_2} de resultaten van het doubling ratio experiment voor algoritme twee. Voor kleine scaleringen van de straal zien we dat de ratio rond $2.2$ schommelt. Wanneer er weinig snijpunten zijn is dit algoritme dus inderdaad beter dan kwadratisch.
+Voor grote scaleringen schommeld de ratio rond $4$ zoals verwacht van een kwadratisch algoritme.
 
 \subsubsection{Linearitmisch}
 \begin{figure}[h]
@@ -52,3 +55,9 @@ Figuur \ref{fig:doublingratio_1} toont de resultaten van het doubling ratio exer
 \label{fig:doublingratio_3}
 \caption{Doubling ratio 3}
 \end{figure}
+In Figuur \ref{fig:doublingratio_3} staan de resultaten van het laatste doubling ratio experiment.
+We zien dat de ratio rond 2.2 schommelt voor kleine scaleringen.
+Dit komt overeen met onze voorspellingen.
+Bij kleine $S$ zal de uitvoeringstijd van het algoritme namelijk linearitmisch groeien.
+Bij grote scaleringen schommelt de ratio boven $4$ zoals verwacht van een $O(N^2\log(N))$ algoritme.
+
