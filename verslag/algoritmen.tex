@@ -269,7 +269,10 @@ De na\"ieve aanpak heeft complexiteit $O(n^2)$. Dit volgt rechtstreeks uit ons b
 %   \caption{Kwadratische aanpak (functioneel)}
 % \end{figure}
 \subsubsection{Correctheidsbewijs}
-\begin{stl} Algoritme \ref{algo:quadratic} is correct en eindig.\end{stl}
+\begin{stl} 
+  Algoritme \ref{algo:quadratic} is correct en eindig.
+  \label{thm:quadratic}
+\end{stl}
 \begin{proof}
 We bewijzen eerst dat het algoritme eindigt, dan dat het correct
 is. 
@@ -462,9 +465,39 @@ dat van algoritme \ref{algo:naive}. Daarmee is ons correctheidsbewijs afgerond.
     }
     \Return{R}
   }
+  \label{algo:linearithmic}
   \caption{Linearitmische aanpak (imperatief)}
 \end{algorithm}
 \subsubsection{Correctheidsbewijs}
+\begin{stl} Algoritme \ref{algo:linearithmic} is correct en eindig.\end{stl}
+\begin{proof}
+Dit algoritme verschilt van algoritme \ref{algo:quadratic} op slechts
+één punt: in de binnenste for-lus wordt nog een extra check gedaan op
+het overlappen van de intervallen van de cirkels op de $x$-as. We
+voegen geen extra lussen toe, dus de eindigheid van het algoritme is
+gegarandeerd bij krachte van stelling \ref{thm:quadratic}.
+
+Door de check in de binnenste for-lus wordt nog slechts een
+deelverzameling van $T$ vergeleken met de cirkel $c$ toegevoegd in
+iteratie $i$ van de tweede for-lus. Noem deze deelverzameling $B$. Het
+volstaat aan te tonen dat er in $T \setminus B$ geen enkele cirkel zit die zou
+kunnen snijden met $c$. Dat is simpel: het criterium dat we opleggen
+is dat $c$ over de $x$-as moet overlappen met elke $c'$; formeel zien
+we in dat 
+
+\[B = \left\{c' | c' \in T, interval(c) \cap interval(c') \neq \varnothing \right\} \]
+
+en dus is het ook zo dat
+
+\[T \setminus B = \left\{c' | c' \in T, interval(c) \cap interval(c') = \varnothing \right\} \]
+
+Het is niet moeilijk in te zien dat geen enkele cirkel $c'$ in $T
+\setminus B$ kan snijden met de nieuw toegevoegde cirkel $c$: gezien
+ze niet overlappen op de $x$-as, is de horizontale afstand tussen hen
+groter is dan de som van hun stralen, wat uitsluit dat ze
+snijden. Algoritme \ref{algo:linearithmic} is dus ook correct.
+\end{proof}
+
 \subsubsection{Complexiteit}
 
 \input{illustraties/voorbeeld_3}
