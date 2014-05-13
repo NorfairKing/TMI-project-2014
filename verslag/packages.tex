@@ -2,7 +2,10 @@
 \usepackage{listings}
 
 % Voor algoritmes
-\usepackage{algorithm2e}
+\usepackage[
+  boxruled
+, dotocloa
+]{algorithm2e}
 
 % Voor todo's
 \usepackage{todonotes}
@@ -40,3 +43,13 @@
 
 % Voor headers en footers
 \usepackage{fancyhdr}
+
+% clickable TOC
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}

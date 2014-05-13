@@ -2,7 +2,7 @@
 
 \input{illustraties/voorbeeld_opgave}
 
-\subsection{Snijpunt van twee cirkels berekenen}
+\subsection{De snijpunten van twee cirkels berekenen}
 \label{sec:snijpunt}
 
 \subsubsection{Algoritme}
@@ -48,7 +48,7 @@
   \caption{Snijpunten van twee cirkels berekenen}
 \end{algorithm}
 
-\subsubsection{Theoretische Achtergrond}
+\subsubsection{Theoretische achtergrond}
 \todo{aannames}
 \begin{figure}[H]
 \input{illustraties/snijpunten_theorie}
@@ -348,9 +348,8 @@ inductief aan dat $E$ een seq
 \end{proof}
 
 \begin{gevolg}
-Elke configuratie van $T$ bestaat uitsluitend uit cirkels wiens
-intervallen overlappen.
-\label{lemma:scanline}
+Elke configuratie van $T$ bestaat uitsluitend uit elementen van $T'$.
+\label{gevolg:sweepline}
 \end{gevolg}
 
 Triviaal: immers, we hebben bij lemma \ref{lemma:intervals} aangetoond
@@ -359,18 +358,13 @@ overlappend interval aan een unie van overlappende intervallen of door
 het verwijderen van het eerste interval in een unie van overlappende
 intervallen. Dit levert terug een overlappend interval op.
 
-
-\begin{gevolg}
-Elke configuratie van $T$ bestaat uitsluitend uit elementen van $T'$.
-\end{gevolg}
-
 Nu kunnen we bewijzen dat het algoritme correct is. In de binnenste
 lus wordt een cirkel ofwel toegevoegd ofwel verwijderd uit $T$, en
 voor deze twee gevallen stellen we volgende twee invarianten op:
 
 \begin{inv}
-Elke cirkel die v\"o\"or iteratie $i$ uit $T$ verwijderd is kan
-onmogelijk snijden met een cirkel die toegevoegd wordt tijdens
+Elke cirkel die v\'o\'or het begin van iteratie $i$ uit $T$ verwijderd is
+kan onmogelijk snijden met een cirkel die toegevoegd wordt tijdens
 iteratie $i$.
 \label{inv:t1}
 \end{inv}
@@ -382,12 +376,12 @@ nakijken op snijpunten wordt $c$ toegevoegd aan $T$. Gezien $c$ en
 $c'$ snijden, overlapt het interval op de $y$-as dat correspondeert
 aan $c'$ met het interval dat correspondeert aan $c$.
 
-Nu heeft $c'$ al eens in $T$ gezeten: uit lemma \ref{lemma:scanline}
-volgt dan dat onze stelling een contradictie is; immers, dan is er een
-element $t \in T'$ waarin zowel $c$ als $c'$ zitten, maar dit behoort
-dan tot geen enkele configuratie van $T$, gezien een cirkel die
-verwijderd is niet meer toegevoegd kan worden aan $T$. Daarmee is de
-invariante bewezen.
+Nu heeft $c'$ al eens in $T$ gezeten: uit gevolg 1
+\ref{gevolg:sweepline} volgt dan dat onze stelling een contradictie is;
+immers, dan is er een element $t \in T'$ waarin zowel $c$ als $c'$
+zitten, maar dit behoort dan tot geen enkele configuratie van $T$,
+gezien een cirkel die verwijderd is niet meer toegevoegd kan worden
+aan $T$. Daarmee is de invariante bewezen.
 \end{proof}
 
 \begin{gevolg} 
@@ -398,7 +392,7 @@ uit $T$ toevoegen aan de verzameling snijpunten.
 
 Het bewijs dat de snijpunten van alle cirkels op deze manier in de
 uiteindelijke verzameling snijpunten komen te zitten loopt analoog aan
-dat van \ref{algo:naive}. Daarmee is ons correctheidsbewijs afgerond.
+dat van algoritme \ref{algo:naive}. Daarmee is ons correctheidsbewijs afgerond.
 \end{proof}
 \subsubsection{Complexiteit}
 
