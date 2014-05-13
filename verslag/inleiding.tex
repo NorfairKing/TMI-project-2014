@@ -1,32 +1,46 @@
 \section{Inleiding}
 We bespreken drie verschillende algoritmen voor het vinden van de
-snijpunten van een verzameling cirkels $C$. De opgave van het
+snijpunten van een verzameling van $n$ cirkels $C$. De opgave van het
 practicum herhalen is vrij zinloos, maar alvorens we overgaan tot de
 werkelijke inhoud van dit verslag, willen we een aantal zaken
 aankaarten met betrekking tot onze algoritmische notatie en de
 implementatie van de algoritmen.
 
-\textbf{Notatie.} Wat betreft de notatie van de algoritmen volgen we in het algemeen de
+\paragraph{Notatie.} 
+Wat betreft de notatie van de algoritmen volgen we in het algemeen de
 wiskundige notatie voor verzamelingen en operaties daarop. De
 algoritmes volgen globaal een imperatief stramien: de stappen worden
 sequentieel uitgevoerd zoals bepaald door de besturingsstructuren in
 het algoritme. Logische expressies en functies worden zoals hoort in
-standaard logische notatie weergegeven.
+standaard logische notatie weergegeven. Dit staat enigszins in
+contrast met onze implementatie.
 
-\textbf{Implementatie.} Wij hebben ervoor gekozen de algoritmen te
+\paragraph{Implementatie.} 
+Wij hebben ervoor gekozen de algoritmen te
 implementeren in Haskell, een functionele programmeertaal. Dit zorgt
 ervoor dat de algoritmen op een andere manier moeten of kunnen worden
 uitgedrukt dan in de klassieke notatie. Dit kan code veel leesbaarder
-en beknopter maken. Anderzijds is het moeilijker om een traditionele
-complexiteitsanalyse te maken: zo kent Haskell geen iteratieve lussen,
-maar wordt overvloedig gebruik gemaakt van recursie.
+en beknopter maken. Anderzijds is het soms moeilijker om een
+traditionele complexiteitsanalyse te maken: zo kent Haskell geen
+iteratieve lussen, maar wordt overvloedig gebruik gemaakt van
+recursie. We belichten sommige aspecten van onze implementatie
+concreter in sectie \ref{sec:implementation}.
 
-\textbf{Invoer en uitvoer.} De invoer en uitvoer gebeurt via de
-standaard \textit{streams} voor invoer en uitvoer op Linux. Het
-programma wordt dus als volgt aangeroepen:
-\begin{verbatim}
+\paragraph{Invoer en uitvoer.} 
+De invoer en uitvoer gebeurt via de standaard \textit{streams} voor
+invoer en uitvoer op Linux. Het programma wordt dus als volgt
+aangeroepen:
+\begin{lstlisting}
 Executable < input.txt > output.txt
-\end{verbatim}
+\end{lstlisting}
 
-\textbf{Benaming} We zullen de beschreven algoritmes noemen naar hun complexiteit. Zo noemen we de algoritmes respectievelijk "Naief", "Kwadratisch" en "Linearitmisch".
+\paragraph{Naamgeving.} 
+We zullen de beschreven algoritmes aanduiden overeenkomstig hun
+complexiteit. Zo noemen we de algoritmes respectievelijk `na\"ief',
+`kwadratisch' en `linearitmisch'. In de tekst zelf zullen we vaak ook
+refereren naar hun volgnummer in de lijst van algoritmen in de
+inhoudstafel. `Algoritme 3' in de tekst komt dus ni\'et overeen met
+het `algoritme 3' uit de opgave!
 
+\paragraph{} 
+Wij wensen u veel lees- en verbeterplezier.

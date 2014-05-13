@@ -6,22 +6,6 @@
 \label{sec:snijpunt}
 
 \subsubsection{Algoritme}
-\begin{algorithm}[H]
-  \SetAlgoLined
-  \KwIn{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
-  \KwOut{waar als en slechts als de twee cirkels snijden}
-  \SetKwProg{Fn}{Procedure}{:}{end}
-  \Fn{intersect($c$,$c'$)}{
-    d $\leftarrow \lVert p_2 - p_1\rVert $\\
-    \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
-      \Return{true}
-    }{
-      \Return{false}
-    }
-  }
-
-  \caption{Nagaan of twee cirkels snijden}
-\end{algorithm}
 
 \begin{algorithm}[H]
   \SetAlgoLined
@@ -46,6 +30,23 @@
     }
   }
   \caption{Snijpunten van twee cirkels berekenen}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{twee cirkels, $c$ en $c'$ met resp middelpunten $p_{1}, p_{2}$ en stralen $r_{1}, r_{2}$}
+  \KwOut{waar als en slechts als de twee cirkels snijden}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{intersect($c$,$c'$)}{
+    d $\leftarrow \lVert p_2 - p_1\rVert $\\
+    \eIf{($d \leq r_1 + r_2) \land (d \geq abs (r_1 - r_2))$}{
+      \Return{true}
+    }{
+      \Return{false}
+    }
+  }
+
+  \caption{Nagaan of twee cirkels snijden}
 \end{algorithm}
 
 \subsubsection{Theoretische achtergrond}
@@ -425,21 +426,6 @@ dat van algoritme \ref{algo:naive}. Daarmee is ons correctheidsbewijs afgerond.
 \subsubsection{Algoritme}
 
 \begin{algorithm}[H]
-  \SetAlgoLined
-  \KwIn{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
-  \KwOut{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
-  \SetKwProg{Fn}{Procedure}{:}{end}
-  \Fn{interval($c$)}{
-    $x_1 \leftarrow x - r$\;
-    $x_2 \leftarrow x + r$\;
-    $I \leftarrow [x_1, x_2]$\;
-    \Return{I}
-  }
-  \caption{Breedte-interval van een cirkel}
-\end{algorithm}
-\label{algo:interval}
-
-\begin{algorithm}[H]
   \KwIn{een lijst van $n$ cirkels $C$, gegeven door hun middelpunt en straal}
   \KwOut{een verzameling van $S$ snijpunten $R$ van de cirkels in $C$}
   \SetAlgoLined
@@ -468,6 +454,22 @@ dat van algoritme \ref{algo:naive}. Daarmee is ons correctheidsbewijs afgerond.
   \label{algo:linearithmic}
   \caption{Linearitmische aanpak (imperatief)}
 \end{algorithm}
+
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwIn{een cirkel $c$ met middelpunt $(x, y)$ en straal $r$}
+  \KwOut{een interval $I$ corresponderend aan het interval tussen de uiterste $x$-co\"ordinaten van $c$}
+  \SetKwProg{Fn}{Procedure}{:}{end}
+  \Fn{interval($c$)}{
+    $x_1 \leftarrow x - r$\;
+    $x_2 \leftarrow x + r$\;
+    $I \leftarrow [x_1, x_2]$\;
+    \Return{I}
+  }
+  \caption{Breedte-interval van een cirkel}
+  \label{algo:interval}
+\end{algorithm}
+
 \subsubsection{Correctheidsbewijs}
 \begin{stl} Algoritme \ref{algo:linearithmic} is correct en eindig.\end{stl}
 \begin{proof}
