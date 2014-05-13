@@ -53,12 +53,9 @@
 \begin{figure}[H]
 \input{illustraties/snijpunten_theorie}
 \end{figure}
-
-Gegeven twee cirkels $C_1$ en $C_2$ zoeken we $C_1 \cap C_2$.
-
-
+Gegeven twee cirkels $C_1$ en $C_2$ zoeken we $C_1 \cap C_2$. Noem $r_i$ de straal van $C_i$. We gaan er ook van uit dat $r$ steeds positief is. Het is niet nodig om deze voorwaarde te stellen op theoretisch niveau, maar alle theorie is nog steeds geldig wanneer we enkel over positieve $r$ spreken.
 \paragraph{Mogelijke doorsneden}
-Twee cirkels kunnen op vier specifieke manieren gelegen zijn, met betrekking tot hun doorsnede.
+Twee cirkels kunnen op vier specifieke manieren gelegen zijn, met betrekking tot hun doorsnede. Het blijkt zo te zijn dat we de situatie kunnen herkennen aan de waarde van $d=\Vert M_2-M_1\Vert$ wanneer de cirkels niet samenvallen.
 \begin{itemize}
 \item De cirkels vallen samen.\\
 \[C_1 \cap C_2 = C_1 = C_2\]
@@ -66,15 +63,19 @@ Dit valt voor wanneer de cirkels concentrisch zijn en een even grote straal hebb
 \[
 M_1 = M_2 \text{ en } r_1 = r_2
 \]
+Hier geldt $d = 0$, maar deze situatie zullen we in het programma negeren.
 
 \item De cirkels snijden in precies twee punten.\\
-\[C_1 \cap C_1 = \{P_1,P_2\}\]
+\[C_1 \cap C_1 = \{P_1,P_2\} \text{ met } P_1,P_2 \in \mathbb{R}^2\]
+In deze situatie geldt zowel $d < r_1+r_2$ als $ d > |r_1-r_2|$\todo{nakijken}.
 
 \item De cirkels raken aan elkaar.\\
 \[C_1 \cap C_2 = \{P\}\]
+In deze situatie geldt $d = r_1+r_2$.
 
 \item De cirkels raken niet.
 \[C_1 \cap C_2 = \{P_1,P_2\} \text{ met } P_1,P_2 \in \mathbb{C}^2\]
+Hier geldt ofwel $d < |r_1-r_2|$ ofwel $d > r_1+r_2$
 \end{itemize}
 
 \paragraph{Benaming}
@@ -107,6 +108,10 @@ r_2^2 = b^2 + h^2 & (2)
 \end{array}
 \right.
 \]
+Uit de eerste vergelijking kunnen we een uitdrukking voor $h$ halen.
+\[
+h = \sqrt{r_{1}^{2}-a^{2}}
+\]
 Trekken we vergelijking $(2)$ van vergelijking $(1)$ af, dan krijgen we volgende vergelijking.
 \[
 \begin{array}{r l}
@@ -124,7 +129,7 @@ a = \frac{r_1^2-r_2^2 + d^2}{2d}
 Noem de richtingscoeffici\"ent van $l_1$ $m$ en de richtingsco\"efficient van $l_2$ $n$.
 We kunnen $m$ berekenen uit de co\"ordinaten van $M_1$ en $M_2$.
 \[
-m = \frac{y_2-y_1}{x_2-x_1} \rightarrow n = -\frac{1}{m}
+m = \frac{y_2-y_1}{x_2-x_1}
 \]
 Omdat $l_1$ loodrecht staat op $l_2$ weten we dat de richtingsco\"efficient $n$ van $l_2$ het omgekeerd tegengestelde is van de richtingsco\"efficient van $l_1$.
 \[
@@ -161,11 +166,9 @@ P_y &= y_0 \mp \frac{h}{d}(x_2-x_1)
 \right.
 \]
 
-
-
-
 \subsubsection{Complexiteit}
-\todo{constant... duh}
+De snijpunten berekenen van twee \emph{verschillende} cirkels heeft een constante uitvoeringstijd. Het is opmerkelijk dat er in, nog steeds constante, kortere tijd kan nagekeken worden of twee cirkels snijden, v\'o\'or de snijpunten berekend worden, zodat er minder berekeningen gedaan kunnen worden.\todo{vermelden wat er gebeurd als niet-snijdende cirkels in het algoritme terecht komen}
+
 
 \subsection{Na\"ief}
 \label{sec:naief}

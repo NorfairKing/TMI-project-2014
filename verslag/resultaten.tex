@@ -4,40 +4,51 @@ In deze sectie tonen en bespreken we de bekomen resultaten.
 \subsection{Rauwe Data}
 \subsubsection{Weinig Snijpunten}
 \begin{figure}[H]
-   \centering
-   \includegraphics[width=\textwidth]{illustraties/fewIntersections.png}
+   	\centering
+   	\includegraphics[width=\textwidth]{illustraties/fewIntersections.png}
+  	\label{fig:few_intersections}
+  	\caption{Uitvoeringstijden bij gevallen met weinig snijpunten.}
 \end{figure}
+In Figuur \ref{fig:few_intersections} zijn de resultaten uiteengezet van het eerste rauwe data-experiment. We zien dat het na\"ieve algoritme veel slechter presteert dan de andere twee. Het eerste algoritme wordt niet be\"invloedt door het aantal snijpunten, lijkt het.
    
 \subsubsection{Veel Snijpunten}
 \begin{figure}[H]
-   \centering
-   \includegraphics[width=\textwidth]{illustraties/manyIntersections.png}
+   	\centering
+   	\includegraphics[width=\textwidth]{illustraties/manyIntersections.png}
+   	\label{fig:many_intersections}
+  	\caption{Uitvoeringstijden bij gevallen met relatief veel snijpunten.}
 \end{figure}
+In Figuur \ref{fig:many_intersections} zijn de resultaten uiteengezet van het tweede rauwe data-experiment. We zien dat algoritme \'e\'en hier beter presteert dan de andere twee. Algoritme twee en drie moeten dezelfde snijpunten berekenen maar hebben te kampen met enige `overhead'.
 
 \subsubsection{3D plot}
 \begin{figure}[H]
-   \centering
-   \includegraphics[width=\textwidth]{illustraties/3DScatter.png}
+   	\centering
+   	\includegraphics[width=\textwidth]{illustraties/3DScatter.png}
+	\label{fig:3d}
+  	\caption{Een 3D grafiek van de uitvoeringstijden in functie van de scalering en het aantal cirkels}
 \end{figure}
+De resultaten van het laatste rauwe data-experiment staan in Figuur \ref{fig:3d}.
+Het is duidelijk dat algoritme \'e\'en ongeveer evenveel tijd nodig heeft onafhankelijk van de scalering van de stralen. We zien bovendien dat algoritme drie slechter presteert dan algoritme \'e\'en bij grote scaleringen en beter bij kleine scaleringen.
 
 \subsection{Doubling Ratio}
 \subsubsection{Naief}
 \begin{figure}[H]
 \input{illustraties/table_DoublingRatio_1}
-\label{doublingratio_1}
+\label{fig:doublingratio_1}
 \caption{Doubling ratio 1}
 \end{figure}
+Figuur \ref{fig:doublingratio_1} toont de resultaten van het doubling ratio exeriment voor algoritme \'e\'en. Het is makkelijk te zien dat de ratio zal convergeren naar $4$ voor een groot aantal cirkels. Dit bovendien onafhankelijk van de scalering van de stralen.
 
 \subsubsection{Kwadratisch}
 \begin{figure}[H]
 \input{illustraties/table_DoublingRatio_2}
-\label{doublingratio_2}
+\label{fig:doublingratio_2}
 \caption{Doubling ratio 2}
 \end{figure}
 
 \subsubsection{Linearitmisch}
 \begin{figure}[h]
 \input{illustraties/table_DoublingRatio_3}
-\label{doublingratio_3}
+\label{fig:doublingratio_3}
 \caption{Doubling ratio 3}
 \end{figure}

@@ -3,7 +3,7 @@
 nas = 1:3
 col = c("red","green","blue")
 
-png(filename="../verslag/illustraties/3DScatter.png", height=540, width=960, bg="white")
+png(filename="../verslag/illustraties/3DScatter.png", height=600, width=800, bg="white")
 
 # 3D Scatterplot
 library(scatterplot3d)
