@@ -327,8 +327,8 @@ we $E$ sorteren, bekomen we dan een geordende verzameling die aangeeft
 wanneer deze intervallen overlappen. Dit gaan we nu formeel aantonen.
 
 We construeren nu een verzameling $T'$ die bestaat uit alle mogelijke
-combinaties van cirkels geordend volgens toevoegpunt wiens intervallen
-overlappen. Voor ons voorbeeld zou dit bijvoorbeeld de volgende
+combinaties van cirkels wiens intervallen overlappen, geordend volgens
+toevoegpunt. Voor ons voorbeeld zou dit bijvoorbeeld de volgende
 verzameling zijn:
 
 \[T' = \left\{\left\{c_2,c_4\right\},\left\{c_2,c_4,c_3\right\},\left\{c_4,c_3\right\}\right\}\]
@@ -343,12 +343,30 @@ Elk element van $T'$ is een deelverzameling van een configuratie van $T$.
 We tonen dit per constructie aan. Elke configuratie $t$ van $T$ is
 gegenereerd door een gesorteerde sequentie van toevoegpunten en
 verwijderpunten zoals we die in $E$ vinden. Elk tweetal
-toevoegpunt-verwijderpunt van een cirkel vormt een interval. We tonen
-inductief aan dat $E$ een seq
+toevoegpunt-verwijderpunt van een cirkel vormt een interval. De
+$i^{\textrm{de}}$ configuratie van $T$ wordt gegenereerd door de
+eerste $i - 1$ elementen van $E$. 
+
+Neem de $i^{de}$ configuratie van $T$. We kunnen gemakkelijk aantonen
+dat die een element uit $T'$ als deelverzameling heeft. Immers, alle
+cirkels die in $T$ zitten hebben overlappende intervallen door de
+manier waarop $T$ gegenereerd is.
+
+Neem anderzijds een element $t \in T'$. We tonen aan dat dit element
+een deelverzameling vormt van een configuratie van $T$ gegenereerd
+door $E$. Om te beginnen zijn configuraties van $T$ op dezelfde manier
+geordend als elementen van $T'$, en is het dus mogelijk dat zij
+elementen van $T'$ bevatten.
+
+$T'$ bevat voor een willekeurige opstelling maximaal $2^n - n - 1$
+elementen (we sluiten de lege verzameling en alle singletons uit,
+gezien die triviaal deel uitmaken van minstens \'e\'en configuratie
+van $T$). 
 \end{proof}
 
 \begin{gevolg}
-Elke configuratie van $T$ bestaat uitsluitend uit elementen van $T'$.
+Elke configuratie van $T$ bevat minstens \'e\'en element van $T'$ als
+deelverzameling.
 \label{gevolg:sweepline}
 \end{gevolg}
 
