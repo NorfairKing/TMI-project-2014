@@ -294,6 +294,7 @@ met een invariante.
 $T$ bevat na elke iteratie van de buitenste lus maximaal $n$ elementen.
 \end{inv}
 
+\begin{proof}
 Op het einde van elke iteratie van de buitenste lus wordt exact
 \'e\'en cirkel ofwel toegevoegd aan ofwel verwijderd uit $T$. Elke
 cirkel wordt exact \'e\'en keer toegevoegd aan of verwijderd uit $T$
@@ -303,16 +304,19 @@ bevatten. Er zijn maar $n$ cirkels, dus volgens het duiventilprincipe
 zou er ergens een cirkel tweemaal moeten toegevoegd zijn, wat in
 strijd is met het feit dat elke cirkel exact \'e\'en keer
 toegevoegd aan of verwijderd uit $T$. Dit kan niet en dus moet $T$
-maximaal $n$ elementen bevatten. Hiermee is de eindigheid van het
-algoritme bewezen.
+maximaal $n$ elementen bevatten. 
+\end{proof} 
 
-Nu gaan we over tot een correctheidsbewijs. Daarvoor volstaat het aan
-te tonen dat het voldoende is om een cirkel die we toevoegen tijdens
-iteratie $i$ te checken met de cirkels in $T$. We doen dit in meerdere stappen.
+Hiermee is de eindigheid van het algoritme bewezen. Nu gaan we over
+tot een correctheidsbewijs. Daarvoor volstaat het aan te tonen dat het
+voldoende is om een cirkel die we toevoegen tijdens iteratie $i$ te
+checken met de cirkels in $T$. We doen dit in meerdere stappen.
 
 We merken eerst op dat we de lijst $E$ voor gebruik sorteren op
 $y$-co\"ordinaat. Voor het voorbeeldgeval levert dit de volgende
-geordende verzameling $E$ op: \[E = \left\{insert\ c_1, delete\ c_1,
+geordende verzameling $E$ op: 
+
+\[E = \left\{insert\ c_1, delete\ c_1,
 insert\ c_2, insert\ c_4, insert\ c_3, delete\ c_2, delete\ c_4,
 delete\ c_3 \right\}.\]
 
@@ -320,45 +324,81 @@ Als we nader kijken, zien we dat $E$ eigenlijk een reeks van $n$
 intervallen op de $y$-as definieert die elk bepaald worden door de
 uiterste $y$-co\"ordinaten van elk van de $n$ cirkels in $C$. Wanneer
 we $E$ sorteren, bekomen we dan een geordende verzameling die aangeeft
-wanneer deze intervallen overlappen.
+wanneer deze intervallen overlappen. Dit gaan we nu formeel aantonen.
+
+We construeren nu een verzameling $T'$ die bestaat uit alle mogelijke
+combinaties van cirkels geordend volgens toevoegpunt wiens intervallen
+overlappen. Voor ons voorbeeld zou dit bijvoorbeeld de volgende
+verzameling zijn:
+
+\[T' = \left\{\left\{c_2,c_4\right\},\left\{c_2,c_4,c_3\right\},\left\{c_4,c_3\right\}\right\}\]
+
+We willen het volgende aantonen:
+
+\begin{lemma}
+Elk element van $T'$ is een deelverzameling van een configuratie van $T$.
+\label{lemma:intervals}
+\end{lemma}
+\begin{proof}
+We tonen dit per constructie aan. Elke configuratie $t$ van $T$ is
+gegenereerd door een gesorteerde sequentie van toevoegpunten en
+verwijderpunten zoals we die in $E$ vinden. Elk tweetal
+toevoegpunt-verwijderpunt van een cirkel vormt een interval. We tonen
+inductief aan dat $E$ een seq
+\end{proof}
+
+\begin{gevolg}
+Elke configuratie van $T$ bestaat uitsluitend uit cirkels wiens
+intervallen overlappen.
+\label{lemma:scanline}
+\end{gevolg}
+
+Triviaal: immers, we hebben bij lemma \ref{lemma:intervals} aangetoond
+dat elke $t \in T$ gegenereerd wordt door het toevoegen van een
+overlappend interval aan een unie van overlappende intervallen of door
+het verwijderen van het eerste interval in een unie van overlappende
+intervallen. Dit levert terug een overlappend interval op.
+
+
+\begin{gevolg}
+Elke configuratie van $T$ bestaat uitsluitend uit elementen van $T'$.
+\end{gevolg}
 
 Nu kunnen we bewijzen dat het algoritme correct is. In de binnenste
 lus wordt een cirkel ofwel toegevoegd ofwel verwijderd uit $T$, en
 voor deze twee gevallen stellen we volgende twee invarianten op:
 
 \begin{inv}
-Elke cirkel die niet in $T$ zit v\'o\'or iteratie $i$ kan onmogelijk
-snijden met een cirkel die toegevoegd wordt tijdens iteratie $i$.
+Elke cirkel die v\"o\"or iteratie $i$ uit $T$ verwijderd is kan
+onmogelijk snijden met een cirkel die toegevoegd wordt tijdens
+iteratie $i$.
 \label{inv:t1}
 \end{inv}
 
+\begin{proof}
 We bewijzen uit het ongerijmde. Stel dat er een cirkel $c' \in C$
-bestaat die niet in $T$ zit maar die wel met $c$ snijdt. Dan wil dit
-zeggen dat het interval op de $y$-as dat correspondeert aan $c'$ niet
-overlapt met het interval dat correspondeert aan $c$. Dit is echter
-onmogelijk: als dit het geval zou zijn, zou de verticale afstand
-tussen de middelpunten van $c$ en $c'$ groter zijn dan de som van de
-stralen van beide cirkels, en dan is het onmogelijk dat ze snijden.
+bestaat die uit $T$ verwijderd is maar die wel met $c$ snijdt. Na het
+nakijken op snijpunten wordt $c$ toegevoegd aan $T$. Gezien $c$ en
+$c'$ snijden, overlapt het interval op de $y$-as dat correspondeert
+aan $c'$ met het interval dat correspondeert aan $c$.
 
-\begin{inv}
-Elke cirkel die uit $T$ verwijderd wordt tijdens iteratie $i$ kan onmogelijk
-snijden met een cirkel die toegevoegd wordt tijdens iteratie $j > i$.
-\label{inv:t2}
-\end{inv}
+Nu heeft $c'$ al eens in $T$ gezeten: uit lemma \ref{lemma:scanline}
+volgt dan dat onze stelling een contradictie is; immers, dan is er een
+element $t \in T'$ waarin zowel $c$ als $c'$ zitten, maar dit behoort
+dan tot geen enkele configuratie van $T$, gezien een cirkel die
+verwijderd is niet meer toegevoegd kan worden aan $T$. Daarmee is de
+invariante bewezen.
+\end{proof}
 
-We bewijzen uit het ongerijmde. Stel dat we tijdens iteratie $i$ een
-cirkel $c'$ verwijderen uit $T$ die toch snijdt met een cirkel $c$ die
-pas in een latere iteratie $j$ toegevoegd wordt. De intervallen
-corresponderend aan beide cirkels moeten overlappen (zoals aangetoond
-in het bewijs van invariante \ref{inv:t1}). We hebben echter
-aangetoond dat elke unie van overlappende intervallen vervat is in een
-configuratie van $T$; er moet dus een configuratie van $T$ zijn waarin
-zowel $c$ als $c'$ zitten, wat in tegenspraak is met de stelling.
+\begin{gevolg} 
+Een cirkel die aan $T$ wordt toegevoegd aan het einde van iteratie $i$
+kan tijdens die iteratie enkel snijpunten van zichzelf met de cirkels
+uit $T$ toevoegen aan de verzameling snijpunten.
+\end{gevolg} 
 
-Uit deze twee invarianten volgt dat een cirkel toegevoegd tijdens
-iteratie enkel en alleen kan snijden met een cirkel die op dat moment
-al in $T$ zit. Het is dus voldoende om die cirkel te vergelijken met
-de cirkels in $T$. Daarmee is ons correctheidsbewijs afgerond.
+Het bewijs dat de snijpunten van alle cirkels op deze manier in de
+uiteindelijke verzameling snijpunten komen te zitten loopt analoog aan
+dat van \ref{algo:naive}. Daarmee is ons correctheidsbewijs afgerond.
 \end{proof}
 \subsubsection{Complexiteit}
 
