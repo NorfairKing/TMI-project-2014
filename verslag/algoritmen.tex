@@ -162,6 +162,7 @@ alle snijpunten van de eerste $i$ cirkels met de andere cirkels
 toegevoegd aan de verzameling snijpunten.
 \end{inv} 
 
+\begin{proof}
 We bewijzen dit per inductie.
 
 \textit{Basisstap.} Het is duidelijk dat voor $i = 1$ de invariante
@@ -184,8 +185,10 @@ iteraties is het snijpunt van elk van die cirkels met cirkel $i$ al
 berekend en toegevoegd aan de verzameling snijpunten. Bij krachte van
 het inductieprincipe bevat de verzameling snijpunten na iteratie $i$
 dus alle snijpunten van de eerste $i$ cirkels met alle andere
-cirkels. Na iteratie $n$ zijn dus alle snijpunten gevonden; het
-algoritme is correct.
+cirkels. 
+\end{proof}
+
+Na iteratie $n$ zijn dus alle snijpunten gevonden; het algoritme is correct.
 \end{proof}
 
 \subsubsection{Complexiteit}
@@ -365,7 +368,8 @@ elementen van $T'$ bevatten.
 $T'$ bevat voor een willekeurige opstelling maximaal $2^n - n - 1$
 elementen (we sluiten de lege verzameling en alle singletons uit,
 gezien die triviaal deel uitmaken van minstens \'e\'en configuratie
-van $T$). 
+van $T$).
+\todo{Dit bewijs moet nog afgewerkt worden.}
 \end{proof}
 
 \begin{gevolg}
@@ -374,22 +378,21 @@ deelverzameling.
 \label{gevolg:sweepline}
 \end{gevolg}
 
-Triviaal: immers, we hebben bij lemma \ref{lemma:intervals} aangetoond
-dat elke $t \in T$ gegenereerd wordt door het toevoegen van een
-overlappend interval aan een unie van overlappende intervallen of door
-het verwijderen van het eerste interval in een unie van overlappende
-intervallen. Dit levert terug een overlappend interval op.
+% Triviaal: immers, we hebben bij lemma \ref{lemma:intervals} aangetoond
+% dat elke $t \in T$ gegenereerd wordt door het toevoegen van een
+% overlappend interval aan een unie van overlappende intervallen of door
+% het verwijderen van het eerste interval in een unie van overlappende
+% intervallen. Dit levert terug een overlappend interval op.
 
-Nu kunnen we bewijzen dat het algoritme correct is. In de binnenste
-lus wordt een cirkel ofwel toegevoegd ofwel verwijderd uit $T$, en
-voor deze twee gevallen stellen we volgende twee invarianten op:
+Nu kunnen we bewijzen dat het algoritme correct is. Daarvoor gebruiken
+we het het volgende lemma:
 
-\begin{inv}
+\begin{lemma}
 Elke cirkel die v\'o\'or het begin van iteratie $i$ uit $T$ verwijderd is
 kan onmogelijk snijden met een cirkel die toegevoegd wordt tijdens
 iteratie $i$.
-\label{inv:t1}
-\end{inv}
+\label{lemma:t1}
+\end{lemma}
 
 \begin{proof}
 We bewijzen uit het ongerijmde. Stel dat er een cirkel $c' \in C$
@@ -403,18 +406,33 @@ Nu heeft $c'$ al eens in $T$ gezeten: uit gevolg 1
 immers, dan is er een element $t \in T'$ waarin zowel $c$ als $c'$
 zitten, maar dit behoort dan tot geen enkele configuratie van $T$,
 gezien een cirkel die verwijderd is niet meer toegevoegd kan worden
-aan $T$. Daarmee is de invariante bewezen.
+aan $T$. Daarmee is het lemma bewezen.
 \end{proof}
 
 \begin{gevolg} 
-Een cirkel die aan $T$ wordt toegevoegd aan het einde van iteratie $i$
-kan tijdens die iteratie enkel snijpunten van zichzelf met de cirkels
-uit $T$ toevoegen aan de verzameling snijpunten.
+Als een cirkel aan $T$ wordt toegevoegd aan het einde van iteratie $i$
+hoeven tijdens die iteratie enkel snijpunten van die cirkel met de
+cirkels uit $T$ toegevoegd te worden aan de verzameling snijpunten.
 \end{gevolg} 
+\begin{proof}
+Als er cirkels zijn die voor iteratie $i$ niet in $T$ zitten, kan dat
+twee redenen hebben:
+\begin{geval}
+De cirkels zijn al toegevoegd en terug verwijderd uit $T$; dan geldt
+lemma \ref{lemma:t1} en hoeven wij niet na te kijken op snijpunten met
+$c$.
+\end{geval}
+\begin{geval}
+De cirkels zijn nog niet toegevoegd aan $T$: dan weten we dat die in
+een latere iteratie $j$ zullen toegevoegd worden. Op dat moment kunnen
+we terug lemma \ref{lemma:t1} toepassen.
+\end{geval}
+\end{proof}
 
 Het bewijs dat de snijpunten van alle cirkels op deze manier in de
 uiteindelijke verzameling snijpunten komen te zitten loopt analoog aan
-dat van algoritme \ref{algo:naive}. Daarmee is ons correctheidsbewijs afgerond.
+het bewijs van correctheid voor algoritme \ref{algo:naive}. Daarmee is
+ons correctheidsbewijs afgerond.
 \end{proof}
 \subsubsection{Complexiteit}
 
