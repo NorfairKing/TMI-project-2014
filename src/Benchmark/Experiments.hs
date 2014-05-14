@@ -7,15 +7,20 @@ import Benchmark.Experiment
 
 allExperiments :: [Experiment]
 allExperiments = 
+    
     [
      fewIntersectionsExperiment
      , manyIntersectionsExperiment
      , threeDPlotExperiment
     ]
+    
     ++
+
     map doublingRatioExperiment nas
     
-
+    ++
+    
+    [nrIntersectionsExperiment]
 
 accuracy :: Int
 accuracy = 10
@@ -25,9 +30,9 @@ threeDPlotExperiment :: Experiment
 threeDPlotExperiment = RawDataExperiment "3D"
     [ 
     A accuracy (C na nc sc) 
-    | nc <- [0,2..200]
+    | nc <- (reverse [0,10..100])
     , na <- nas
-    , sc <- [0.0,0.02..1]
+    , sc <- [0.0,0.1..5]
     ]
 
 
@@ -36,7 +41,7 @@ fewIntersectionsExperiment :: Experiment
 fewIntersectionsExperiment = RawDataExperiment "FewIntersections"
     [
     A accuracy (C na nc 0.002)
-    | nc <- [10, 15 .. 1000]
+    | nc <- (reverse [10, 15 .. 500])
     , na <- nas
     ]
 
@@ -44,8 +49,8 @@ fewIntersectionsExperiment = RawDataExperiment "FewIntersections"
 manyIntersectionsExperiment :: Experiment
 manyIntersectionsExperiment = RawDataExperiment "ManyIntersections"
     [
-    A accuracy (C na nc 1000000)
-    | nc <- [10, 15 .. 1000]
+    A accuracy (C na nc 1)
+    | nc <- (reverse [10, 15 .. 500])
     , na <- nas
     ]
 
@@ -61,7 +66,13 @@ doublingRatioExperiment na = DoublingRatioExperiment ("DoublingRatio_" ++ show n
     | sc <- drScs
     ]
 
-
+nrIntersectionsExperiment :: Experiment
+nrIntersectionsExperiment = NrIntersectionsExperiment "NrIntersections" 
+    [
+    (nc, sc) 
+    | nc <- (reverse [0,10..100])
+    , sc <- [0.0,0.1..5]
+    ]
 
     
 

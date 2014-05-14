@@ -62,7 +62,7 @@ doExperiment (RawDataExperiment name as) = do
                 ++ experimentExtension
     mapM_ (runAssignment' ofile) as
 
-doExperiment ( DoublingRatioExperiment name ass) = do
+doExperiment (DoublingRatioExperiment name ass) = do
     let ofile = figuresDir ++ "/"
                 ++ doublingRatioPrefix
                 ++ name
@@ -72,6 +72,22 @@ doExperiment ( DoublingRatioExperiment name ass) = do
     let ratioss = times `deepseq` map ratios times
     hPutStrLn outh $ latexTable ratioss
     hClose outh
+
+doExperiment (NrIntersectionsExperiment name cases) = do
+    let ofile = resultsDir ++ "/"
+                ++ experimentPrefix
+                ++ name
+                ++ experimentExtension
+    outh <- openFile ofile WriteMode
+    css <- mapM generate cases
+    let results = zip cases $ map totalNrIntersections css
+    let csvStr = unlines $ map resultToCsv results
+    hPutStrLn outh csvStr
+    hClose outh
+    where 
+        generate (n, sc) = randomScaledCircles n sc
+        resultToCsv ((n,sc),i) = show n ++ "," ++ show sc ++ "," ++ show i
+
 
 ratios :: [Double] -> [Double]
 ratios [] = []

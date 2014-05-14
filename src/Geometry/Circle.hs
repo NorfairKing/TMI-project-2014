@@ -30,6 +30,23 @@ circlesIntersect (Cir p1 r1) (Cir p2 r2)
     && d >= abs (r1 - r2)
     where d = distance p1 p2
     
+circlesNrIntersections :: Circle -> Circle -> Int
+circlesNrIntersections c1@(Cir p1 r1) c2@(Cir p2 r2) = 
+    if circlesIntersect c1 c2
+    then 
+        if r1 + r2 == d
+        then 1
+        else 2
+    else 0
+    where d = distance p1 p2
+
+totalNrIntersections :: [Circle] -> Int
+totalNrIntersections [] = 0
+totalNrIntersections [_] = 0
+totalNrIntersections (c:cs)
+    = sum (map (circlesNrIntersections c) cs)
+    + totalNrIntersections cs
+
 -- Give the intersection points of two circles.
 -- This works for two distinct circles, with two different intersections
 -- This works in O(1) time
