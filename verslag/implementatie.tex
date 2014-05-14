@@ -1,3 +1,4 @@
+\newpage
 \section{Implementatie}
 \label{sec:implementation}
 \todo{vermelden: check uitgezet}
@@ -9,27 +10,103 @@ We hebben de code geschreven in Haskell. Haskell is een luie, pure,  functionele
 
 Haskell zorgde evenwel voor een aantal problemen.
 
-\subsubsection{Timing}
+\subsubsection{Evaluatie en Timing}
 De volgorde waarin code wordt uitgevoerd wordt niet gegarandeerd in Haskell.
 Code wordt doorgaans enkel ge\"evalueerd wanneer het resultaat nodig is voor uitvoer.
 Een resultaat dat nooit opgevraagd wordt zal dus ook nooit berekend worden.
 Dit heeft als gevolg dat het algoritme normaal gezien al aan de uitvoer begint tijdens de invoer.
 Op deze manier valt het algoritme echter niet te timen.
 
-We hebben het algoritme zo ge\"implementeerd dat de cirkels eerst worden ingelezen, de snijpunten dan worden berekend en pas daarna de snijpunten worden uitgelezen. Enkel het berekenen van de snijpunten wordt dan getimet.
+We hebben het algoritme zo ge\"implementeerd dat de cirkels eerst worden ingelezen, de snijpunten dan worden berekend en pas daarna de snijpunten worden uitgelezen. Enkel het berekenen van de snijpunten wordt dan getimet. De snijpunten worden dus niet meer op een luie manier berekend. Het programma is hierdoor natuurlijk trager geworden.
 
+Voor het timen van onze code gebruiken we het `Criterion' pakket op hackage.\footnote{\url{https://hackage.haskell.org/package/criterion}}
+Voor het garanderen van striktheid van de code gebruiken we het `DeepSeq' pakket op hackage.\footnote{\url{https://hackage.haskell.org/package/deepseq}}
 
+\subsubsection{Lijsten}
+Operaties op de ingebouwde lijsten in Haskell hebben de volgende complexiteiten.
+\begin{figure}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Operatie & Complexiteit\\
+\hline\hline
+pattern matching & $O(1)$\\\hline
+concat & $O(N+M)$\\\hline
+map & $O(N)$\\\hline
+nub (uniques) & $O(N\log(N))$\\\hline
+sort & $O(N\log(N))$\\\hline
+\end{tabular}
+\end{figure}
 
-\subsubsection{Evaluatie}
-\todo{strictness hacking}
-
+\newpage
 \subsection{Naief}
-Het naieve algoritme maakt gebruik van staartrecursie zodat er nooit twee cirkels maar dan \'e\'en keer met elkaar vergeleken worden.
+Het naieve algoritme maakt gebruik van staartrecursie zodat er nooit twee cirkels maar dan \'e\'en keer met elkaar vergeleken worden. Dit algoritme werkt steeds in $O(N^2)$ tijd.
+
+\begin{figure}[H]
+\begin{lstlisting}[language=Haskell]
+intersections :: [Circle] -> [Position]
+intersections [] = []
+intersections [_] = []
+intersections l = nub $ go l
+    where
+        go [] = []
+        go [_] = []
+        go (c:cs) = concatMap (circlesIntersections c) cs ++ go cs
+\end{lstlisting}
+\label{imp:naive}
+\caption{Functionele code voor het na\"ieve algoritme}
+\end{figure}
+
 
 \subsection{Kwadratisch}
-Het kwadratische algoritme maakt geen gebruik van externe datastructuren. Het gebruikt de ingebouwde lijsten van haskell om de status bij te houden.
+Het kwadratische algoritme maakt geen gebruik van externe datastructuren. Het gebruikt de ingebouwde lijsten van haskell om de status bij te houden. Dit algoritme heeft een slechtste-geval complexiteit van $O(N^2)$ en een beste-gevalcomplexiteit van $O(N\log(N)$. De `events' moeten immers nog steeds gesorteerd worden;
 
+\begin{figure}[H]
+\begin{lstlisting}[language=Haskell]
+intersections :: [Circle] -> [Position]
+intersections [] = []
+intersections [c] = []
+intersections cs = nub $ go (sort $ eventPointss cs) []
+    where
+        go :: [Event] -> [Circle] -> [Position]
+        go [e] act = []
+        go (Insert c : evl) act 
+        	= concatMap (circlesIntersections c) act 
+        	++ go evl (c:act)
+        go (Delete c : evl) act = go evl (delete c act)
+\end{lstlisting}
+\label{imp:quadratic}
+\caption{Functionele code voor het kwadratische algoritme}
+\end{figure}
 
+\newpage
 \subsection{Linearitmisch}
-het Linearitmische algoritme maakt gebruikt van een datastructuur genaamd `intervalmap' om de status bij te houden.
+Het Linearitmische algoritme maakt gebruikt van een datastructuur genaamd `intervalmap' om de status bij te houden.
 Op deze manier kunnen de cirkels met overlappende intervallen kunnen gezocht worden in $O(R\log N)$ tijd (waarbij $R$ het aantal cirkels met overlappende intervallen voorstelt).
+
+\begin{figure}[H]
+\begin{lstlisting}[language=Haskell]
+intersections :: [Circle] -> [Position]
+intersections []  = []
+intersections [_] = []
+intersections cs = nub $ go (sort' eventPointss cs) I.empty
+    where
+        go :: [Event] -> IntervalMap Position Circle -> [Position]
+        go [e] _ = []
+        go (Insert c : es) act = intersects ++ next
+            where
+                intersects 
+                	= concatMap 
+                	  (circlesIntersections c) 
+                	  overlapping
+                overlapping = intersecting act thisInterval
+                
+                next = go es newAct
+                newAct = insert (interval c) c act
+              
+        go (Delete c : es) act = go es newAct
+            where newAct = delete (circleInterval c) act
+\end{lstlisting}
+\label{imp:linearithmic}
+\caption{Functionele code voor het linearitmische algoritme}
+\end{figure}

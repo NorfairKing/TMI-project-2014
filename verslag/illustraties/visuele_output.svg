@@ -1,63 +1,67 @@
 <svg  width="600" height="600" >
- <circle cx="381" cy="213" r="137" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="354" cy="358" r="189" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="328" cy="283" r="197" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="363" cy="254" r="41" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="351" cy="208" r="30" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="210" cy="280" r="102" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="292" cy="315" r="53" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="331" cy="302" r="199" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="265" cy="229" r="138" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="239" cy="357" r="69" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
- <circle cx="308" cy="360" r="2" fill="#ff0000" />
- <circle cx="174" cy="333" r="2" fill="#ff0000" />
- <circle cx="134" cy="272" r="2" fill="#ff0000" />
- <circle cx="321" cy="102" r="2" fill="#ff0000" />
- <circle cx="307" cy="366" r="2" fill="#ff0000" />
- <circle cx="246" cy="288" r="2" fill="#ff0000" />
- <circle cx="279" cy="366" r="2" fill="#ff0000" />
- <circle cx="333" cy="350" r="2" fill="#ff0000" />
- <circle cx="301" cy="327" r="2" fill="#ff0000" />
- <circle cx="172" cy="376" r="2" fill="#ff0000" />
- <circle cx="127" cy="219" r="2" fill="#ff0000" />
- <circle cx="264" cy="367" r="2" fill="#ff0000" />
- <circle cx="168" cy="186" r="2" fill="#ff0000" />
- <circle cx="138" cy="354" r="2" fill="#ff0000" />
- <circle cx="311" cy="265" r="2" fill="#ff0000" />
- <circle cx="270" cy="363" r="2" fill="#ff0000" />
- <circle cx="392" cy="284" r="2" fill="#ff0000" />
- <circle cx="403" cy="243" r="2" fill="#ff0000" />
- <circle cx="338" cy="288" r="2" fill="#ff0000" />
- <circle cx="326" cy="273" r="2" fill="#ff0000" />
- <circle cx="329" cy="229" r="2" fill="#ff0000" />
- <circle cx="381" cy="217" r="2" fill="#ff0000" />
- <circle cx="131" cy="264" r="2" fill="#ff0000" />
- <circle cx="281" cy="91" r="2" fill="#ff0000" />
- <circle cx="517" cy="229" r="2" fill="#ff0000" />
- <circle cx="131" cy="300" r="2" fill="#ff0000" />
- <circle cx="147" cy="361" r="2" fill="#ff0000" />
- <circle cx="151" cy="196" r="2" fill="#ff0000" />
- <circle cx="167" cy="327" r="2" fill="#ff0000" />
- <circle cx="391" cy="172" r="2" fill="#ff0000" />
- <circle cx="180" cy="432" r="2" fill="#ff0000" />
- <circle cx="530" cy="289" r="2" fill="#ff0000" />
- <circle cx="165" cy="373" r="2" fill="#ff0000" />
- <circle cx="263" cy="192" r="2" fill="#ff0000" />
- <circle cx="170" cy="400" r="2" fill="#ff0000" />
- <circle cx="525" cy="275" r="2" fill="#ff0000" />
- <circle cx="299" cy="323" r="2" fill="#ff0000" />
- <circle cx="272" cy="296" r="2" fill="#ff0000" />
- <circle cx="341" cy="344" r="2" fill="#ff0000" />
- <circle cx="307" cy="97" r="2" fill="#ff0000" />
- <circle cx="518" cy="231" r="2" fill="#ff0000" />
- <circle cx="296" cy="105" r="2" fill="#ff0000" />
- <circle cx="337" cy="343" r="2" fill="#ff0000" />
- <circle cx="258" cy="274" r="2" fill="#ff0000" />
- <circle cx="302" cy="325" r="2" fill="#ff0000" />
- <circle cx="247" cy="184" r="2" fill="#ff0000" />
- <circle cx="518" cy="231" r="2" fill="#ff0000" />
- <circle cx="329" cy="86" r="2" fill="#ff0000" />
- <circle cx="513" cy="254" r="2" fill="#ff0000" />
- <circle cx="244" cy="204" r="2" fill="#ff0000" />
+ <circle cx="227" cy="202" r="107" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="356" cy="239" r="107" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="397" cy="320" r="12" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="225" cy="314" r="170" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="273" cy="396" r="187" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="228" cy="239" r="83" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="234" cy="380" r="52" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="320" cy="373" r="140" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="293" cy="375" r="82" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="392" cy="244" r="142" stroke="#000000" stroke-width="1" style="fill-opacity:0.0;stroke-opacity:1" />
+ <circle cx="375" cy="386" r="2" fill="#ff0000" />
+ <circle cx="260" cy="299" r="2" fill="#ff0000" />
+ <circle cx="461" cy="369" r="2" fill="#ff0000" />
+ <circle cx="249" cy="252" r="2" fill="#ff0000" />
+ <circle cx="233" cy="433" r="2" fill="#ff0000" />
+ <circle cx="225" cy="328" r="2" fill="#ff0000" />
+ <circle cx="267" cy="313" r="2" fill="#ff0000" />
+ <circle cx="271" cy="167" r="2" fill="#ff0000" />
+ <circle cx="230" cy="322" r="2" fill="#ff0000" />
+ <circle cx="292" cy="293" r="2" fill="#ff0000" />
+ <circle cx="193" cy="314" r="2" fill="#ff0000" />
+ <circle cx="311" cy="233" r="2" fill="#ff0000" />
+ <circle cx="459" cy="370" r="2" fill="#ff0000" />
+ <circle cx="253" cy="209" r="2" fill="#ff0000" />
+ <circle cx="461" cy="386" r="2" fill="#ff0000" />
+ <circle cx="398" cy="256" r="2" fill="#ff0000" />
+ <circle cx="307" cy="211" r="2" fill="#ff0000" />
+ <circle cx="147" cy="257" r="2" fill="#ff0000" />
+ <circle cx="379" cy="386" r="2" fill="#ff0000" />
+ <circle cx="281" cy="153" r="2" fill="#ff0000" />
+ <circle cx="324" cy="452" r="2" fill="#ff0000" />
+ <circle cx="372" cy="400" r="2" fill="#ff0000" />
+ <circle cx="233" cy="484" r="2" fill="#ff0000" />
+ <circle cx="381" cy="246" r="2" fill="#ff0000" />
+ <circle cx="86" cy="411" r="2" fill="#ff0000" />
+ <circle cx="379" cy="241" r="2" fill="#ff0000" />
+ <circle cx="395" cy="308" r="2" fill="#ff0000" />
+ <circle cx="394" cy="332" r="2" fill="#ff0000" />
+ <circle cx="250" cy="256" r="2" fill="#ff0000" />
+ <circle cx="257" cy="196" r="2" fill="#ff0000" />
+ <circle cx="265" cy="298" r="2" fill="#ff0000" />
+ <circle cx="370" cy="346" r="2" fill="#ff0000" />
+ <circle cx="249" cy="252" r="2" fill="#ff0000" />
+ <circle cx="443" cy="303" r="2" fill="#ff0000" />
+ <circle cx="274" cy="169" r="2" fill="#ff0000" />
+ <circle cx="273" cy="309" r="2" fill="#ff0000" />
+ <circle cx="253" cy="209" r="2" fill="#ff0000" />
+ <circle cx="439" cy="308" r="2" fill="#ff0000" />
+ <circle cx="288" cy="156" r="2" fill="#ff0000" />
+ <circle cx="393" cy="341" r="2" fill="#ff0000" />
+ <circle cx="262" cy="304" r="2" fill="#ff0000" />
+ <circle cx="306" cy="130" r="2" fill="#ff0000" />
+ <circle cx="245" cy="308" r="2" fill="#ff0000" />
+ <circle cx="284" cy="293" r="2" fill="#ff0000" />
+ <circle cx="197" cy="305" r="2" fill="#ff0000" />
+ <circle cx="330" cy="233" r="2" fill="#ff0000" />
+ <circle cx="159" cy="285" r="2" fill="#ff0000" />
+ <circle cx="300" cy="281" r="2" fill="#ff0000" />
+ <circle cx="139" cy="264" r="2" fill="#ff0000" />
+ <circle cx="333" cy="218" r="2" fill="#ff0000" />
+ <circle cx="123" cy="178" r="2" fill="#ff0000" />
+ <circle cx="332" cy="182" r="2" fill="#ff0000" />
+ <circle cx="268" cy="301" r="2" fill="#ff0000" />
+ <circle cx="314" cy="140" r="2" fill="#ff0000" />
 </svg>
 

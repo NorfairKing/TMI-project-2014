@@ -16,10 +16,8 @@
     	$d = \Vert p_1 - p_2 \Vert$\\
 		$a = \frac{r_{1}^{2}-r_{2}^{2}+d^{2}}{2d}$\\
 
-		$n = \frac{x_1-x_2}{y_1-y_2}$\\
-		
-		$P_{0x} = x_1 + a(x_2-x_1)$\\
-		$P_{0y} = y_1 + a(y_2-y_1)$\\
+		$x_0 = x_1 + \frac{a}{d}(x_2-x_1)$\\
+		$y_0 = y_1 + \frac{a}{d}(y_2-y_1)$\\
     
     	$h=\sqrt{r_{1}^{2} - a^{2}}$\\
     	
@@ -135,13 +133,14 @@ We kunnen $m$ berekenen uit de co\"ordinaten van $M_1$ en $M_2$.
 \[
 m = \frac{y_2-y_1}{x_2-x_1}
 \]
+\todo{uitleggen waarom}
 Omdat $l_1$ loodrecht staat op $l_2$ weten we dat de richtingsco\"efficient $n$ van $l_2$ het omgekeerd tegengestelde is van de richtingsco\"efficient van $l_1$.
 \[
 n = -\frac{1}{m} = \frac{x_1-x_2}{y_1-y_2}
 \]
 Vervolgens kunnen we de co\"ordinaten van $P_0$ berekenen.
 \[
-P_0 = M_1 + a(M_2-M_1) = M_2 + b(M_1-M_2)
+P_0 = M_1 + \frac{a}{d}(M_2-M_1) = M_2 + \frac{b}{d}(M_1-M_2)
 \]
 \todo{2e gelijkheid nakijken}
 \[

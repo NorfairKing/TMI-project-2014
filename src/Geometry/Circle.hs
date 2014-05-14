@@ -57,16 +57,19 @@ circlesIntersections c1@(Cir p1@(Pos x1 y1) r1) c2@(Cir p2@(Pos x2 y2) r2) =
     --    else []
     [ Pos px1 py1, Pos px2 py2 ]
     where
-        px1 = s + 2*(y1-y2)/d'*δ
-        px2 = s - 2*(y1-y2)/d'*δ
-        py1 = t - 2*(x1-x2)/d'*δ
-        py2 = t + 2*(x1-x2)/d'*δ
-        s   = ((x1+x2)/2) + (x2-x1)*α
-        t   = ((y1+y2)/2) + (y2-y1)*α
-        α   = (r1*r1-r2*r2)/(2*d')
-        δ   = (1/4) * sqrt ( (d+r1+r2)*(d+r1-r2)*(d-r1+r2)*(r1+r2-d)  )
-        d'  = d*d
         d   = distance p1 p2
+        a   = (r1^2 - r2^2 + d^2)/(2*d)
+        
+        x0  = x1 + (a/d)*(x2-x1)
+        y0  = y1 + (a/d)*(y2-y1)
+        
+        h   = sqrt $ r1^2 - a^2
+    
+        px1 = x0 + (h/d)*(y2-y1)
+        px2 = x0 - (h/d)*(y2-y1)
+        py1 = y0 - (h/d)*(x2-x1)
+        py2 = y0 + (h/d)*(x2-x1)
+
 
 instance NFData Circle
 

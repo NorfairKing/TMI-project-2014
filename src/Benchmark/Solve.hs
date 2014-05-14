@@ -25,15 +25,23 @@ benchCase (C na nc sc) = do
 benchAssignment :: Assignment -> IO [Double]
 benchAssignment (A nt c) = replicateM nt $ benchCase c
 
-benchAssignmentAvg :: Assignment -> IO Double
-benchAssignmentAvg a = do
+benchAssignmentMed :: Assignment -> IO Double
+benchAssignmentMed a = do
     rs <- benchAssignment a
-    return $ (sum rs) / (fromIntegral (length rs))
+    return $ median rs
+
+
+median x | odd n  = head  $ drop (n `div` 2) x'
+         | even n = (\[x,y] -> (x+y)/2) $ take 2 $ drop i x'
+            where 
+                i = (length x' `div` 2) - 1
+                x' = sort x
+                n  = length x
 
 -- Time and output the results to a csv file.
 timeToCsv :: Assignment -> IO String
 timeToCsv a@(A nt (C na nc sc)) = do
-    t <- benchAssignmentAvg a
+    t <- benchAssignmentMed a
     return $ recordToStr na nc sc t
 
 recordToStr :: Int -> Int -> Double -> Double -> String
@@ -68,7 +76,7 @@ doExperiment (DoublingRatioExperiment name ass) = do
                 ++ name
                 ++ doublingRatioExtension
     outh <- openFile ofile WriteMode
-    times <- mapM ( mapM benchAssignmentAvg ) ass
+    times <- mapM ( mapM benchAssignmentMed ) ass
     let ratioss = times `deepseq` map ratios times
     hPutStrLn outh $ latexTable ratioss
     hClose outh
