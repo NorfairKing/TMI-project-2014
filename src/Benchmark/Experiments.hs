@@ -31,9 +31,9 @@ threeDPlotExperiment :: Experiment
 threeDPlotExperiment = RawDataExperiment "3D"
     [ 
     A accuracy (C na nc sc) 
-    | nc <- [0,10..200]
+    | nc <- [0, 10 .. 200]
     , na <- nas
-    , sc <- [0.0,0.1..2]
+    , sc <- [0.0, 0.05 .. 1]
     ]
 
 
@@ -66,8 +66,8 @@ manyIntersectionsExperiment = RawDataExperiment "ManyIntersections"
 
 drAccuracy = 10
 
-drNcs = [ 5 * 2^i | i <- [0..8] ]
-drScs = 0: [ 0.001 * 2^i | i <- [0..9]  ]
+drNcs = [ 10 * 2^i | i <- [0 .. 7] ]
+drScs = [ 0, 0.001, 0.5, 1 ]
 
 doublingRatioExperiment :: Int -> Experiment
 doublingRatioExperiment na = DoublingRatioExperiment ("DoublingRatio_" ++ show na)
@@ -80,8 +80,8 @@ nrIntersectionsExperiment :: Experiment
 nrIntersectionsExperiment = NrIntersectionsExperiment "NrIntersections" 
     [
     (nc, sc) 
-    | nc <- [0,10..100]
-    , sc <- [0.0,0.1..1]
+    | nc <- [0, 10 .. 200]
+    , sc <- [0.0, 0.05 .. 1]
     ]
 
     
