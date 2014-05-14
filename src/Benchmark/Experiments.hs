@@ -48,7 +48,7 @@ fewIntersectionsExperiment = RawDataExperiment "FewIntersections"
 
 -- Few Intersections Experiment
 averageCaseExperiment :: Experiment
-averageCaseExperiment = RawDataExperiment "FewIntersections"
+averageCaseExperiment = RawDataExperiment "AverageCase"
     [
     A accuracy (C na nc 0.5)
     | nc <- [10, 15 .. 500]
