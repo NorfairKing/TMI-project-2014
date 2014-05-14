@@ -13,15 +13,13 @@ allExperiments =
      , averageCaseExperiment
      , manyIntersectionsExperiment
      , threeDPlotExperiment
+     , nrIntersectionsExperiment
     ]
     
     ++
 
     map doublingRatioExperiment nas
     
-    ++
-    
-    [nrIntersectionsExperiment]
 
 accuracy :: Int
 accuracy = 10

@@ -20,7 +20,7 @@ import Intersections.Intersections
 benchCase :: Case -> IO Double
 benchCase (C na nc sc) = do
     cs <- randomScaledCircles nc sc
-    cs `deepseq` time_ $ ioSolve na cs
+    time_ $ ioSolve na cs
 
 benchAssignment :: Assignment -> IO [Double]
 benchAssignment (A nt c) = replicateM nt $ benchCase c

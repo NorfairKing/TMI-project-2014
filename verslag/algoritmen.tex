@@ -6,24 +6,27 @@
 \label{sec:snijpunt}
 
 \subsubsection{Algoritme}
-
 \begin{algorithm}[H]
   \SetAlgoLined
   \KwIn{twee cirkels, $c$ en $c'$ met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
   \KwOut{geen, of twee snijpunten van de twee cirkels (\'e\'en punt met multipliciteit twee of twee met multipliciteit \'e\'en)}
   \SetKwProg{Fn}{Procedure}{:}{end}
   \Fn{intersections($c$,$c'$)}{
-    \eIf{$intersect(c, c') \land c1 \neq c2$}{
-      $d \leftarrow \lVert p_2 - p_1\rVert $ \\
-      $\alpha \leftarrow \frac{r_1^2 -r_2^2}{2d^2}$\\
-      $s \leftarrow \frac{x_1+x_2}{2} + \alpha(x_2-x_1)$\\
-      $t \leftarrow \frac{y_1+y_2}{2} + \alpha(y_2-y_1)$\\
+    \eIf{$c1 \neq c2$}{
+    	$d = \Vert p_1 - p_2 \Vert$\\
+		$a = \frac{r_{1}^{2}-r_{2}^{2}+d^{2}}{2d}$\\
 
-      $\delta \leftarrow \frac{1}{4}  \sqrt { (d+r_1+r_2)(d+r_1-r_2)(d-r_1+r_2)(r_1+r_2-d)}$\\
-      $x_1' \leftarrow s + 2\delta\frac{y_1-y_2}{d^2}$\\
-      $x_2' \leftarrow s - 2\delta\frac{y_1-y_2}{d^2}$\\
-      $y_1' \leftarrow t - 2\delta\frac{x_1-x_2}{d^2}$\\
-      $y_2' \leftarrow t + 2\delta\frac{x_1-x_2}{d^2}$\\
+		$n = \frac{x_1-x_2}{y_1-y_2}$\\
+		
+		$P_{0x} = x_1 + a(x_2-x_1)$\\
+		$P_{0y} = y_1 + a(y_2-y_1)$\\
+    
+    	$h=\sqrt{r_{1}^{2} - a^{2}}$\\
+    	
+      	$x_1' \leftarrow x_0 + \frac{h}{d}(y_2-y_1)$\\
+      	$x_2' \leftarrow x_0 - \frac{h}{d}(y_2-y_1)$\\
+      	$y_1' \leftarrow y_0 - \frac{h}{d}(x_2-x_1)$\\
+      	$y_2' \leftarrow y_0 + \frac{h}{d}(x_2-x_1)$\\
       \Return{$\left\{(x_1',y_1'),(x_2',y_2')\right\}$}
     }{
       \Return{$\varnothing$}
@@ -120,7 +123,7 @@ r_1^2 -r_1^2 & = a^2 - b^2\\
 & = (a-b)(a+b)\\
 & = d(a-b)\\
 & = d(a-d+a)\\
-r_1^2 -r_1^2 & = d(2a-d)
+& = d(2a-d)
 \end{array}
 \]
 Vormen we deze vergelijking om om een uitdrukking voor $a$ te bekomen, dan krijgen we volgende uitdrukking.
@@ -147,13 +150,13 @@ P_{0x}\\P_{0y}\\
 \end{bmatrix}
 =
 \begin{bmatrix}
-M_{1x} + a(M_{2x}-M_{1x})\\
-M_{1y} + a(M_{2y}-M_{1y})\\
+x_1 + a(x_2-x_1)\\
+y_1 + a(y_2-y_1)\\
 \end{bmatrix}
 =
 \begin{bmatrix}
-M_{2x} + b(M_{1x}-M_{2x})\\
-M_{2y} + b(M_{1y}-M_{2y})\\
+x_2 + b(x_1-x_2)\\
+y_2 + b(y_1-y_2)\\
 \end{bmatrix}
 \]
 Tenslotte kunnen we de co\"ordinaten van de snijpunten berekenen uit de co\"ordinaten van $M_1$, $M_2$ en $P_0$.

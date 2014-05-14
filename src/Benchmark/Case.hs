@@ -1,5 +1,6 @@
 module Benchmark.Case where
 
+import Control.DeepSeq
 import Control.Monad
 import System.Random
 
@@ -21,4 +22,6 @@ randomScaledCircle sc = do
 
 -- Generate n random circles with the radii scaled by sc
 randomScaledCircles :: Int -> Double -> IO [Circle]
-randomScaledCircles n sc = replicateM n $ randomScaledCircle sc
+randomScaledCircles n sc = do
+    cs <- replicateM n $ randomScaledCircle sc
+    return $!! cs

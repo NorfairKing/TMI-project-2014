@@ -32,7 +32,7 @@ getInput = do
     input <- lines `fmap` getContents
     let (algorithm, circleData) = runState readAlgorithm input
     let (circles, _) = runState readCircles circleData
-    return (algorithm, circles)
+    return $!! (algorithm, circles)
 
 readAlgorithm :: Loader Int
 readAlgorithm = parseLine
