@@ -10,6 +10,7 @@ allExperiments =
     
     [
      fewIntersectionsExperiment
+     , averageCaseExperiment
      , manyIntersectionsExperiment
      , threeDPlotExperiment
     ]
@@ -30,9 +31,9 @@ threeDPlotExperiment :: Experiment
 threeDPlotExperiment = RawDataExperiment "3D"
     [ 
     A accuracy (C na nc sc) 
-    | nc <- (reverse [0,10..100])
+    | nc <- [0, 10 .. 200]
     , na <- nas
-    , sc <- [0.0,0.1..5]
+    , sc <- [0.0, 0.05 .. 1]
     ]
 
 
@@ -40,8 +41,17 @@ threeDPlotExperiment = RawDataExperiment "3D"
 fewIntersectionsExperiment :: Experiment
 fewIntersectionsExperiment = RawDataExperiment "FewIntersections"
     [
-    A accuracy (C na nc 0.002)
-    | nc <- (reverse [10, 15 .. 500])
+    A accuracy (C na nc 0.001)
+    | nc <- [10, 15 .. 500]
+    , na <- nas
+    ]
+
+-- Few Intersections Experiment
+averageCaseExperiment :: Experiment
+averageCaseExperiment = RawDataExperiment "AverageCase"
+    [
+    A accuracy (C na nc 0.5)
+    | nc <- [10, 15 .. 500]
     , na <- nas
     ]
 
@@ -49,15 +59,15 @@ fewIntersectionsExperiment = RawDataExperiment "FewIntersections"
 manyIntersectionsExperiment :: Experiment
 manyIntersectionsExperiment = RawDataExperiment "ManyIntersections"
     [
-    A accuracy (C na nc 1)
-    | nc <- (reverse [10, 15 .. 500])
+    A accuracy (C na nc 1000)
+    | nc <- [10, 15 .. 500]
     , na <- nas
     ]
 
 drAccuracy = 10
 
-drNcs = [ 5 * 2^i | i <- [0..8] ]
-drScs = 0: [ 0.001 * 2^i | i <- [0..9]  ]
+drNcs = [ 10 * 2^i | i <- [0 .. 7] ]
+drScs = [ 0, 0.001, 0.5, 1 ]
 
 doublingRatioExperiment :: Int -> Experiment
 doublingRatioExperiment na = DoublingRatioExperiment ("DoublingRatio_" ++ show na)
@@ -70,8 +80,8 @@ nrIntersectionsExperiment :: Experiment
 nrIntersectionsExperiment = NrIntersectionsExperiment "NrIntersections" 
     [
     (nc, sc) 
-    | nc <- (reverse [0,10..100])
-    , sc <- [0.0,0.1..5]
+    | nc <- [0, 10 .. 200]
+    , sc <- [0.0, 0.05 .. 1]
     ]
 
     
