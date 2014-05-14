@@ -409,16 +409,22 @@ dat die een element uit $T'$ als deelverzameling heeft. Immers, alle
 cirkels die in $T$ zitten hebben overlappende intervallen door de
 manier waarop $T$ gegenereerd is.
 
-Neem anderzijds een element $t \in T'$. We tonen aan dat dit element
-een deelverzameling vormt van een configuratie van $T$ gegenereerd
-door $E$. Om te beginnen zijn configuraties van $T$ op dezelfde manier
-geordend als elementen van $T'$, en is het dus mogelijk dat zij
-elementen van $T'$ bevatten.
+% Neem anderzijds een element $t \in T'$. We tonen aan dat dit element
+% een deelverzameling vormt van een configuratie van $T$ gegenereerd
+% door $E$. Om te beginnen zijn configuraties van $T$ op dezelfde manier
+% geordend als elementen van $T'$, en is het dus mogelijk dat zij
+% elementen van $T'$ bevatten.
 
-$T'$ bevat voor een willekeurige opstelling maximaal $2^n - n - 1$
-elementen (we sluiten de lege verzameling en alle singletons uit,
-gezien die triviaal deel uitmaken van minstens \'e\'en configuratie
-van $T$).
+% $T'$ bevat voor een willekeurige opstelling maximaal $2^n - n - 1$
+% elementen (we sluiten de lege verzameling en alle singletons uit,
+% gezien die triviaal deel uitmaken van minstens \'e\'en configuratie
+% van $T$). 
+
+Stel nu dat er een element $t \in T'$ bestaat dat niet in een
+configuratie van $T$ zit. Dan wil dit zeggen dat er een stel cirkels
+is dat overlapt maar dat niet gegenereerd kan worden door $E$. In $E$
+zitten echter de toevoegpunten en verwijderpunten van all cirkels.
+
 \todo{Dit bewijs moet nog afgewerkt worden.}
 \end{proof}
 
@@ -451,8 +457,8 @@ nakijken op snijpunten wordt $c$ toegevoegd aan $T$. Gezien $c$ en
 $c'$ snijden, overlapt het interval op de $y$-as dat correspondeert
 aan $c'$ met het interval dat correspondeert aan $c$.
 
-Nu heeft $c'$ al eens in $T$ gezeten: uit gevolg 1
-\ref{gevolg:sweepline} volgt dan dat onze stelling een contradictie is;
+Nu heeft $c'$ al eens in $T$ gezeten: uit het gevolg van
+\ref{lemma:intervals} volgt dan dat onze stelling een contradictie is;
 immers, dan is er een element $t \in T'$ waarin zowel $c$ als $c'$
 zitten, maar dit behoort dan tot geen enkele configuratie van $T$,
 gezien een cirkel die verwijderd is niet meer toegevoegd kan worden
@@ -474,7 +480,7 @@ $c$.
 \end{geval}
 \begin{geval}
 De cirkels zijn nog niet toegevoegd aan $T$: dan weten we dat die in
-een latere iteratie $j$ zullen toegevoegd worden. Op dat moment kunnen
+een latere iteratie zullen toegevoegd worden. Op dat moment kunnen
 we terug lemma \ref{lemma:t1} toepassen.
 \end{geval}
 \end{proof}
@@ -485,7 +491,14 @@ het bewijs van correctheid voor algoritme \ref{algo:naive}. Daarmee is
 ons correctheidsbewijs afgerond.
 \end{proof}
 \subsubsection{Complexiteit}
+De buitenste lus wordt exact $2n$ keer uitgevoerd. In de $n$ iteraties
+waarin een cirkel verwijderd wordt, wordt exact \'e\'en instructie
+uitgevoerd. In de $n$ iteraties waarin een cirkel wordt toegevoegd,
+worden maximaal $n - 1$ vergelijkingen met andere cirkels uitgevoerd:
+$T$ kan immers op geen enkel moment meer dan $n$ elementen
+hebben. Onze uiteindelijke complexiteit komt in het slechtste geval dus uit op:
 
+\[ n (n - 1 + 1) = O(n^2) \]
 \input{illustraties/voorbeeld_2}
 
 \subsection{Linearitmisch}
