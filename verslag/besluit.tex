@@ -1,4 +1,14 @@
 \newpage
 \section{Besluit}
+Het is mogelijk om alle snijpunten te vinden van een verzameling cirkels in $O(N+S)\log(N)$ tijd. Dit is echter niet steeds  wenselijk. Indien we op voorhand kunnen weten of er eerder veel of eerder weinig snijpunten zullen zijn, kunnen we het meest gepaste algoritme kiezen.
+Algoritme drie is duidelijk beter wanneer er weinig snijpunten zijn. Algoritme \'e\'en en twee zijn duidelijk beter wanneer er veen snijpunten zijn.
+In het algemeen lijkt het het best om voor algoritme twee te kiezen.
+
 
 \section{Reflectie}
+
+\subsection{Haskell sequence}
+In heel het programma gebruiken we de ingebouwde lijsten van Haskell. Het datatype `Sequence' heeft echter, in de meeste gevallen en voor de meeste operaties, een betere slechtste geval-complexiteit. De totale uitvoeringstijd voor grote problemen zouden we zo nog kunnen inkorten.
+
+\subsection{Compilatie optimalisaties}
+De GHC' compiler die we gebruikt hebben biedt nog optimalisaties aan die we niet gebruikt hebben. Zo hebben we geprobeerd om de `llvm' vlag aan te zetten, maar omdat we daar een ongeteste versie van gebruikten resulteerde dit in compilatie fouten.
