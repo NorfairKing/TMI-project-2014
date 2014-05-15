@@ -20,7 +20,7 @@ Empirisch gezien zijn onze implementaties correct en volledig.
   	\label{fig:few_intersections}
   	\caption{Uitvoeringstijden bij gevallen met weinig snijpunten.}
 \end{figure}
-In Figuur \ref{fig:few_intersections} zijn de resultaten uiteengezet van het eerste rauwe data-experiment. We zien dat het na\"ieve algoritme veel slechter presteert dan de andere twee. Het eerste algoritme wordt niet be\"invloedt door het aantal snijpunten, lijkt het.
+In figuur \ref{fig:few_intersections} zijn de resultaten uiteengezet van het eerste rauwe data-experiment. We zien dat het na\"ieve algoritme veel slechter presteert dan de andere twee. Het eerste algoritme wordt niet be\"invloedt door het aantal snijpunten, lijkt het.
 
 \subsubsection{Gemiddeld Geval}
 \begin{figure}[H]
@@ -37,7 +37,7 @@ In Figuur \ref{fig:few_intersections} zijn de resultaten uiteengezet van het eer
    	\label{fig:many_intersections}
   	\caption{Uitvoeringstijden bij gevallen met relatief veel snijpunten.}
 \end{figure}
-In Figuur \ref{fig:many_intersections} zijn de resultaten uiteengezet van het tweede rauwe data-experiment. We zien dat algoritme \'e\'en hier beter presteert dan de andere twee. Algoritme twee en drie moeten dezelfde snijpunten berekenen maar hebben te kampen met enige `overhead'.
+In figuur \ref{fig:many_intersections} zijn de resultaten uiteengezet van het tweede rauwe data-experiment. We zien dat algoritme \'e\'en hier beter presteert dan de andere twee. Algoritme twee en drie moeten dezelfde snijpunten berekenen maar hebben te kampen met enige `overhead'.
 
 \subsubsection{3D plot}
 \begin{figure}[H]
@@ -46,7 +46,7 @@ In Figuur \ref{fig:many_intersections} zijn de resultaten uiteengezet van het tw
 	\label{fig:3d}
   	\caption{Een 3D grafiek van de uitvoeringstijden in functie van de scalering en het aantal cirkels}
 \end{figure}
-De resultaten van het laatste rauwe data-experiment staan in Figuur \ref{fig:3d}.
+De resultaten van het laatste rauwe data-experiment staan in figuur \ref{fig:3d}.
 Het is duidelijk dat algoritme \'e\'en ongeveer evenveel tijd nodig heeft onafhankelijk van de scalering van de stralen. We zien bovendien dat algoritme drie slechter presteert dan algoritme \'e\'en bij grote scaleringen en beter bij kleine scaleringen.
 
 \begin{figure}[H]
@@ -56,34 +56,35 @@ Het is duidelijk dat algoritme \'e\'en ongeveer evenveel tijd nodig heeft onafha
   	\caption{Aantal snijpunten}
 \end{figure}
 
-In Figuur \ref{fig:nr_intersections} staan het aantal snijpunten geplot, in plaats van de uitvoeringstijden. We zien dat de grafiek van de uitvoeringstijden van algoritme drie mooi dezelfde vorm heeft.
+In figuur \ref{fig:nr_intersections} staan het aantal snijpunten geplot, in plaats van de uitvoeringstijden. We zien dat de grafiek van de uitvoeringstijden van algoritme drie mooi dezelfde vorm heeft.
 
 \subsection{Doubling Ratio}
-\todo{doubling ratio resultaten uitleggen}
+De resultaten van een doubling ratio experiment zetten we in een tabel. Op de bovenste rij van de tabel staat het aantal cirkels. In de meest linkse kolom staan de scaleringen van de straal. De getallen in de tabel stellen de verhouding voor tussen de uitvoeringstijd bij deze probleemgrootte ten opzichte van het probleemgrootte er links van.
+
 \subsubsection{Naief}
 \begin{table}[H]
 \input{illustraties/table_DoublingRatio_1}
-\label{fig:doublingratio_1}
 \caption{Doubling ratio 1}
+\label{fig:doublingratio_1}
 \end{table}
-Figuur \ref{fig:doublingratio_1} toont de resultaten van het doubling ratio exeriment voor algoritme \'e\'en. Het is makkelijk te zien dat de ratio zal convergeren naar $4$ voor een groot aantal cirkels. Dit bovendien onafhankelijk van de scalering van de stralen.
+tabel \ref{fig:doublingratio_1} toont de resultaten van het doubling ratio exeriment voor algoritme \'e\'en. Het is makkelijk te zien dat de ratio zal convergeren naar $4$ voor een groot aantal cirkels. Dit bovendien onafhankelijk van de scalering van de stralen.
 
 \subsubsection{Kwadratisch}
 \begin{table}[H]
 \input{illustraties/table_DoublingRatio_2}
-\label{fig:doublingratio_2}
 \caption{Doubling ratio 2}
+\label{fig:doublingratio_2}
 \end{table}
-In Figuur \ref{fig:doublingratio_2} de resultaten van het doubling ratio experiment voor algoritme twee. Voor kleine scaleringen van de straal zien we dat de ratio rond $2.2$ schommelt. Wanneer er weinig snijpunten zijn is dit algoritme dus inderdaad beter dan kwadratisch.
+In tabel \ref{fig:doublingratio_2} de resultaten van het doubling ratio experiment voor algoritme twee. Voor kleine scaleringen van de straal zien we dat de ratio rond $2.2$ schommelt. Wanneer er weinig snijpunten zijn is dit algoritme dus inderdaad beter dan kwadratisch.
 Voor grote scaleringen schommeld de ratio rond $4$ zoals verwacht van een kwadratisch algoritme.
 
 \subsubsection{Linearitmisch}
 \begin{table}[h]
 \input{illustraties/table_DoublingRatio_3}
-\label{fig:doublingratio_3}
 \caption{Doubling ratio 3}
+\label{fig:doublingratio_3}
 \end{table}
-In Figuur \ref{fig:doublingratio_3} staan de resultaten van het laatste doubling ratio experiment.
+In tabel \ref{fig:doublingratio_3} staan de resultaten van het laatste doubling ratio experiment.
 We zien dat de ratio rond 2.2 schommelt voor kleine scaleringen.
 Dit komt overeen met onze voorspellingen.
 Bij kleine $S$ zal de uitvoeringstijd van het algoritme namelijk linearitmisch groeien.
