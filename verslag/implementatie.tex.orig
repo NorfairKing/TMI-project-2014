@@ -1,0 +1,144 @@
+\newpage
+\section{Implementatie}
+\label{sec:implementation}
+In deze sectie beschrijven we de implementatiedetails van de
+algoritmes en de gebruikte gegevensstructuren. We tonen eveneens
+stukjes code. We garanderen niet dat deze code zal compileren wanneer
+ze gekopieerd wordt. De code die hier staat is enigszins vereenvoudigd
+om de leesbaarheid te vergoten.
+
+\subsection{Haskell}
+<<<<<<< HEAD
+We hebben de code geschreven in Haskell. Haskell is een programmeertaal die gefundeerd is op de volgende principes:
+
+\begin{enumerate}
+\item Haskell is \textbf{lui}: een expressie zal enkel ge\"evalueerd
+worden als het resultaat van die evaluatie nodig is.
+\item Haskell is \textbf{puur}: functies in Haskell hebben geen
+side-effects. Hierdoor is er een garantie dat voor een bepaalde input
+een functie altijd dezelfde output zal teruggeven, en kunnen
+programma's vrij eenvoudig geparallelliseerd worden.
+\item Haskell is \textbf{functioneel}: functies in Haskell zijn in
+tegenstelling tot talen als Java zgn. \textit{first-class citizens}:
+we kunnen functies manipuleren als gewone data.
+\end{enumerate}
+=======
+We hebben de code geschreven in Haskell. Haskell is een luie, pure,  functionele taal. Dit vereenvoudigde het implementeren van de wiskundige aspecten van dit project en verkortte de code in het geheel.
+Haskell zorgde evenwel voor een aantal problemen.
+>>>>>>> 314dc0fbbe3ea180f24b6d6d91f6e179e0f39b15
+
+Dit vereenvoudigde het implementeren van de wiskundige aspecten van
+dit project en verkortte de code in het geheel. Bepaalde aspecten
+zorgden evenwel voor een aantal problemen.
+
+\subsubsection{Evaluatie en timing}
+
+Haskell wordt niet per se sequentieel ge\"evalueerd. Code wordt
+doorgaans enkel ge\"evalueerd wanneer het resultaat nodig is voor
+uitvoer.  Een resultaat dat nooit opgevraagd wordt zal dus ook nooit
+berekend worden. Voorts is het ook zo dat functies die niet aan I/O
+doen in Haskell niet beschouwd worden als procedures, maar wel als
+definities van functies. Wanneer we zo'n functie toepassen op haar
+argumenten, wordt binnen het paradigma dat Haskell gebruikt eigenlijk
+niets berekend!
+
+We hebben het algoritme zo ge\"implementeerd dat de cirkels eerst
+worden ingelezen, de snijpunten dan worden berekend en pas daarna de
+snijpunten worden uitgelezen. Enkel het berekenen van de snijpunten
+wordt dan getimed. De snijpunten worden dus niet meer op een luie
+manier berekend. Het programma is hierdoor natuurlijk trager geworden.
+
+Voor het timen van onze code gebruiken we het `Criterion' pakket op hackage.\footnote{\url{https://hackage.Haskell.org/package/criterion}}
+Voor het garanderen van striktheid van de code gebruiken we het `DeepSeq' pakket op hackage.\footnote{\url{https://hackage.Haskell.org/package/deepseq}}
+
+\subsubsection{Lijsten}
+Operaties op de ingebouwde lijsten in Haskell hebben de volgende complexiteiten. Deze ordes van uitvoeringstijden worden gegarandeerd op de haskell website\footnote{\url{http://www.haskell.org/haskellwiki/Haskell}}. We gebruiken de ingebouwde lijsten voor elk algoritme om de resultaten in bij te houden.
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Operatie & Complexiteit\\
+\hline\hline
+pattern matching & $O(1)$\\\hline
+concat & $O(N+M)$\\\hline
+map & $O(N)$\\\hline
+nub (uniques) & $O(N\log(N))$\\\hline
+sort & $O(N\log(N))$\\\hline
+\end{tabular}
+\label{fig:list_performance}
+\caption{Operaties op lijsten}
+\end{figure}
+
+\newpage
+\subsection{Naief}
+Het naieve algoritme maakt gebruik van staartrecursie zodat er nooit twee cirkels maar dan \'e\'en keer met elkaar vergeleken worden. Dit algoritme werkt steeds in $O(N^2)$ tijd.
+
+\begin{figure}[H]
+\begin{lstlisting}[language=haskell]
+intersections :: [Circle] -> [Position]
+intersections [] = []
+intersections [_] = []
+intersections l = nub $ go l
+    where
+        go [] = []
+        go [_] = []
+        go (c:cs) = concatMap (circlesIntersections c) cs ++ go cs
+\end{lstlisting}
+\label{imp:naive}
+\caption{Functionele code voor het na\"ieve algoritme}
+\end{figure}
+
+
+\subsection{Kwadratisch}
+Het kwadratische algoritme maakt geen gebruik van externe datastructuren. Het gebruikt de ingebouwde lijsten van Haskell om de status bij te houden. Dit algoritme heeft een slechtste-geval complexiteit van $O(N^2)$ en een beste-gevalcomplexiteit van $O(N\log(N)$. De `events' moeten immers nog steeds gesorteerd worden;
+
+\begin{figure}[H]
+\begin{lstlisting}[language=haskell]
+intersections :: [Circle] -> [Position]
+intersections [] = []
+intersections [c] = []
+intersections cs = nub $ go (sort $ eventPointss cs) []
+    where
+        go :: [Event] -> [Circle] -> [Position]
+        go [e] act = []
+        go (Insert c : evl) act 
+        	= concatMap (circlesIntersections c) act 
+        	++ go evl (c:act)
+        go (Delete c : evl) act = go evl (delete c act)
+\end{lstlisting}
+\label{imp:quadratic}
+\caption{Functionele code voor het kwadratische algoritme}
+\end{figure}
+
+\newpage
+\subsection{Linearitmisch}
+Het Linearitmische algoritme maakt gebruikt van een datastructuur genaamd `intervalmap' om de status bij te houden.
+Op deze manier kunnen de cirkels met overlappende intervallen kunnen gezocht worden in $O(R\log N)$ tijd (waarbij $R$ het aantal cirkels met overlappende intervallen voorstelt).
+
+\begin{figure}[H]
+\begin{lstlisting}[language=haskell]
+intersections :: [Circle] -> [Position]
+intersections []  = []
+intersections [_] = []
+intersections cs = nub $ go (sort' eventPointss cs) I.empty
+    where
+        go :: [Event] -> IntervalMap Position Circle -> [Position]
+        go [e] _ = []
+        go (Insert c : es) act = intersects ++ next
+            where
+                intersects 
+                	= concatMap 
+                	  (circlesIntersections c) 
+                	  overlapping
+                overlapping = intersecting act thisInterval
+                
+                next = go es newAct
+                newAct = insert (interval c) c act
+              
+        go (Delete c : es) act = go es newAct
+            where newAct = delete (circleInterval c) act
+\end{lstlisting}
+\label{imp:linearithmic}
+\caption{Functionele code voor het linearitmische algoritme}
+\end{figure}
