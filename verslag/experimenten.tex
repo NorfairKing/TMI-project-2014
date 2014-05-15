@@ -8,7 +8,7 @@ Om na te kijken of we de algoritmes correct hebben ge\"implementeerd hebben we o
 Eerst wordt het eerste algoritme getoetst aan de hand van de voorbeeld in- en uitvoer in de opgave.
 Daarna wordt de uitvoer van de andere algoritmes aan de uitvoer van het eerste algoritme getoetst.
 
-\subsection{Rauwe Data}
+\subsection{Rauwe data}
 De eerste groep experimenten die we hebben uitgevoerd zijn puur qualitatief. We meten de uitvoeringstijden van de verschillende algoritmes bij verschillende scaleringen van de straal bij verschillende aantallen cirkels.
 
 \subsubsection{Weinig snijpunten}
@@ -21,14 +21,14 @@ Wanneer we de stralen scaleren met een groot getal zullen er relatief veel snijp
 
 In de grafieken zouden we dan moeten zien dat algoritme \'e\'en en twee beide een parabool vormen. De grafiek van algoritme drie zou duidelijk boven de grafiek van de andere twee moeten liggen.
 
-\subsubsection{3D plot}
-Een 3D plot zou meer duidelijkheid kunnen scheppen, maar is vaak niet erg leesbaar. We hopen te zien dat het eerste algoritme ongeveer even snel werkt onafhankelijk van de scalering van de stralen. Bovendien hopen we te zien dat algoritme twee en drie beter presteren dan het eerste voor kleine scaleringen, en slechter presteren voor grote scaleringen.
+\subsubsection{3D-plot}
+Een 3D-plot zou meer duidelijkheid kunnen scheppen, maar is vaak niet erg leesbaar. We hopen te zien dat het eerste algoritme ongeveer even snel werkt onafhankelijk van de scalering van de stralen. Bovendien hopen we te zien dat algoritme twee en drie beter presteren dan het eerste voor kleine scaleringen, en slechter presteren voor grote scaleringen.
 
 
-\subsection{Doubling Ratio}
+\subsection{Doubling ratio}
 Een doubling ratio experiment voeren we uit om enigszins quantitatieve resultaten te bekomen. In de doubling ratio experimenten verdubbelen we het aantal cirkels en berekenen we de verhoudingen van de uitvoeringstijden. De verhouding van de uitvoeringstijd voor dubbel zo veel cirkels ten opzichte van de vorige uitvoeringstijd vertelt ons of ons vermoeden van de complexiteit juist is.
 
-\subsubsection{Naief en Kwadratisch}
+\subsubsection{Na\"ief en kwadratisch}
 Het na\"ieve algoritme zou een tijdscomplexiteit van $O(N^2)$ hebben. Dit houdt in de uitvoeringstijd vier keer groter wordt wanneer we het aantal cirkels verdubbelen.
 Het tweede algoritme heeft een slechtste-geval tijdscomplexiteit van $O(N^2)$. Het slechtste geval is wanneer elke twee cirkels snijden. Voor grote scaleringen zou de verhouding dus ook naar $4$ moeten convergeren.
 \[
