@@ -1,14 +1,16 @@
 \newpage
 \section{Resultaten}
-In deze sectie tonen en bespreken we de bekomen resultaten.
+In deze sectie tonen en bespreken we de bekomen resultaten
 
-\subsection{Aantal Snijpunten}
-\begin{figure}[H]
-   	\centering
-   	\includegraphics[width=\textwidth]{illustraties/3DnrIs.png}
-  	\label{fig:nr_intersections}
-  	\caption{Aantal snijpunten}
-\end{figure}
+
+\subsection{CorrectheidToetsen}
+De uitvoer van de correctheidstoetsen is als volgt:
+\begin{verbatim}
+BASETEST SUCCESS
+testcase_2_010.txt SUCCESS 100/100
+testcase_3_010.txt SUCCESS 100/100
+\end{verbatim}
+Empirisch gezien zijn onze implementaties correct en volledig.
 
 \subsection{Rauwe Data}
 \subsubsection{Weinig Snijpunten}
@@ -46,6 +48,15 @@ In Figuur \ref{fig:many_intersections} zijn de resultaten uiteengezet van het tw
 \end{figure}
 De resultaten van het laatste rauwe data-experiment staan in Figuur \ref{fig:3d}.
 Het is duidelijk dat algoritme \'e\'en ongeveer evenveel tijd nodig heeft onafhankelijk van de scalering van de stralen. We zien bovendien dat algoritme drie slechter presteert dan algoritme \'e\'en bij grote scaleringen en beter bij kleine scaleringen.
+
+\begin{figure}[H]
+   	\centering
+   	\includegraphics[width=\textwidth]{illustraties/3DnrIs.png}
+  	\label{fig:nr_intersections}
+  	\caption{Aantal snijpunten}
+\end{figure}
+
+In Figuur \ref{fig:nr_intersections} staan het aantal snijpunten geplot, in plaats van de uitvoeringstijden. We zien dat de grafiek van de uitvoeringstijden van algoritme drie mooi dezelfde vorm heeft.
 
 \subsection{Doubling Ratio}
 \todo{doubling ratio resultaten uitleggen}
