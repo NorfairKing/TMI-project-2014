@@ -595,4 +595,6 @@ snijden. Algoritme \ref{algo:linearithmic} is dus ook correct.
 
 \subsubsection{Complexiteit}
 
+Zoals het hier staat 
+
 \input{illustraties/voorbeeld_3}

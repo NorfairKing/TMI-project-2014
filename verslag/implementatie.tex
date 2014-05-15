@@ -1,24 +1,50 @@
 \newpage
 \section{Implementatie}
 \label{sec:implementation}
-In deze sectie beschrijven we de implementatiedetails van de algoritmes en de gebruikte gegevensstructuren. We tonen eveneens stukjes code. We garanderen niet dat deze code zal compileren wanneer ze gekopieerd wordt. De code die hier staat is enigszins vereenvoudigd om de leesbaarheid te vergoten.
+In deze sectie beschrijven we de implementatiedetails van de
+algoritmes en de gebruikte gegevensstructuren. We tonen eveneens
+stukjes code. We garanderen niet dat deze code zal compileren wanneer
+ze gekopieerd wordt. De code die hier staat is enigszins vereenvoudigd
+om de leesbaarheid te vergoten.
 
 \subsection{Haskell}
-We hebben de code geschreven in Haskell. Haskell is een luie, pure,  functionele taal. Dit vereenvoudigde het implementeren van de wiskundige aspecten van dit project en verkortte de code in het geheel.
+We hebben de code geschreven in Haskell. Haskell is een programmeertaal die gefundeerd is op de volgende principes:
 
-Haskell zorgde evenwel voor een aantal problemen.
+\begin{enumerate}
+\item Haskell is \textbf{lui}: een expressie zal enkel ge\"evalueerd
+worden als het resultaat van die evaluatie nodig is.
+\item Haskell is \textbf{puur}: functies in Haskell hebben geen
+side-effects. Hierdoor is er een garantie dat voor een bepaalde input
+een functie altijd dezelfde output zal teruggeven, en kunnen
+programma's vrij eenvoudig geparallelliseerd worden.
+\item Haskell is \textbf{functioneel}: functies in Haskell zijn in
+tegenstelling tot talen als Java zgn. \textit{first-class citizens}:
+we kunnen functies manipuleren als gewone data.
+\end{enumerate}
 
-\subsubsection{Evaluatie en Timing}
-De volgorde waarin code wordt uitgevoerd wordt niet gegarandeerd in Haskell.
-Code wordt doorgaans enkel ge\"evalueerd wanneer het resultaat nodig is voor uitvoer.
-Een resultaat dat nooit opgevraagd wordt zal dus ook nooit berekend worden.
-Dit heeft als gevolg dat het algoritme normaal gezien al aan de uitvoer begint tijdens de invoer.
-Op deze manier valt het algoritme echter niet te timen.
+Dit vereenvoudigde het implementeren van de wiskundige aspecten van
+dit project en verkortte de code in het geheel. Bepaalde aspecten
+zorgden evenwel voor een aantal problemen.
 
-We hebben het algoritme zo ge\"implementeerd dat de cirkels eerst worden ingelezen, de snijpunten dan worden berekend en pas daarna de snijpunten worden uitgelezen. Enkel het berekenen van de snijpunten wordt dan getimet. De snijpunten worden dus niet meer op een luie manier berekend. Het programma is hierdoor natuurlijk trager geworden.
+\subsubsection{Evaluatie en timing}
 
-Voor het timen van onze code gebruiken we het `Criterion' pakket op hackage.\footnote{\url{https://hackage.haskell.org/package/criterion}}
-Voor het garanderen van striktheid van de code gebruiken we het `DeepSeq' pakket op hackage.\footnote{\url{https://hackage.haskell.org/package/deepseq}}
+Haskell wordt niet per se sequentieel ge\"evalueerd. Code wordt
+doorgaans enkel ge\"evalueerd wanneer het resultaat nodig is voor
+uitvoer.  Een resultaat dat nooit opgevraagd wordt zal dus ook nooit
+berekend worden. Voorts is het ook zo dat functies die niet aan I/O
+doen in Haskell niet beschouwd worden als procedures, maar wel als
+definities van functies. Wanneer we zo'n functie toepassen op haar
+argumenten, wordt binnen het paradigma dat Haskell gebruikt eigenlijk
+niets berekend!
+
+We hebben het algoritme zo ge\"implementeerd dat de cirkels eerst
+worden ingelezen, de snijpunten dan worden berekend en pas daarna de
+snijpunten worden uitgelezen. Enkel het berekenen van de snijpunten
+wordt dan getimed. De snijpunten worden dus niet meer op een luie
+manier berekend. Het programma is hierdoor natuurlijk trager geworden.
+
+Voor het timen van onze code gebruiken we het `Criterion' pakket op hackage.\footnote{\url{https://hackage.Haskell.org/package/criterion}}
+Voor het garanderen van striktheid van de code gebruiken we het `DeepSeq' pakket op hackage.\footnote{\url{https://hackage.Haskell.org/package/deepseq}}
 
 \subsubsection{Lijsten}
 Operaties op de ingebouwde lijsten in Haskell hebben de volgende complexiteiten.
@@ -41,7 +67,7 @@ sort & $O(N\log(N))$\\\hline
 Het naieve algoritme maakt gebruik van staartrecursie zodat er nooit twee cirkels maar dan \'e\'en keer met elkaar vergeleken worden. Dit algoritme werkt steeds in $O(N^2)$ tijd.
 
 \begin{figure}[H]
-\begin{lstlisting}[language=Haskell]
+\begin{lstlisting}[language=haskell]
 intersections :: [Circle] -> [Position]
 intersections [] = []
 intersections [_] = []
@@ -57,10 +83,10 @@ intersections l = nub $ go l
 
 
 \subsection{Kwadratisch}
-Het kwadratische algoritme maakt geen gebruik van externe datastructuren. Het gebruikt de ingebouwde lijsten van haskell om de status bij te houden. Dit algoritme heeft een slechtste-geval complexiteit van $O(N^2)$ en een beste-gevalcomplexiteit van $O(N\log(N)$. De `events' moeten immers nog steeds gesorteerd worden;
+Het kwadratische algoritme maakt geen gebruik van externe datastructuren. Het gebruikt de ingebouwde lijsten van Haskell om de status bij te houden. Dit algoritme heeft een slechtste-geval complexiteit van $O(N^2)$ en een beste-gevalcomplexiteit van $O(N\log(N)$. De `events' moeten immers nog steeds gesorteerd worden;
 
 \begin{figure}[H]
-\begin{lstlisting}[language=Haskell]
+\begin{lstlisting}[language=haskell]
 intersections :: [Circle] -> [Position]
 intersections [] = []
 intersections [c] = []
@@ -83,7 +109,7 @@ Het Linearitmische algoritme maakt gebruikt van een datastructuur genaamd `inter
 Op deze manier kunnen de cirkels met overlappende intervallen kunnen gezocht worden in $O(R\log N)$ tijd (waarbij $R$ het aantal cirkels met overlappende intervallen voorstelt).
 
 \begin{figure}[H]
-\begin{lstlisting}[language=Haskell]
+\begin{lstlisting}[language=haskell]
 intersections :: [Circle] -> [Position]
 intersections []  = []
 intersections [_] = []
