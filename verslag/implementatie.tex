@@ -5,7 +5,6 @@ In deze sectie beschrijven we de implementatiedetails van de algoritmes en de ge
 
 \subsection{Haskell}
 We hebben de code geschreven in Haskell. Haskell is een luie, pure,  functionele taal. Dit vereenvoudigde het implementeren van de wiskundige aspecten van dit project en verkortte de code in het geheel.
-
 Haskell zorgde evenwel voor een aantal problemen.
 
 \subsubsection{Evaluatie en Timing}
@@ -21,7 +20,8 @@ Voor het timen van onze code gebruiken we het `Criterion' pakket op hackage.\foo
 Voor het garanderen van striktheid van de code gebruiken we het `DeepSeq' pakket op hackage.\footnote{\url{https://hackage.haskell.org/package/deepseq}}
 
 \subsubsection{Lijsten}
-Operaties op de ingebouwde lijsten in Haskell hebben de volgende complexiteiten.
+Operaties op de ingebouwde lijsten in Haskell hebben de volgende complexiteiten. Deze ordes van uitvoeringstijden worden gegarandeerd op de haskell website\footnote{\url{http://www.haskell.org/haskellwiki/Haskell}}. We gebruiken de ingebouwde lijsten voor elk algoritme om de resultaten in bij te houden.
+
 \begin{figure}[H]
 \centering
 \begin{tabular}{|c|c|}
@@ -34,6 +34,8 @@ map & $O(N)$\\\hline
 nub (uniques) & $O(N\log(N))$\\\hline
 sort & $O(N\log(N))$\\\hline
 \end{tabular}
+\label{fig:list_performance}
+\caption{Operaties op lijsten}
 \end{figure}
 
 \newpage
