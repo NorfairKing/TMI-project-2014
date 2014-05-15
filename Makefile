@@ -35,8 +35,6 @@ analysis:
 	$(MAKE) -C analysis
 
 build:
-	mkdir -p build/verslag
-	cp verslag/verslag.pdf build/verslag/verslagKerckhoveGoasAguililla.pdf
 	mkdir -p build/src
 	cp src/Main build/Executable
 	cp -r src/* build/src
