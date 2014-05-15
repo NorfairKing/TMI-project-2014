@@ -4,7 +4,7 @@ INTERACTION=nonstopmode
 
 all:
 	make illustraties
-#	rm verslag.pdf
+	rm verslag.pdf
 	make verslag.pdf
 	make clean
 %.pdf: %.tex
