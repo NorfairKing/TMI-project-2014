@@ -364,12 +364,10 @@ wanneer deze intervallen overlappen. Dit gaan we nu formeel aantonen.
 
 We construeren nu een verzameling $T'$ die bestaat uit alle mogelijke
 combinaties van cirkels wiens intervallen overlappen, geordend volgens
-toevoegpunt. We nemen de lege verzameling mee (immers, alle cirkels in
-de lege verzameling overlappen triviaal) en alle singletons (zelfde
-eigenschap). Voor ons voorbeeld zou dit bijvoorbeeld de volgende
+toevoegpunt. Voor ons voorbeeld zou dit bijvoorbeeld de volgende
 verzameling zijn:
 
-\[T' = \left\{\varnothing, \left\{c_1\right\}, \left\{c_2\right\}, \left\{c_4\right\}, \left\{c_3\right\}, \left\{c_2,c_4\right\}, \left\{c_2,c_3\right\}, \left\{c_4,c_3\right\},\left\{c_2,c_4,c_3\right\}\right\}\]
+\[T' = \left\{\left\{c_2,c_4\right\},\left\{c_2,c_4,c_3\right\},\left\{c_4,c_3\right\}\right\}\]
 
 We willen het volgende aantonen:
 
@@ -387,8 +385,8 @@ eerste $i - 1$ elementen van $E$.
 
 Neem de $i^{de}$ configuratie van $T$. We kunnen gemakkelijk aantonen
 dat die een element uit $T'$ als deelverzameling heeft. Immers, alle
-cirkels die in een willekeurige configuratie van $T$ zitten hebben
-overlappende intervallen door de manier waarop $T$ gegenereerd is.
+cirkels die in $T$ zitten hebben overlappende intervallen door de
+manier waarop $T$ gegenereerd is.
 
 % Neem anderzijds een element $t \in T'$. We tonen aan dat dit element
 % een deelverzameling vormt van een configuratie van $T$ gegenereerd
@@ -401,43 +399,12 @@ overlappende intervallen door de manier waarop $T$ gegenereerd is.
 % gezien die triviaal deel uitmaken van minstens \'e\'en configuratie
 % van $T$). 
 
-% Stel nu dat er een element $t \in T'$ bestaat dat niet in een
-% configuratie van $T$ zit. Dit element kan niet de lege verzameling
-% zijn: immers, de initi\"ele en finale configuratie van $T$ is de lege
-% verzameling. Het kan ook geen singleton zijn: immers, elke cirkel
-% wordt \'e\'en keer toegevoegd en \'e\'en keer verwijderd uit $T$. 
+Stel nu dat er een element $t \in T'$ bestaat dat niet in een
+configuratie van $T$ zit. Dan wil dit zeggen dat er een stel cirkels
+is dat overlapt maar dat niet gegenereerd kan worden door $E$. In $E$
+zitten echter de toevoegpunten en verwijderpunten van all cirkels.
 
-We bewijzen nu inductief per constructie van $t$ dat $E$ een $T$
-genereert zodanig dat $t \subseteq T$ v\'o\'or iteratie $i$.
-
-\textit{Basisstap.} De lege verzameling is triviaal een
-deelverzameling van elke verzameling. Als basisstap nemen we dus
-$\abs{t} = 1$. Het is makkelijk in te zien dat elk singleton ook
-een deelverzameling is van minstens \'e\'en configuratie van $T$, gezien
-elke cirkel exact \'e\'en keer aan $T$ wordt toegevoegd.
-
-\textit{Inductiestap.} Stel dat er een $t \in T'$ bestaat met grootte
-$i - 1$ die deelverzameling is van een configuratie van $T$. Dan tonen
-we nu aan dat juist \'e\'en van de volgende gevallen geldt:
-
-\begin{geval}
-Er bestaat een $t'$ van grootte $i$ met $t \subseteq t'$. Dan is die
-$t'$ ook een deelverzameling van een configuratie van $T$. Immers, in
-$t'$ zit juist \'e\'en cirkel meer dan in $t$, en deze cirkel moet
-overlappen met alle cirkels in $t$. Het toevoegpunt van deze cirkel
-bevindt zich dus v\'o\'or het verwijderpunt van de laatste cirkel in
-$t$. Gezien $E$ gesorteerd wordt naar stijgende $y$-co\"ordinaat, zal
-deze cirkel toegevoegd worden aan de configuratie van $T$ waarvan $t$
-maximaal deelverzameling is en zal $t'$ op zijn beurt deelverzameling
-zijn van de nieuwe configuratie van $T$.
-\end{geval}
-
-\begin{geval}
-Er bestaat geen $t'$ van grootte $i$ met $t \subseteq t'$. We hoeven
-dan niet aan te tonen dat $t'$ een deelverzameling is van een
-configuratie van $T$, gezien $t'$ geen element kan zijn van $T$.
-\end{geval}
-
+\todo{Dit bewijs moet nog afgewerkt worden.}
 \end{proof}
 
 \begin{gevolg}
