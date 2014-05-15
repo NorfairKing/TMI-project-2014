@@ -496,13 +496,11 @@ hebben. Onze uiteindelijke complexiteit komt in het slechtste geval dus uit op:
       $E \leftarrow E \cup events(c)$;
     }
     $E \leftarrow sort(E)$\;
-    $T, R \leftarrow \varnothing$\;
+    $T, R \leftarrow \varnothing$\; //T is een intervalboom
     \For{$e \in E$}{
       \uIf {e == insert c} {
-        \For{$c' \in T$} {
-          \If {$interval(c) \cap interval(c') \neq \varnothing$} {
-            $R \leftarrow R \cup intersections(c,c')$
-          }
+        \For{$c' \in overlapping(c,T)$} {
+          $R \leftarrow R \cup intersections(c,c')$
         }
         $T \leftarrow T \cup \left\{c\right\}$
       } \ElseIf {e == delete c} {
@@ -534,10 +532,11 @@ hebben. Onze uiteindelijke complexiteit komt in het slechtste geval dus uit op:
 \begin{stl} Algoritme \ref{algo:linearithmic} is correct en eindig.\end{stl}
 \begin{proof}
 Dit algoritme verschilt van algoritme \ref{algo:quadratic} op slechts
-één punt: in de binnenste for-lus wordt nog een extra check gedaan op
-het overlappen van de intervallen van de cirkels op de $x$-as. We
-voegen geen extra lussen toe, dus de eindigheid van het algoritme is
-gegarandeerd bij krachte van stelling \ref{thm:quadratic}.
+één punt: in de binnenste for-lus wordt nog extra gepruned door te
+checken op het overlappen van de intervallen van de cirkels op de
+$x$-as. We voegen geen extra lussen toe, dus de eindigheid van het
+algoritme is gegarandeerd bij krachte van stelling
+\ref{thm:quadratic}.
 
 Door de check in de binnenste for-lus wordt nog slechts een
 deelverzameling van $T$ vergeleken met de cirkel $c$ toegevoegd in
@@ -564,6 +563,19 @@ snijden. Algoritme \ref{algo:linearithmic} is dus ook correct.
 Voor de complexiteitsanalyse van dit algoritme bouwen we voort op de
 complexiteitsanalyse van het kwadratische algoritme. Het enige dat we
 toevoegen is een check in de binnenste lus: het is nu dus de kwestie
-te bepalen hoe vaak we kunnen vermijden dat we twee cirkels nakijken.
+te bepalen hoe vaak we kunnen vermijden dat we twee cirkels
+nakijken. We gebruiken de functie $overlapping$ om aan pruning te
+doen; in de implementatie van ons algoritme heeft deze operatie
+$log(n)$ complexiteit omdat we $T$ als boom bijhouden. We kunnen
+echter niet na\"ief zeggen dat het algoritme nu complexiteit $nlogn$
+heeft. Immers, neem nu dat we het slechtste geval voor het
+kwadratische algoritme doortrekken naar de subcheck van dit algoritme,
+m.a.w., $T$ bevat alle cirkels en die overlappen ook allemaal op de
+$x$-as. Dan neigen we in het allerslechtste geval naar $O(n^2
+log(n))$: voor elke iteratie van de binnenste lus in het kwadratische
+algoritme komt er nog een operatie in $O(log(n))$ tijd bij.
+
+We kunnen de complexiteit zelfs nog verfijnen. Merk op dat hoe groter
+het aantal snijpunten van de cirkels is, 
 
 \input{illustraties/voorbeeld_3}
