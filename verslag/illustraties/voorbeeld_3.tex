@@ -1,7 +1,6 @@
-\begin{figure}[H]
+\begin{figure}[hbpt]
   \centering
-  % \resizebox {\textwidth} {!} {
-    \begin{tikzpicture}[scale=1]
+    \begin{tikzpicture}[scale=2]
       % grid
       \draw[very thin,color=lightgray] (0,0) grid (7,7);
       \draw [<->,thick] (0,7) node (yaxis) [left] {Y} |- (7,0) node (xaxis) [right] {X};
@@ -11,12 +10,9 @@
       \indexedcircle[3,5.5,3,1]
       \indexedcircle[4,5,5.5,1]
 
-      \draw[thick,color=blue,arrows={Triangle[scale=1]-Triangle[scale=1]}] (C2) -- (C3);
+      \draw[thick,color=blue,arrows={Triangle[scale=1]-Triangle[scale=1]},shorten >=9pt,shorten <=9pt] (C2) -- (C3);
 
-
-      
     \end{tikzpicture}
-  % }
   \label{fig:voorbeeld_23}
   \caption{Nagekeken cirkels bij algoritme 3}
 \end{figure}

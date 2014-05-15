@@ -9,26 +9,32 @@
 \begin{algorithm}[H]
   \SetAlgoLined
   \KwIn{twee cirkels, $c$ en $c'$ met resp. middelpunten $p_{1} = (x_1,y_1), p_{2} = (x_2,y_2)$ en stralen $r_{1}, r_{2}$}
-  \KwOut{geen, of twee snijpunten van de twee cirkels (\'e\'en punt met multipliciteit twee of twee met multipliciteit \'e\'en)}
+  \KwOut{geen, \'e\'en of twee snijpunten van de twee cirkels (de doorsnede van de cirkels)}
   \SetKwProg{Fn}{Procedure}{:}{end}
   \Fn{intersections($c$,$c'$)}{
-    \eIf{$c1 \neq c2$}{
-    	$d = \Vert p_1 - p_2 \Vert$\\
-		$a = \frac{r_{1}^{2}-r_{2}^{2}+d^{2}}{2d}$\\
+  	$result \leftarrow \emptyset$\\
+    \If{$intersect(c_1,c_2) \wedge c_1 \neq c_2$}{    
+    	$d \leftarrow \Vert p_1 - p_2 \Vert$\\
+		$a \leftarrow \frac{r_{1}^{2}-r_{2}^{2}+d^{2}}{2d}$\\
 
-		$x_0 = x_1 + \frac{a}{d}(x_2-x_1)$\\
-		$y_0 = y_1 + \frac{a}{d}(y_2-y_1)$\\
+		$x_0 \leftarrow x_1 + \frac{a}{d}(x_2-x_1)$\\
+		$y_0 \leftarrow y_1 + \frac{a}{d}(y_2-y_1)$\\
     
-    	$h=\sqrt{r_{1}^{2} - a^{2}}$\\
+    	$h \leftarrow \sqrt{r_{1}^{2} - a^{2}}$\\
     	
       	$x_1' \leftarrow x_0 + \frac{h}{d}(y_2-y_1)$\\
-      	$x_2' \leftarrow x_0 - \frac{h}{d}(y_2-y_1)$\\
       	$y_1' \leftarrow y_0 - \frac{h}{d}(x_2-x_1)$\\
+      	
+      	$result \leftarrow result \cup \{(x_1',y_1')\}$\\
+      	
+      	\If{$a \neq r_1$}{
+      	$x_2' \leftarrow x_0 - \frac{h}{d}(y_2-y_1)$\\
       	$y_2' \leftarrow y_0 + \frac{h}{d}(x_2-x_1)$\\
-      \Return{$\left\{(x_1',y_1'),(x_2',y_2')\right\}$}
-    }{
-      \Return{$\varnothing$}
+      	
+      	$result \leftarrow result \cup \{(x_2',y_2')\}$\\
+      	}
     }
+    \Return{$result$}
   }
   \caption{Snijpunten van twee cirkels berekenen}
 \end{algorithm}
@@ -55,7 +61,7 @@
 \begin{figure}[H]
 \input{illustraties/snijpunten_theorie}
 \end{figure}
-Gegeven twee cirkels $C_1$ en $C_2$ zoeken we $C_1 \cap C_2$. Noem $r_i$ de straal van $C_i$. We gaan er ook van uit dat $r$ steeds positief is. Het is niet nodig om deze voorwaarde te stellen op theoretisch niveau, maar alle theorie is nog steeds geldig wanneer we enkel over positieve $r$ spreken.
+Gegeven twee cirkels $C_1$ en $C_2$ zoeken we $C_1 \cap C_2$. Noem $r_i$ de straal van $C_i$. We gaan er ook van uit dat $r$ steeds positief is. Het is niet nodig om deze voorwaarde te stellen op theoretisch niveau, maar alle theorie is nog steeds geldig wanneer we enkel over positieve stralen spreken.
 \paragraph{Mogelijke doorsneden}
 Twee cirkels kunnen op vier specifieke manieren gelegen zijn, met betrekking tot hun doorsnede. Het blijkt zo te zijn dat we de situatie kunnen herkennen aan de waarde van $d=\Vert M_2-M_1\Vert$ wanneer de cirkels niet samenvallen.
 \begin{itemize}
@@ -69,7 +75,7 @@ Hier geldt $d = 0$, maar deze situatie zullen we in het programma negeren.
 
 \item De cirkels snijden in precies twee punten.\\
 \[C_1 \cap C_1 = \{P_1,P_2\} \text{ met } P_1,P_2 \in \mathbb{R}^2\]
-In deze situatie geldt zowel $d < r_1+r_2$ als $ d > |r_1-r_2|$\todo{nakijken}.
+In deze situatie geldt zowel $d < r_1+r_2$ als $ d > |r_1-r_2|$.
 
 \item De cirkels raken aan elkaar.\\
 \[C_1 \cap C_2 = \{P\}\]
@@ -81,7 +87,8 @@ Hier geldt ofwel $d < |r_1-r_2|$ ofwel $d > r_1+r_2$
 \end{itemize}
 
 \paragraph{Benaming}
-\todo{zie de figuur}
+De benaming die hier beschreven staat is ook te zien in Figuur \ref{fig:snijpunten}.
+
 We geven de twee stralen standaard de benaming $r_1$ en $r_2$ respectievelijk.
 Noem de middelpunten van de cirkels $M_1(x_1,y_1)$ en $M_2(x_2,y_2)$. 
 
@@ -97,7 +104,6 @@ Noem $d$ de afstand tussen $M_1$ en $M_2$.
 \[
 d = a + b
 \]
-.\todo{herschrijven, beter uitleggen}
 Noem $h$ de afstand van $P_1$ (of $P_2$) tot $P_0$.
 
 \paragraph{Snijpunten berekenen}
@@ -128,50 +134,40 @@ Vormen we deze vergelijking om om een uitdrukking voor $a$ te bekomen, dan krijg
 \[
 a = \frac{r_1^2-r_2^2 + d^2}{2d}
 \]
-Noem de richtingscoeffici\"ent van $l_1$ $m$ en de richtingsco\"efficient van $l_2$ $n$.
-We kunnen $m$ berekenen uit de co\"ordinaten van $M_1$ en $M_2$.
-\[
-m = \frac{y_2-y_1}{x_2-x_1}
-\]
-\todo{uitleggen waarom}
-Omdat $l_1$ loodrecht staat op $l_2$ weten we dat de richtingsco\"efficient $n$ van $l_2$ het omgekeerd tegengestelde is van de richtingsco\"efficient van $l_1$.
-\[
-n = -\frac{1}{m} = \frac{x_1-x_2}{y_1-y_2}
-\]
-Vervolgens kunnen we de co\"ordinaten van $P_0$ berekenen.
+Vervolgens kunnen we de co\"ordinaten van $P_0$ berekenen. $P_0$ ligt namelijk op de rechte $M_1M_2$ op afstand $\frac{a}{d}$ van $M_1$.
 \[
 P_0 = M_1 + \frac{a}{d}(M_2-M_1) = M_2 + \frac{b}{d}(M_1-M_2)
 \]
-\todo{2e gelijkheid nakijken}
 \[
 \begin{bmatrix}
 P_{0x}\\P_{0y}\\
 \end{bmatrix}
 =
 \begin{bmatrix}
-x_1 + a(x_2-x_1)\\
-y_1 + a(y_2-y_1)\\
+x_1 + \frac{a}{d}(x_2-x_1)\\
+y_1 + \frac{a}{d}(y_2-y_1)\\
 \end{bmatrix}
 =
 \begin{bmatrix}
-x_2 + b(x_1-x_2)\\
-y_2 + b(y_1-y_2)\\
+x_2 + \frac{a}{d}(x_1-x_2)\\
+y_2 + \frac{a}{d}(y_1-y_2)\\
 \end{bmatrix}
 \]
 Tenslotte kunnen we de co\"ordinaten van de snijpunten berekenen uit de co\"ordinaten van $M_1$, $M_2$ en $P_0$.
-\todo{meer uitleg hier, dit is niet vanzelfsprekend}
 \[
-\left\{
-\begin{array}{c l}
-P_x &= x_0 \pm \frac{h}{d}(y_2-y_1)\\
-P_y &= y_0 \mp \frac{h}{d}(x_2-x_1)
-\end{array}
-\right.
+\begin{bmatrix}
+P_x\\P_y\\
+\end{bmatrix}
+=
+\begin{bmatrix}
+x_0 \pm \frac{h}{d}(y_2-y_1)\\
+y_0 \mp \frac{h}{d}(x_2-x_1)
+\end{bmatrix}
 \]
 
 \subsubsection{Complexiteit}
-De snijpunten berekenen van twee \emph{verschillende} cirkels heeft een constante uitvoeringstijd. Het is opmerkelijk dat er in, nog steeds constante, kortere tijd kan nagekeken worden of twee cirkels snijden, v\'o\'or de snijpunten berekend worden, zodat er minder berekeningen gedaan kunnen worden.\todo{vermelden wat er gebeurd als niet-snijdende cirkels in het algoritme terecht komen}
-
+De snijpunten berekenen van twee \emph{verschillende} cirkels heeft een constante uitvoeringstijd. Het is opmerkelijk dat er in, nog steeds constante, kortere tijd kan nagekeken worden of twee cirkels snijden, v\'o\'or de snijpunten berekend worden, zodat er minder berekeningen gedaan kunnen worden. 
+Wanneer twee cirkels in het algoritme terecht komen die niet snijden zal er het algoritme proberen complexe getallen te berekenen. Als het systeem daar niet op voorzien is resulteert dat in `NaN' waarden. 
 
 \subsection{Na\"ief}
 \label{sec:naief}
@@ -193,7 +189,7 @@ De snijpunten berekenen van twee \emph{verschillende} cirkels heeft een constant
     }
     \Return{R}
   }
-  \caption{Na\"ieve aanpak (imperatief)}
+  \caption{Na\"ieve aanpak}
   \label{algo:naive}
 \end{algorithm}
 
@@ -241,15 +237,11 @@ Na iteratie $n$ zijn dus alle snijpunten gevonden; het algoritme is correct.
 \end{proof}
 
 \subsubsection{Complexiteit}
-De na\"ieve aanpak heeft complexiteit $O(n^2)$. Dit volgt rechtstreeks uit ons bewijs van eindigheid.
+De na\"ieve aanpak heeft complexiteit $O(N^2)$. Dit volgt rechtstreeks uit ons bewijs van eindigheid.
+\[
+\frac{N(N-1)}{2} = O(N^2)
+\]
 
-% \begin{figure}
-%   \[
-%   intersections\ cs\ = \{\ circleIntersections\ c1\ c2\ |\ c1 \leftarrow\ cs,\ c2\ \leftarrow\\ cs \}
-%   \]
-%   \label{naief_functioneel}
-%   \caption{Na\"ieve aanpak (functioneel)}
-% \end{figure}
 
 \input{illustraties/voorbeeld_1}
 
@@ -282,7 +274,7 @@ De na\"ieve aanpak heeft complexiteit $O(n^2)$. Dit volgt rechtstreeks uit ons b
     }
     \Return{R}
   }
-  \caption{Kwadratische aanpak (imperatief)}
+  \caption{Kwadratische aanpak}
   \label{algo:quadratic}
 \end{algorithm}
 
@@ -304,23 +296,6 @@ De na\"ieve aanpak heeft complexiteit $O(n^2)$. Dit volgt rechtstreeks uit ons b
   \label{algo:events}
 \end{algorithm}
 
-% \begin{figure}
-%   \[
-%   intersections\ cs = go\ (sort\ (events\ cs))\ [\ ]
-%   \]
-%   \[
-%   where 
-%   \]
-%   \[
-%   \begin{array}{l c l}
-%     go\ [\ ] &= &[\ ]\\
-%     go (Insert\ c\ :\ es) T &= &(map\ (circleIntersections\ c)\ T) \cup (go\ es\ T\cup\{c\})\\
-%     go (Delete\ c\ :\ es) T &= &go\ es\ T\backslash\{c\}\\
-%   \end{array}
-%   \]
-%   \label{naief_functioneel}
-%   \caption{Kwadratische aanpak (functioneel)}
-% \end{figure}
 \subsubsection{Correctheidsbewijs}
 \begin{stl} 
   Algoritme \ref{algo:quadratic} is correct en eindig.
@@ -532,7 +507,7 @@ hebben. Onze uiteindelijke complexiteit komt in het slechtste geval dus uit op:
     \Return{R}
   }
   \label{algo:linearithmic}
-  \caption{Linearitmische aanpak (imperatief)}
+  \caption{Linearitmische aanpak}
 \end{algorithm}
 
 \begin{algorithm}[H]
