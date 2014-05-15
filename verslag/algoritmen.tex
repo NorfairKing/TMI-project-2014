@@ -57,6 +57,7 @@
 \end{algorithm}
 
 \subsubsection{Theoretische achtergrond}
+\todo{aannames}
 \begin{figure}[H]
 \input{illustraties/snijpunten_theorie}
 \end{figure}
@@ -605,6 +606,7 @@ $x$-as. Dan neigen we in het allerslechtste geval naar $O(n^2
 log(n))$: voor elke iteratie van de binnenste lus in het kwadratische
 algoritme komt er nog een operatie in $O(log(n))$ tijd bij.
 
-We kunnen de complexiteit zelfs nog verfijnen. Merk op dat hoe groter het aantal snijpunten van de cirkels is, hoe groter de uitvoeringstijd is. Het aantal cirkels dat in de binnenste lus wordt bekeken, het aantal cirkels met overlappende intervallen, noemen we $R$. De complexiteit van dit algoritme is dus $O(N\log(N) + R\log(N))$. We weten echter dat het aantal snijpunten, $S$ van grootteorde $R$ is. Na enige vereenvoudiging vinden we de als complexiteit $O(N+S)\log(N)$.
+We kunnen de complexiteit zelfs nog verfijnen. Merk op dat hoe groter
+het aantal snijpunten van de cirkels is, 
 
 \input{illustraties/voorbeeld_3}
